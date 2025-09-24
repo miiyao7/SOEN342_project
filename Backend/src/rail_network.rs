@@ -1,7 +1,6 @@
 use serde::Deserialize;
 use csv::Reader;
 use std::error::Error;
-use std::time::SystemTime;
 use chrono::{NaiveTime, Duration};
 use std::str::FromStr;
 
@@ -10,10 +9,7 @@ use std::str::FromStr;
 
 pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
     let mut routes: Vec<Route> = Vec::new();
-    let mut i = 1;
     for result in Reader::from_path("eu_rail_network.csv")?.deserialize() {
-        i += 1;
-        println!("{}", i);
         let row: CSVRoute = result?;
         let days: Vec<Day> = if row.days_of_operation == "Daily" {
             Day::daily()
@@ -21,7 +17,7 @@ pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
             row.days_of_operation.split(|c| c == ',' || c == '-').filter_map(|s| s.parse().ok()).collect()
         };
         let route = Route {
-            route_id: {RouteID {id: row.route_id[2..].parse()?}},
+            route_id: {RouteID::new(row.route_id)},
             departure_city: row.departure_city.parse()?,
             arrival_city: row.arrival_city.parse()?,
             departure_time: NaiveTime::parse_from_str(&row.departure_time, "%H:%M")?,
@@ -54,7 +50,7 @@ struct CSVRoute {
     #[serde(rename = "First Class ticket rate (in euro)")]
     first_class_ticket_rate: u16,
     #[serde(rename = "Second Class ticket rate (in euro)")]
-    second_class_ticket_rate: u16,
+    second_class_ticket_rate: u16
 }
 
 
@@ -93,6 +89,9 @@ struct RouteID {
     id: u16
 }
 impl RouteID {
+    pub fn new(id: String) -> Self {
+        RouteID {id: id[2..].parse().expect("Error: not a number.")}
+    }
     pub fn get_route_id(&self) -> String {
         format!("{}{}{}", 'R', 0, self.id)
     }
