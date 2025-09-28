@@ -1,0 +1,3 @@
+System Operations:
+	filter(from, to, depart, arriv, comp, d, price1, price2, sort_column, sort_direction)
+	sort(column, direction, list)

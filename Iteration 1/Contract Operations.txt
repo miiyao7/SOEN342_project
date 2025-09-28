@@ -1,0 +1,13 @@
+Contract: filter
+Contract Operation: filter(from, to, depart, arriv, comp, d, price1, price2, sort_column, sort_direction)
+Cross References: Use Case, System Sequence Diagram
+Preconditions: The webpage is loaded and the user has clicked the “Search” button (optional: the user has already clicked on a sorting button, in which case the ordering logic is preserved).
+Postconditions: A filtered RouteList instance route_list was created and returned (instance creation).
+
+Contract: sort
+Contract Operation: sort(column, direction, list)
+Cross References: Use Case, System Sequence Diagram
+Preconditions: The webpage is loaded and the user has clicked on a sort button (optional: the user has already clicked on a filtering button, in which case the filtering logic is preserved).
+Postconditions: 
+	A RouteList instance route_list was created from the inputted list, with vector attribute routes (instance creation)
+	route_list.routes was sorted and route_list was returned (attribute modification).
