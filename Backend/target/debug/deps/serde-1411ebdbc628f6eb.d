@@ -1,0 +1,14 @@
+/Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/deps/serde-1411ebdbc628f6eb.d: /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/lib.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/integer128.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/mod.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/de.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/ser.rs /Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/build/serde-990fd7d0f22f391d/out/private.rs
+
+/Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/deps/libserde-1411ebdbc628f6eb.rlib: /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/lib.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/integer128.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/mod.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/de.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/ser.rs /Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/build/serde-990fd7d0f22f391d/out/private.rs
+
+/Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/deps/libserde-1411ebdbc628f6eb.rmeta: /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/lib.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/integer128.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/mod.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/de.rs /Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/ser.rs /Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/build/serde-990fd7d0f22f391d/out/private.rs
+
+/Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/lib.rs:
+/Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/integer128.rs:
+/Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/mod.rs:
+/Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/de.rs:
+/Users/miiyao7/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.226/src/private/ser.rs:
+/Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/build/serde-990fd7d0f22f391d/out/private.rs:
+
+# env-dep:OUT_DIR=/Users/miiyao7/Desktop/C346-PA2/SOEN342_project/Backend/target/debug/build/serde-990fd7d0f22f391d/out

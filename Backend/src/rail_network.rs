@@ -104,7 +104,7 @@ impl RouteID {
 // -- CITY -- \\
 
 #[derive(Debug)]
-enum City {
+pub enum City {
     ACoruna,
     Aalborg,
     Aarhus,
@@ -872,7 +872,7 @@ impl FromStr for City {
 // -- TRAIN -- \\
 
 #[derive(Debug)]
-enum Train {
+pub enum Train {
     AVE,
     EuroCity,
     Eurostar,
@@ -944,7 +944,7 @@ impl FromStr for Train {
 // -- DAY -- \\
 
 #[derive(Debug)]
-enum Day {
+pub enum Day {
     Monday,
     Tuesday,
     Wednesday,
