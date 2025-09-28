@@ -11,8 +11,10 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "Iteration 1/Backend"
 
     steps:
     - uses: actions/checkout@v4
