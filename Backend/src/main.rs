@@ -3,16 +3,17 @@ mod search_functionality;
 mod display;
 
 use rail_network::parse_CSV;
-use crate::search_functionality::{search_itineraries, SearchFunctionality, TicketClass, SortBy};
+use crate::search_functionality::{RailNetwork, SearchFunctionality, TicketClass, SortBy};
 use display::print_itineraries;
 
 //fn main() {println!("{:?}", rail_network::parse_CSV())}
 // testing purposes only
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let routes = parse_CSV()?;
+    let routes = parse_CSV().expect("Failed to parse CSV");
+    let rn = RailNetwork::new(routes);
 
     let q = SearchFunctionality {
-        departure_city: Some("Paris"),
+        departure_city: Some("Lyon"),
         arrival_city:   Some("London"),
         earliest_departure: None,
         train_type:     None,
@@ -24,7 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         sort_by: Some(SortBy::Duration),
     };
 
-    let itineraries = search_itineraries(&routes, &q);
-    print_itineraries(&routes, &itineraries);
+    let itineraries = rn.search(&q);
+    print_itineraries(&rn.routes, &itineraries);
     Ok(())
 }

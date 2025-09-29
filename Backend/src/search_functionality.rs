@@ -37,16 +37,28 @@ pub struct Itinerary {
     pub total_second_price: u32,
     pub transfer_duration: Vec<i64>,
 }
-
-
 impl Itinerary {
-    pub fn price_for(&self, class: TicketClass) -> u32 {
-        match class {
-            TicketClass::FirstClass  => self.total_first_price,
+    pub fn price_for(&self, cls: TicketClass) -> u32 {
+        match cls {
+            TicketClass::FirstClass => self.total_first_price,
             TicketClass::SecondClass => self.total_second_price,
         }
     }
 }
+
+pub struct RailNetwork{
+    pub routes : Vec<Route>,
+}
+
+impl RailNetwork{
+    pub fn new(routes: Vec<Route>) -> Self{
+        RailNetwork { routes  }
+    }
+    pub fn search(&self, q: &SearchFunctionality) -> Vec<Itinerary>{
+        search_itineraries(&self.routes, q)
+    }
+}
+
 
 // --main search function--\\
 
