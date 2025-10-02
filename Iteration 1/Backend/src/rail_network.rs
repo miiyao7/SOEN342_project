@@ -101,7 +101,7 @@ enum Train {AVE, EuroCity, Eurostar, Frecciarossa, IC, ICE, InterCity, Intercite
 
 #[derive(Debug)]
 enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday} impl Day {
-    pub fn as_str(&self) -> &'static str {match self {Day::Monday => "Monday", Day::Tuesday => "Tuesday", Day::Wednesday => "Wedenesday", Day::Thursday => "Thursday", Day::Friday => "Friday", Day::Saturday => "Saturday", Day::Sunday => "Sunday"}}
+    pub fn as_str(&self) -> &'static str {match self {Day::Monday => "Monday", Day::Tuesday => "Tuesday", Day::Wednesday => "Wednesday", Day::Thursday => "Thursday", Day::Friday => "Friday", Day::Saturday => "Saturday", Day::Sunday => "Sunday"}}
     pub fn daily() -> Vec<Day> {vec![Day::Monday, Day::Tuesday, Day::Wednesday, Day::Thursday, Day::Friday, Day::Saturday, Day::Sunday]}
 } impl FromStr for Day {
     type Err = String;
