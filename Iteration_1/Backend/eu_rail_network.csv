@@ -1,0 +1,1201 @@
+Route ID,Departure City,Arrival City,Departure Time,Arrival Time,Train Type,Days of Operation,First Class ticket rate (in euro),Second Class ticket rate (in euro)
+R00003,A Coruña,Santander,12:05,14:17,RJX,Fri-Sun,115,70
+R00004,A Coruña,Santander,12:50,15:54,ICE,Daily,97,69
+R00007,A Coruña,Santiago de Compostela,16:50,20:08,InterCity,"Mon,Wed,Fri",95,60
+R00008,A Coruña,Vigo,13:35,17:10,Frecciarossa,"Tue,Thu",141,97
+R00009,A Coruña,Vigo,09:45,11:49,RJX,"Tue,Thu",118,72
+R00013,Aalborg,Lund,05:50,10:11,RegioExpress,Daily,58,43
+R00016,Aalborg,Malmö,08:10,11:40,EuroCity,"Mon,Wed,Fri",83,57
+R00021,Aalborg,Odense,17:40,19:06,TGV,Sat-Sun,54,38
+R00026,Aarhus,Copenhagen,12:45,14:42,TGV,Sat-Sun,77,54
+R00033,Aarhus,Odense,14:15,16:43,Italo,Mon-Fri,99,62
+R00034,Alicante,Cartagena,09:35,14:44,RE,Sat-Sun,75,60
+R00035,Alicante,Cartagena,21:40,08:08 (+1d),Nightjet,Fri-Sun,364,225
+R00037,Alicante,Cuenca,15:25,18:57,Intercités,Daily,103,68
+R00041,Alicante,Murcia,19:35,22:12,EuroCity,Fri-Sun,61,39
+R00043,Alicante,Valencia,08:35,10:25,TGV,Mon-Fri,48,33
+R00044,Alicante,Valencia,14:25,15:50,Thalys,"Mon,Wed,Fri",68,41
+R00046,Almería,Cartagena,15:05,16:57,RJX,"Mon,Wed,Fri",92,56
+R00056,Almería,Málaga,12:15,15:03,TGV,Sat-Sun,128,79
+R00060,Amiens,Calais,08:50,11:33,ICE,"Mon,Wed,Fri",114,71
+R00062,Amiens,Lille,13:15,15:37,Eurostar,"Mon,Wed,Fri",88,63
+R00063,Amiens,Lille,20:45,09:28 (+1d),Nightjet,Fri-Sun,343,215
+R00065,Amiens,Rouen,10:50,15:39,RegioExpress,Mon-Fri,49,41
+R00066,Amiens,Rouen,15:10,17:58,EuroCity,Sat-Sun,70,49
+R00068,Amiens,Versailles,10:35,13:19,Frecciarossa,"Tue,Thu",101,68
+R00070,Amsterdam,Berlin,11:00,16:34,RE,Fri-Sun,87,72
+R00071,Amsterdam,Berlin,06:05,09:42,Frecciarossa,Sat-Sun,115,75
+R00074,Amsterdam,Birmingham,13:45,15:39,Frecciarossa,"Mon,Wed,Fri",106,71
+R00076,Amsterdam,Bruges,18:25,21:45,TER,"Tue,Thu",48,38
+R00079,Amsterdam,Brussels,14:00,16:42,Frecciarossa,Mon-Fri,120,81
+R00080,Amsterdam,Brussels,15:35,17:41,RJX,Mon-Fri,70,50
+R00082,Amsterdam,Hamburg,18:00,05:53 (+1d),Nightjet,Fri-Sun,388,251
+R00086,Amsterdam,Liège,09:10,12:28,IC,"Tue,Thu",103,72
+R00087,Amsterdam,Liège,21:50,08:29 (+1d),Nightjet,"Mon,Wed,Fri",438,231
+R00089,Amsterdam,London,09:35,14:08,AVE,Fri-Sun,190,121
+R00092,Amsterdam,Manchester,12:40,15:50,RJX,Mon-Fri,99,71
+R00096,Amsterdam,Paris,15:15,19:23,EuroCity,Daily,74,54
+R00099,Amsterdam,Rotterdam,13:20,15:25,AVE,"Mon,Wed,Fri",63,43
+R00100,Amsterdam,Rotterdam,15:00,17:17,Frecciarossa,"Mon,Wed,Fri",98,63
+R00103,Amsterdam,Utrecht,17:10,20:37,InterCity,Daily,61,43
+R00104,Amsterdam,Utrecht,12:05,14:01,RJX,Fri-Sun,60,40
+R00105,Ancona,Arezzo,16:45,18:48,RE,Daily,22,17
+R00106,Ancona,Arezzo,12:25,15:03,RJX,"Mon,Wed,Fri",77,57
+R00108,Ancona,Forlì,14:55,20:45,TER,"Tue,Thu",82,67
+R00109,Ancona,Forlì,13:15,15:45,Eurostar,Sat-Sun,72,53
+R00114,Ancona,Rimini,12:30,15:21,Intercités,Daily,63,45
+R00115,Ancona,Rimini,15:20,17:14,EuroCity,Sat-Sun,62,44
+R00117,Angers,Le Mans,12:05,15:36,IC,Sat-Sun,61,42
+R00120,Angers,Nantes,19:20,22:31,Eurostar,"Tue,Thu",81,56
+R00121,Angers,Nantes,15:45,18:02,Intercités,"Tue,Thu",54,35
+R00124,Angers,Rennes,11:40,14:25,Thalys,Fri-Sun,105,65
+R00125,Angers,Tours,09:30,11:46,EuroCity,"Tue,Thu",61,40
+R00126,Angers,Tours,11:10,12:24,Frecciarossa,Sat-Sun,43,29
+R00128,Annecy,Chambéry,15:10,18:58,RegioExpress,Sat-Sun,75,58
+R00129,Annecy,Chambéry,17:35,20:35,Thalys,"Tue,Thu",84,61
+R00132,Annecy,Dijon,14:55,16:30,Railjet,Daily,74,44
+R00139,Annecy,Reims,15:30,16:40,Railjet,Daily,60,42
+R00145,Antwerp,Brussels,11:25,13:35,TER,Fri-Sun,26,21
+R00146,Antwerp,Brussels,18:55,21:09,Frecciarossa,Sat-Sun,77,51
+R00150,Antwerp,Calais,05:05,07:33,Frecciarossa,Daily,98,58
+R00153,Antwerp,Ghent,18:30,02:37 (+1d),Nightjet,Daily,300,177
+R00154,Antwerp,Ghent,17:40,20:45,IC,Sat-Sun,63,46
+R00159,Arezzo,Florence,12:50,15:56,RE,Sat-Sun,53,40
+R00162,Arezzo,Livorno,09:45,13:10,Intercités,Sat-Sun,81,51
+R00163,Arezzo,Livorno,09:20,12:54,RE,Fri-Sun,46,37
+R00167,Arezzo,Perugia,14:15,18:40,RE,Daily,51,40
+R00169,Ashford,Lille,10:40,13:02,RE,Fri-Sun,51,40
+R00170,Ashford,Lille,12:30,13:36,Italo,Mon-Fri,39,26
+R00174,Ashford,London,12:00,13:37,Italo,"Tue,Thu",76,50
+R00178,Ashford,Paris,11:05,13:12,InterCity,"Tue,Thu",40,27
+R00182,Augsburg,Nuremberg,15:15,17:33,TGV,"Mon,Wed,Fri",81,48
+R00185,Augsburg,Regensburg,18:05,21:20,Intercités,"Tue,Thu",73,55
+R00186,Augsburg,Regensburg,15:25,16:46,AVE,"Tue,Thu",53,32
+R00189,Augsburg,Vienna,07:20,08:34,TGV,"Tue,Thu",60,40
+R00190,Avignon,Lyon,11:15,14:08,EuroCity,"Mon,Wed,Fri",88,58
+R00191,Avignon,Lyon,06:10,10:12,InterCity,"Mon,Wed,Fri",83,60
+R00193,Avignon,Nîmes,13:15,16:44,Frecciarossa,"Tue,Thu",94,66
+R00195,Badajoz,Cádiz,16:25,18:39,Eurostar,"Tue,Thu",95,57
+R00196,Badajoz,Cádiz,09:55,11:26,EuroCity,Fri-Sun,40,29
+R00198,Badajoz,Seville,11:15,12:23,AVE,"Tue,Thu",56,34
+R00199,Barcelona,Perpignan,17:35,19:30,ICE,Mon-Fri,58,40
+R00204,Barcelona,Toulouse,14:10,15:36,Eurostar,Mon-Fri,62,43
+R00206,Bari,Brindisi,13:15,15:45,Eurostar,"Tue,Thu",118,70
+R00207,Bari,Brindisi,11:40,12:40,AVE,Fri-Sun,50,30
+R00209,Bari,Naples,08:55,11:36,InterCity,Mon-Fri,49,35
+R00210,Bari,Naples,12:15,15:04,Thalys,Sat-Sun,103,68
+R00211,Bari,Salerno,12:20,13:30,AVE,Sat-Sun,52,38
+R00212,Bari,Salerno,15:30,19:47,Intercités,"Tue,Thu",93,67
+R00214,Bari,Taranto,15:15,16:51,Eurostar,Mon-Fri,64,42
+R00218,Basel,Bern,15:15,17:29,Frecciarossa,"Tue,Thu",62,42
+R00223,Basel,Lausanne,19:45,22:18,TGV,Fri-Sun,100,65
+R00225,Basel,Strasbourg,06:00,09:21,EuroCity,"Mon,Wed,Fri",100,66
+R00236,Belgrade,Mostar,12:20,14:44,TGV,"Mon,Wed,Fri",90,54
+R00238,Belgrade,Niš,09:05,11:53,EuroCity,"Tue,Thu",56,40
+R00240,Belgrade,Novi Sad,12:10,14:25,Frecciarossa,"Mon,Wed,Fri",71,45
+R00247,Belgrade,Sofia,15:40,20:29,TER,"Tue,Thu",81,61
+R00248,Belgrade,Sofia,19:05,05:30 (+1d),Nightjet,Mon-Fri,379,198
+R00249,Bergamo,Brescia,10:30,12:04,RJX,Sat-Sun,68,49
+R00250,Bergamo,Brescia,19:35,23:16,Intercités,"Tue,Thu",86,56
+R00253,Bergamo,Como,09:55,13:30,ICE,Sat-Sun,117,73
+R00255,Bergamo,Milan,12:50,15:37,InterCity,"Tue,Thu",59,41
+R00257,Bergamo,Verona,14:30,16:56,Frecciarossa,Fri-Sun,92,57
+R00258,Bergamo,Verona,08:00,10:17,IC,Fri-Sun,49,36
+R00260,Bergen,Drammen,17:00,19:59,Frecciarossa,Mon-Fri,96,60
+R00262,Bergen,Helsinki,19:45,22:45,EuroCity,"Tue,Thu",72,48
+R00263,Bergen,Helsinki,10:10,11:59,Italo,Mon-Fri,77,46
+R00267,Bergen,Stavanger,09:00,13:07,IC,Sat-Sun,112,75
+R00270,Bergen,Trondheim,15:35,17:51,IC,"Tue,Thu",53,39
+R00271,Bergen,Trondheim,09:10,11:11,Railjet,"Mon,Wed,Fri",84,51
+R00274,Berlin,Amsterdam,05:10,14:10,RE,Mon-Fri,115,89
+R00275,Berlin,Dresden,06:45,08:03,Eurostar,"Mon,Wed,Fri",58,35
+R00276,Berlin,Dresden,08:10,09:56,Railjet,"Tue,Thu",48,29
+R00279,Berlin,Leipzig,19:55,05:02 (+1d),Nightjet,Fri-Sun,265,160
+R00280,Berlin,Leipzig,18:15,20:20,TGV,"Mon,Wed,Fri",79,55
+R00284,Berlin,Prague,10:45,16:02,Thalys,"Mon,Wed,Fri",205,138
+R00291,Bern,Basel,12:35,15:20,Intercités,"Mon,Wed,Fri",57,44
+R00292,Bern,Basel,14:45,16:45,Railjet,Mon-Fri,50,34
+R00294,Bern,Geneva,15:10,18:01,RJX,"Mon,Wed,Fri",100,62
+R00295,Bern,Geneva,09:30,12:44,Railjet,Sat-Sun,87,61
+R00296,Bern,Lausanne,17:25,19:49,RJX,Fri-Sun,92,59
+R00299,Bern,Zurich,12:40,14:14,AVE,"Mon,Wed,Fri",44,31
+R00300,Bern,Zurich,17:25,21:04,RegioExpress,"Tue,Thu",55,40
+R00305,Besançon,Nancy,07:10,09:12,Thalys,Sat-Sun,82,56
+R00307,Besançon,Paris,08:00,09:21,Eurostar,Sat-Sun,74,49
+R00314,Bilbao,Oviedo,07:05,08:44,EuroCity,"Tue,Thu",42,30
+R00315,Bilbao,Oviedo,09:45,11:45,InterCity,Fri-Sun,42,32
+R00317,Bilbao,San Sebastián,15:55,19:20,Intercités,"Mon,Wed,Fri",81,60
+R00318,Bilbao,San Sebastián,15:25,18:41,Thalys,Fri-Sun,109,70
+R00320,Bilbao,Santander,13:05,14:52,TGV,Mon-Fri,43,30
+R00321,Bilbao,Santander,10:55,14:20,EuroCity,"Mon,Wed,Fri",81,55
+R00323,Bilbao,Zaragoza,15:50,19:29,ICE,Sat-Sun,108,75
+R00324,Bilbao,Zaragoza,15:40,17:52,EuroCity,Fri-Sun,46,35
+R00330,Birmingham,Brussels,18:15,20:34,AVE,"Tue,Thu",78,57
+R00332,Birmingham,Leeds,11:15,13:01,ICE,Fri-Sun,52,37
+R00333,Birmingham,Leeds,12:20,15:18,RJX,Mon-Fri,106,73
+R00335,Birmingham,Manchester,13:10,17:27,RE,"Tue,Thu",50,40
+R00339,Bochum,Bremen,08:20,11:18,Thalys,Fri-Sun,118,74
+R00341,Bochum,Dortmund,11:05,12:45,Frecciarossa,"Tue,Thu",85,54
+R00342,Bochum,Dortmund,17:20,18:46,AVE,Mon-Fri,64,40
+R00344,Bochum,Essen,13:00,14:23,Thalys,Mon-Fri,57,36
+R00348,Bochum,Hannover,15:30,18:05,InterCity,"Tue,Thu",75,55
+R00350,Bologna,Bolzano,06:50,11:36,RegioExpress,Fri-Sun,63,53
+R00351,Bologna,Bolzano,09:10,11:48,ICE,"Mon,Wed,Fri",75,52
+R00357,Bologna,Milan,18:10,20:21,TGV,"Tue,Thu",96,63
+R00358,Bologna,Milan,18:20,21:55,RegioExpress,Fri-Sun,71,52
+R00360,Bologna,Modena,09:20,12:37,Intercités,Sat-Sun,72,47
+R00361,Bologna,Modena,15:55,17:23,Frecciarossa,"Mon,Wed,Fri",59,42
+R00362,Bologna,Parma,08:25,11:24,AVE,"Mon,Wed,Fri",102,66
+R00366,Bologna,Trento,19:30,21:27,AVE,Fri-Sun,79,48
+R00367,Bologna,Trento,15:45,18:19,Italo,Mon-Fri,97,61
+R00369,Bolzano,Bologna,08:45,12:54,RegioExpress,"Mon,Wed,Fri",64,53
+R00372,Bolzano,Modena,19:45,04:06 (+1d),Nightjet,Daily,293,173
+R00374,Bolzano,Trento,14:35,18:16,Intercités,Sat-Sun,78,56
+R00377,Bolzano,Venice,05:00,06:29,Railjet,Mon-Fri,66,43
+R00378,Bolzano,Venice,15:50,19:39,EuroCity,Mon-Fri,105,69
+R00384,Bonn,Dortmund,13:35,17:43,TER,Mon-Fri,64,51
+R00386,Bonn,Düsseldorf,06:50,09:36,Railjet,Daily,90,66
+R00388,Bonn,Heidelberg,06:55,08:53,RJX,Fri-Sun,59,44
+R00389,Bonn,Heidelberg,19:20,22:15,Italo,Fri-Sun,103,66
+R00390,Bordeaux,La Rochelle,15:45,18:03,RE,"Tue,Thu",39,28
+R00391,Bordeaux,La Rochelle,07:40,10:45,Railjet,"Mon,Wed,Fri",107,64
+R00399,Bordeaux,Madrid,17:10,19:50,ICE,Sat-Sun,120,86
+R00400,Bordeaux,Paris,15:20,18:30,Eurostar,"Tue,Thu",118,73
+R00406,Bordeaux,Tours,12:35,15:57,InterCity,"Tue,Thu",91,70
+R00407,Bordeaux,Tours,10:45,16:53,RegioExpress,Sat-Sun,96,78
+R00409,Bratislava,Brno,12:55,15:14,Frecciarossa,Fri-Sun,120,71
+R00410,Bratislava,Brno,12:25,14:21,TGV,"Tue,Thu",90,60
+R00412,Bratislava,Budapest,15:25,18:14,InterCity,Sat-Sun,55,39
+R00413,Bratislava,Budapest,08:20,10:02,ICE,Fri-Sun,57,34
+R00416,Bratislava,Košice,08:05,10:29,RJX,"Tue,Thu",100,66
+R00417,Bratislava,Košice,07:50,10:53,EuroCity,Fri-Sun,72,48
+R00421,Bratislava,Vienna,10:55,12:46,Eurostar,"Tue,Thu",68,50
+R00422,Bratislava,Vienna,08:00,10:27,EuroCity,Fri-Sun,62,41
+R00424,Brașov,Bucharest,06:55,10:45,Frecciarossa,"Mon,Wed,Fri",116,82
+R00427,Brașov,Burgas,15:30,17:30,ICE,Fri-Sun,74,48
+R00429,Brașov,Cluj-Napoca,09:30,12:02,Intercités,"Tue,Thu",54,36
+R00430,Brașov,Cluj-Napoca,15:45,18:18,IC,Daily,75,52
+R00433,Brașov,Timișoara,21:35,05:21 (+1d),Nightjet,"Mon,Wed,Fri",298,153
+R00436,Bremen,Bochum,08:45,12:48,InterCity,Fri-Sun,79,55
+R00437,Bremen,Bochum,14:10,17:32,ICE,"Tue,Thu",136,83
+R00438,Bremen,Hamburg,12:55,15:22,EuroCity,Sat-Sun,50,33
+R00441,Bremen,Hannover,10:30,12:42,EuroCity,Sat-Sun,50,36
+R00444,Bremen,Kiel,12:15,14:14,Frecciarossa,"Tue,Thu",90,54
+R00445,Bremen,Kiel,19:05,07:30 (+1d),Nightjet,Mon-Fri,353,231
+R00447,Brescia,Bergamo,16:35,17:49,Railjet,"Mon,Wed,Fri",61,38
+R00448,Brescia,Bergamo,14:50,18:09,RJX,Sat-Sun,120,73
+R00449,Brescia,Como,12:45,15:07,Frecciarossa,"Mon,Wed,Fri",68,47
+R00453,Brescia,Verona,11:20,15:39,TER,"Tue,Thu",64,52
+R00454,Brescia,Verona,17:45,19:47,RegioExpress,Mon-Fri,33,27
+R00458,Brescia,Vicenza,18:10,19:14,Italo,Sat-Sun,39,28
+R00460,Brest,Nantes,15:15,17:36,Eurostar,"Tue,Thu",94,68
+R00461,Brest,Nantes,18:55,21:34,RJX,Sat-Sun,76,56
+R00463,Brest,Rennes,17:35,20:55,AVE,Mon-Fri,96,70
+R00464,Brest,Rennes,17:45,19:07,TGV,Sat-Sun,50,34
+R00467,Brighton,Dublin,12:05,14:25,AVE,"Tue,Thu",74,51
+R00468,Brighton,Dublin,06:10,07:04,TGV,Mon-Fri,43,29
+R00470,Brighton,Portsmouth,10:30,12:12,Thalys,"Tue,Thu",85,57
+R00472,Brighton,Reading,12:40,15:53,EuroCity,Fri-Sun,65,45
+R00476,Brighton,Southampton,13:35,16:44,AVE,Fri-Sun,92,58
+R00478,Brindisi,Bari,15:55,17:30,Thalys,Mon-Fri,66,41
+R00479,Brindisi,Bari,17:25,19:38,IC,Mon-Fri,70,46
+R00481,Brindisi,Reggio Calabria,19:45,06:49 (+1d),Nightjet,"Tue,Thu",443,234
+R00483,Brindisi,Salerno,11:30,13:28,IC,Sat-Sun,37,29
+R00484,Brindisi,Salerno,09:20,13:06,Intercités,"Mon,Wed,Fri",73,49
+R00487,Brindisi,Taranto,18:35,22:27,TER,"Tue,Thu",46,35
+R00488,Brindisi,Taranto,09:55,12:36,AVE,Mon-Fri,101,73
+R00490,Bristol,Cardiff,15:30,18:30,EuroCity,"Tue,Thu",83,55
+R00491,Bristol,Cardiff,17:05,19:13,Thalys,"Mon,Wed,Fri",98,59
+R00493,Bristol,Edinburgh,09:10,13:54,RegioExpress,"Tue,Thu",74,54
+R00494,Bristol,Edinburgh,08:10,11:17,TGV,Sat-Sun,87,63
+R00497,Bristol,Glasgow,19:30,20:45,Thalys,Daily,49,32
+R00498,Bristol,Swansea,08:00,11:24,Railjet,"Mon,Wed,Fri",117,69
+R00499,Bristol,Swansea,06:45,09:06,RE,"Tue,Thu",51,37
+R00501,Brno,Bratislava,19:55,23:05,Italo,"Mon,Wed,Fri",116,70
+R00503,Brno,Ostrava,16:15,19:15,Railjet,Sat-Sun,113,80
+R00506,Brno,Plzeň,14:30,15:19,TGV,Sat-Sun,62,37
+R00509,Brno,České Budějovice,15:20,16:58,Frecciarossa,Fri-Sun,52,35
+R00511,Bruges,Amsterdam,09:25,12:56,InterCity,Fri-Sun,63,45
+R00512,Bruges,Amsterdam,13:00,15:48,TGV,Fri-Sun,99,60
+R00513,Bruges,Antwerp,07:20,09:06,Italo,"Mon,Wed,Fri",61,45
+R00516,Bruges,Ghent,12:40,14:49,Thalys,Daily,52,37
+R00520,Bruges,Liège,12:15,15:00,Italo,Daily,90,59
+R00521,Bruges,Liège,15:55,19:18,InterCity,Mon-Fri,78,50
+R00523,Brussels,Amsterdam,17:20,19:04,TER,Fri-Sun,26,21
+R00524,Brussels,Amsterdam,13:05,14:25,InterCity,"Mon,Wed,Fri",36,24
+R00525,Brussels,Antwerp,09:20,11:14,Thalys,"Tue,Thu",88,55
+R00526,Brussels,Antwerp,12:55,15:15,Italo,Mon-Fri,74,48
+R00528,Brussels,Birmingham,15:40,17:28,ICE,Mon-Fri,62,43
+R00529,Brussels,Birmingham,05:50,08:37,Italo,Mon-Fri,90,66
+R00532,Brussels,Cologne,09:20,12:30,RegioExpress,"Mon,Wed,Fri",48,35
+R00533,Brussels,Cologne,12:15,16:11,TER,Mon-Fri,53,41
+R00535,Brussels,Ghent,18:35,20:04,InterCity,Fri-Sun,43,30
+R00536,Brussels,Ghent,17:05,18:37,Intercités,Sat-Sun,43,31
+R00539,Brussels,Lille,16:40,19:20,Eurostar,"Mon,Wed,Fri",75,56
+R00540,Brussels,Lille,15:15,17:21,ICE,"Tue,Thu",105,65
+R00542,Brussels,London,09:45,18:32,RegioExpress,Daily,106,85
+R00543,Brussels,London,11:35,15:30,AVE,Daily,136,94
+R00545,Brussels,Paris,12:05,13:38,Intercités,Fri-Sun,33,22
+R00546,Brussels,Paris,15:10,17:46,InterCity,Sat-Sun,53,37
+R00548,Bucharest,Brașov,08:20,10:07,Italo,Fri-Sun,51,38
+R00551,Bucharest,Burgas,12:00,14:08,ICE,Fri-Sun,52,34
+R00552,Bucharest,Burgas,09:05,12:43,Intercités,"Tue,Thu",79,50
+R00557,Bucharest,Sofia,20:35,06:08 (+1d),Nightjet,"Mon,Wed,Fri",321,194
+R00558,Bucharest,Sofia,07:50,12:53,TGV,Mon-Fri,147,96
+R00560,Bucharest,Varna,15:55,18:09,TER,Fri-Sun,48,36
+R00561,Bucharest,Varna,10:35,14:03,Railjet,"Tue,Thu",112,79
+R00567,Budapest,Bratislava,13:00,15:03,Railjet,Mon-Fri,79,52
+R00568,Budapest,Bratislava,07:55,11:07,ICE,Sat-Sun,117,78
+R00570,Budapest,Debrecen,18:10,19:50,ICE,Fri-Sun,70,42
+R00571,Budapest,Debrecen,08:55,10:25,Frecciarossa,"Tue,Thu",58,41
+R00574,Budapest,Košice,12:05,15:25,TGV,Mon-Fri,90,54
+R00582,Budapest,Zagreb,08:40,12:03,IC,Sat-Sun,71,47
+R00587,Burgas,Brașov,15:00,17:21,RegioExpress,"Mon,Wed,Fri",37,29
+R00588,Burgas,Bucharest,11:55,13:02,Frecciarossa,Fri-Sun,61,37
+R00593,Burgas,Varna,17:30,18:24,Thalys,Daily,40,28
+R00601,Burgos,Salamanca,14:50,16:30,Railjet,"Tue,Thu",44,27
+R00606,Calais,Amiens,16:35,19:28,Italo,Daily,81,51
+R00607,Calais,Amiens,17:05,18:16,TGV,"Tue,Thu",51,35
+R00609,Calais,Antwerp,13:50,15:51,ICE,Mon-Fri,76,52
+R00610,Calais,Antwerp,16:30,19:29,Italo,Sat-Sun,103,69
+R00612,Calais,Brussels,15:45,18:38,AVE,Fri-Sun,67,46
+R00614,Calais,Lille,06:30,09:08,ICE,"Tue,Thu",82,56
+R00615,Calais,Lille,09:45,12:29,Italo,Daily,105,70
+R00617,Cambridge,Derby,11:45,13:52,Intercités,"Tue,Thu",49,36
+R00620,Cambridge,Leicester,07:05,09:51,Frecciarossa,Mon-Fri,120,79
+R00622,Cambridge,Oxford,09:55,14:29,EuroCity,Mon-Fri,108,71
+R00623,Cambridge,Oxford,11:25,14:27,Eurostar,Fri-Sun,120,87
+R00624,Cambridge,Southampton,05:35,06:58,Italo,"Mon,Wed,Fri",60,40
+R00625,Cambridge,Southampton,17:20,20:20,EuroCity,Fri-Sun,54,35
+R00626,Cardiff,Bristol,11:50,14:55,IC,Fri-Sun,82,61
+R00627,Cardiff,Bristol,18:35,19:36,AVE,Fri-Sun,71,44
+R00629,Cardiff,Exeter,13:00,14:56,ICE,Sat-Sun,72,44
+R00630,Cardiff,Exeter,15:05,17:17,Intercités,Fri-Sun,60,42
+R00632,Cardiff,Glasgow,06:35,09:50,TGV,Fri-Sun,138,89
+R00633,Cardiff,Glasgow,13:45,15:42,Italo,Daily,50,31
+R00635,Cardiff,Swansea,17:50,21:40,TER,Mon-Fri,73,60
+R00638,Cartagena,Alicante,12:00,14:08,RJX,Fri-Sun,75,53
+R00639,Cartagena,Alicante,21:00,07:03 (+1d),Nightjet,"Tue,Thu",413,230
+R00642,Cartagena,Almería,09:15,11:27,AVE,Mon-Fri,82,59
+R00644,Cartagena,Granada,17:25,21:08,Intercités,Mon-Fri,96,61
+R00648,Cartagena,Murcia,15:20,17:41,IC,Mon-Fri,48,35
+R00649,Cartagena,Murcia,07:25,10:14,AVE,Mon-Fri,111,72
+R00651,Catania,Messina,19:25,20:32,ICE,Daily,76,45
+R00654,Catania,Palermo,13:05,15:32,ICE,Daily,122,85
+R00658,Chambéry,Annecy,09:25,13:05,IC,"Mon,Wed,Fri",84,57
+R00660,Chambéry,Dijon,11:05,13:03,TGV,"Mon,Wed,Fri",52,38
+R00661,Chambéry,Dijon,14:15,17:52,RegioExpress,"Tue,Thu",36,29
+R00666,Chambéry,Lyon,17:50,19:32,Italo,Sat-Sun,56,37
+R00667,Chambéry,Lyon,09:20,11:25,Frecciarossa,"Tue,Thu",78,53
+R00670,Clermont-Ferrand,Grenoble,09:40,12:00,ICE,Sat-Sun,56,42
+R00675,Clermont-Ferrand,Limoges,18:10,20:57,Italo,"Mon,Wed,Fri",72,53
+R00678,Clermont-Ferrand,Lyon,19:05,06:49 (+1d),Nightjet,Mon-Fri,357,219
+R00681,Cluj-Napoca,Brașov,20:00,08:12 (+1d),Nightjet,Daily,378,229
+R00683,Cluj-Napoca,Bucharest,09:50,14:28,TER,"Tue,Thu",56,45
+R00686,Cluj-Napoca,Iași,17:35,20:30,Eurostar,Daily,91,56
+R00687,Cluj-Napoca,Iași,05:45,08:22,InterCity,Mon-Fri,66,44
+R00689,Cluj-Napoca,Timișoara,18:45,02:11 (+1d),Nightjet,Mon-Fri,305,167
+R00692,Cologne,Bonn,09:55,14:23,RegioExpress,"Mon,Wed,Fri",51,43
+R00696,Cologne,Brussels,09:25,12:52,RE,Fri-Sun,58,42
+R00705,Cologne,Heidelberg,09:10,10:28,ICE,Mon-Fri,52,32
+R00707,Cologne,Würzburg,15:50,17:42,AVE,Mon-Fri,71,46
+R00708,Cologne,Würzburg,09:15,13:11,RE,Daily,38,28
+R00711,Como,Bergamo,10:40,14:50,RegioExpress,Fri-Sun,50,39
+R00712,Como,Bergamo,16:05,18:00,Railjet,Mon-Fri,55,41
+R00714,Como,Brescia,06:55,10:18,Italo,"Mon,Wed,Fri",143,86
+R00715,Como,Brescia,12:20,16:00,Intercités,"Tue,Thu",75,51
+R00718,Como,Milan,09:15,11:07,InterCity,Sat-Sun,36,25
+R00721,Como,Turin,11:15,14:16,InterCity,Fri-Sun,72,54
+R00727,Copenhagen,Gothenburg,06:50,11:04,RE,"Mon,Wed,Fri",53,39
+R00732,Copenhagen,Hamburg,15:35,22:46,Intercités,"Mon,Wed,Fri",149,105
+R00734,Copenhagen,Malmö,05:10,07:41,Thalys,Mon-Fri,99,73
+R00735,Copenhagen,Malmö,16:40,20:28,RegioExpress,"Tue,Thu",42,33
+R00738,Copenhagen,Odense,13:45,15:47,Eurostar,"Tue,Thu",97,59
+R00745,Cork,Galway,07:50,13:30,RE,"Tue,Thu",71,54
+R00749,Cork,Limerick,05:25,08:27,RegioExpress,"Tue,Thu",53,38
+R00753,Cork,Reading,14:10,16:15,AVE,Mon-Fri,79,55
+R00754,Cuenca,Alicante,12:50,15:29,RJX,"Mon,Wed,Fri",84,53
+R00755,Cuenca,Alicante,13:20,14:56,AVE,Sat-Sun,46,31
+R00765,Cuenca,Valencia,19:25,05:47 (+1d),Nightjet,Daily,358,187
+R00767,Cádiz,Badajoz,19:45,22:31,RE,"Tue,Thu",38,30
+R00770,Cádiz,Córdoba,12:00,15:46,RE,"Tue,Thu",57,47
+R00774,Cádiz,Seville,19:35,22:03,Frecciarossa,Daily,85,58
+R00775,Cádiz,Seville,10:35,12:35,Railjet,Sat-Sun,86,63
+R00781,Córdoba,Granada,09:15,14:29,RE,Sat-Sun,63,51
+R00782,Córdoba,Granada,10:10,11:56,TGV,Mon-Fri,76,48
+R00784,Córdoba,Málaga,07:55,10:11,Eurostar,Fri-Sun,72,45
+R00787,Córdoba,Seville,08:25,10:52,RJX,"Tue,Thu",86,56
+R00788,Córdoba,Seville,14:35,16:17,InterCity,"Tue,Thu",36,26
+R00790,Debrecen,Budapest,08:35,10:44,Italo,Sat-Sun,69,48
+R00791,Debrecen,Budapest,05:50,09:58,InterCity,"Tue,Thu",109,78
+R00793,Debrecen,Košice,09:45,12:25,Railjet,"Tue,Thu",91,64
+R00794,Debrecen,Košice,21:35,08:59 (+1d),Nightjet,"Mon,Wed,Fri",336,211
+R00796,Debrecen,Pécs,13:25,18:18,TER,Fri-Sun,57,44
+R00797,Debrecen,Pécs,19:35,21:05,TGV,Sat-Sun,51,31
+R00799,Debrecen,Szeged,15:50,17:44,InterCity,Fri-Sun,45,30
+R00800,Debrecen,Szeged,07:35,10:23,Eurostar,"Tue,Thu",120,89
+R00802,Derby,Cambridge,18:55,21:07,Frecciarossa,Mon-Fri,59,38
+R00805,Derby,Leicester,12:55,15:23,TGV,Daily,84,54
+R00809,Derby,Nottingham,15:00,16:48,Thalys,Daily,81,53
+R00810,Derby,Oxford,10:05,13:10,IC,Mon-Fri,95,64
+R00811,Derby,Oxford,12:20,15:15,Italo,Mon-Fri,127,85
+R00813,Dijon,Annecy,13:15,15:35,Thalys,"Tue,Thu",62,42
+R00814,Dijon,Annecy,07:25,10:15,Frecciarossa,Daily,96,60
+R00817,Dijon,Chambéry,09:00,13:11,RE,Sat-Sun,66,54
+R00819,Dijon,Reims,15:35,19:03,EuroCity,Fri-Sun,78,51
+R00820,Dijon,Reims,06:50,09:44,RegioExpress,Mon-Fri,39,28
+R00822,Dijon,Strasbourg,19:20,21:18,InterCity,Fri-Sun,50,32
+R00824,Dortmund,Bochum,11:35,14:01,Frecciarossa,Sat-Sun,74,52
+R00825,Dortmund,Bochum,19:55,05:42 (+1d),Nightjet,Daily,305,198
+R00828,Dortmund,Bonn,16:50,18:42,Thalys,Fri-Sun,66,46
+R00829,Dortmund,Bonn,05:55,08:40,AVE,Fri-Sun,81,54
+R00832,Dortmund,Düsseldorf,05:20,06:47,Eurostar,"Tue,Thu",46,30
+R00835,Dortmund,Essen,15:20,17:20,Eurostar,Sat-Sun,64,43
+R00838,Drammen,Bergen,19:10,21:42,IC,Daily,64,41
+R00839,Drammen,Bergen,07:10,10:08,Eurostar,Fri-Sun,121,83
+R00850,Drammen,Trondheim,10:40,13:17,AVE,"Tue,Thu",97,69
+R00851,Drammen,Trondheim,12:20,14:42,Eurostar,Mon-Fri,112,72
+R00857,Dresden,Leipzig,17:10,20:02,TGV,Fri-Sun,71,50
+R00858,Dresden,Leipzig,15:30,17:26,ICE,"Tue,Thu",87,56
+R00860,Dresden,Potsdam,09:30,11:35,EuroCity,"Mon,Wed,Fri",36,28
+R00861,Dresden,Potsdam,19:05,06:21 (+1d),Nightjet,Fri-Sun,381,210
+R00865,Dresden,Rostock,08:45,11:48,Italo,Daily,101,65
+R00867,Dublin,Brighton,19:15,20:34,RJX,Daily,61,41
+R00871,Dublin,Cork,10:30,13:34,RJX,Fri-Sun,123,77
+R00872,Dublin,Cork,12:00,15:29,Italo,Daily,95,58
+R00875,Dublin,Galway,12:35,18:01,RegioExpress,Fri-Sun,73,55
+R00878,Dublin,Reading,18:30,20:19,AVE,Mon-Fri,45,30
+R00879,Dublin,Reading,11:10,13:58,InterCity,Fri-Sun,70,47
+R00882,Düsseldorf,Bonn,09:55,12:07,AVE,Fri-Sun,66,46
+R00883,Düsseldorf,Bonn,12:05,13:25,TGV,"Tue,Thu",59,43
+R00887,Düsseldorf,Dortmund,18:35,20:15,Railjet,"Tue,Thu",43,31
+R00888,Düsseldorf,Dortmund,10:30,11:58,Eurostar,Sat-Sun,47,34
+R00890,Düsseldorf,Essen,16:40,19:46,IC,Daily,99,71
+R00891,Düsseldorf,Essen,13:40,16:43,Frecciarossa,Sat-Sun,100,74
+R00893,Edinburgh,Bristol,06:15,08:05,Railjet,"Mon,Wed,Fri",60,39
+R00895,Edinburgh,Glasgow,13:45,16:24,RJX,Sat-Sun,97,68
+R00898,Edinburgh,Newcastle,07:40,10:56,InterCity,Daily,71,47
+R00899,Edinburgh,Newcastle,07:25,09:54,TGV,"Tue,Thu",107,75
+R00901,Edinburgh,York,06:15,08:03,TER,Sat-Sun,31,25
+R00902,Edinburgh,York,08:00,09:08,Eurostar,Fri-Sun,44,30
+R00905,Eindhoven,The Hague,17:25,19:23,InterCity,Mon-Fri,49,36
+R00907,Eindhoven,Utrecht,17:35,20:11,Railjet,Daily,76,54
+R00908,Eindhoven,Utrecht,12:20,13:39,AVE,Fri-Sun,58,35
+R00911,Essen,Bochum,08:00,09:38,TGV,Mon-Fri,54,39
+R00915,Essen,Dortmund,14:35,17:15,Italo,"Mon,Wed,Fri",82,56
+R00917,Essen,Düsseldorf,09:00,11:38,Railjet,"Mon,Wed,Fri",106,71
+R00920,Essen,Hannover,15:35,18:18,ICE,Fri-Sun,79,49
+R00921,Essen,Hannover,06:45,11:49,RegioExpress,Fri-Sun,57,44
+R00925,Exeter,Cardiff,12:30,14:20,Eurostar,"Tue,Thu",68,41
+R00926,Exeter,Nottingham,09:10,12:57,RegioExpress,Mon-Fri,61,44
+R00927,Exeter,Nottingham,12:15,13:42,Intercités,"Tue,Thu",39,30
+R00930,Exeter,Plymouth,20:30,07:16 (+1d),Nightjet,Daily,372,199
+R00931,Exeter,Swansea,19:00,20:29,RegioExpress,"Tue,Thu",24,19
+R00932,Exeter,Swansea,18:40,22:36,RE,Sat-Sun,54,41
+R00934,Ferrara,Forlì,12:20,15:03,Railjet,Sat-Sun,116,82
+R00935,Ferrara,Forlì,07:55,11:12,Thalys,"Tue,Thu",100,64
+R00937,Ferrara,Ravenna,17:00,19:46,Intercités,Sat-Sun,66,50
+R00941,Ferrara,Rome,06:15,07:35,Frecciarossa,Fri-Sun,50,34
+R00943,Ferrara,Terni,09:45,13:52,RE,Fri-Sun,46,37
+R00947,Florence,Arezzo,19:20,04:40 (+1d),Nightjet,Fri-Sun,283,161
+R00948,Florence,Arezzo,19:35,22:15,RJX,Mon-Fri,103,64
+R00949,Florence,Bologna,10:10,12:30,Eurostar,Fri-Sun,107,72
+R00950,Florence,Bologna,13:45,16:22,Frecciarossa,Mon-Fri,64,41
+R00956,Florence,Perugia,09:20,11:42,TGV,"Tue,Thu",73,51
+R00959,Florence,Pisa,09:10,11:56,Italo,Sat-Sun,75,50
+R00960,Florence,Pisa,14:45,18:10,RE,Sat-Sun,61,47
+R00963,Florence,Rome,08:30,10:29,AVE,Fri-Sun,69,49
+R00972,Forlì,Ferrara,16:20,17:49,ICE,Sat-Sun,55,39
+R00974,Forlì,Ravenna,13:30,15:29,Thalys,"Tue,Thu",71,46
+R00980,Frankfurt,Cologne,06:05,07:58,RJX,Sat-Sun,63,45
+R00982,Frankfurt,Heidelberg,19:50,22:24,TGV,Fri-Sun,139,85
+R00983,Frankfurt,Heidelberg,15:00,16:33,InterCity,Fri-Sun,67,45
+R00987,Frankfurt,Mannheim,07:05,09:13,Frecciarossa,Sat-Sun,77,56
+R00996,Galway,Dublin,12:05,14:12,ICE,"Mon,Wed,Fri",55,38
+R00997,Galway,Dublin,11:35,14:16,TER,Mon-Fri,47,34
+R01001,Galway,Waterford,07:35,09:42,Railjet,Sat-Sun,81,57
+R01002,Galway,Waterford,09:05,10:54,InterCity,Fri-Sun,37,28
+R01004,Gdańsk,Gdynia,10:30,13:30,RJX,"Tue,Thu",130,81
+R01008,Gdańsk,Poznań,11:35,16:46,RE,Mon-Fri,79,63
+R01009,Gdańsk,Poznań,18:40,21:39,Frecciarossa,"Mon,Wed,Fri",112,82
+R01011,Gdańsk,Sopot,15:30,18:03,AVE,"Mon,Wed,Fri",89,64
+R01014,Gdańsk,Warsaw,07:30,11:09,TGV,Sat-Sun,133,80
+R01016,Gdańsk,Wrocław,15:15,16:52,InterCity,"Tue,Thu",44,34
+R01020,Gdynia,Gdańsk,20:55,07:36 (+1d),Nightjet,Fri-Sun,337,206
+R01021,Gdynia,Poznań,17:05,20:10,Railjet,"Tue,Thu",126,90
+R01022,Gdynia,Poznań,10:30,14:09,RE,Sat-Sun,30,24
+R01023,Gdynia,Sopot,10:55,14:09,RJX,"Mon,Wed,Fri",124,76
+R01027,Gdynia,Warsaw,09:35,10:20,AVE,"Mon,Wed,Fri",36,26
+R01040,Geneva,Lyon,12:10,14:42,Eurostar,Fri-Sun,94,60
+R01042,Geneva,St. Gallen,18:25,21:35,Intercités,"Tue,Thu",62,44
+R01043,Geneva,St. Gallen,14:05,16:47,IC,"Tue,Thu",61,42
+R01045,Geneva,Zurich,19:45,07:35 (+1d),Nightjet,"Tue,Thu",316,181
+R01046,Geneva,Zurich,17:00,19:19,Thalys,"Mon,Wed,Fri",87,52
+R01054,Genoa,Pisa,20:55,08:40 (+1d),Nightjet,"Mon,Wed,Fri",370,220
+R01055,Genoa,Pisa,09:15,12:23,RE,Mon-Fri,50,37
+R01059,Ghent,Antwerp,12:45,16:46,TER,"Mon,Wed,Fri",73,55
+R01060,Ghent,Antwerp,14:50,18:03,ICE,Mon-Fri,110,76
+R01063,Ghent,Bruges,19:25,04:18 (+1d),Nightjet,Mon-Fri,234,137
+R01064,Ghent,Bruges,13:25,18:25,RegioExpress,"Mon,Wed,Fri",83,62
+R01070,Ghent,Liège,08:10,09:36,Frecciarossa,"Mon,Wed,Fri",43,29
+R01071,Ghent,Liège,19:15,23:15,RegioExpress,Sat-Sun,47,37
+R01072,Glasgow,Bristol,17:10,18:49,ICE,Sat-Sun,80,52
+R01075,Glasgow,Cardiff,09:20,13:43,RE,Sat-Sun,49,41
+R01076,Glasgow,Cardiff,11:25,12:59,IC,Daily,52,40
+R01082,Glasgow,York,05:40,08:22,Intercités,Fri-Sun,78,50
+R01086,Gothenburg,Copenhagen,09:35,11:51,Frecciarossa,"Mon,Wed,Fri",71,47
+R01087,Gothenburg,Copenhagen,06:35,08:31,Eurostar,Daily,67,44
+R01090,Gothenburg,Helsingborg,13:50,17:07,TER,Sat-Sun,53,40
+R01091,Gothenburg,Helsingborg,15:15,16:31,AVE,Mon-Fri,61,38
+R01092,Gothenburg,Lund,08:30,09:35,Thalys,Daily,37,27
+R01095,Gothenburg,Oslo,11:10,16:13,Thalys,Daily,207,140
+R01100,Gothenburg,Uppsala,07:25,09:29,IC,"Mon,Wed,Fri",39,27
+R01103,Granada,Almería,16:00,18:07,Frecciarossa,Daily,109,65
+R01107,Granada,Córdoba,05:35,07:59,TGV,Daily,94,69
+R01108,Granada,Córdoba,09:55,11:33,AVE,"Tue,Thu",71,44
+R01114,Graz,Innsbruck,10:05,12:39,AVE,Sat-Sun,92,60
+R01117,Graz,Linz,08:50,10:59,AVE,"Tue,Thu",55,41
+R01119,Graz,Salzburg,14:45,17:30,RE,"Mon,Wed,Fri",39,31
+R01120,Graz,Salzburg,11:45,13:08,EuroCity,Fri-Sun,34,23
+R01121,Graz,Vienna,19:05,20:04,ICE,Sat-Sun,44,27
+R01132,Grenoble,Clermont-Ferrand,12:30,14:41,InterCity,Sat-Sun,59,44
+R01136,Grenoble,Lyon,18:10,23:33,RegioExpress,Mon-Fri,82,61
+R01137,Grenoble,Lyon,18:15,02:58 (+1d),Nightjet,Mon-Fri,283,154
+R01140,Hamburg,Amsterdam,06:55,09:17,Frecciarossa,Mon-Fri,81,56
+R01141,Hamburg,Amsterdam,10:00,13:05,Italo,"Tue,Thu",112,82
+R01143,Hamburg,Bremen,15:35,17:42,Railjet,"Tue,Thu",60,42
+R01150,Hamburg,Kiel,11:30,15:11,Intercités,Daily,87,66
+R01151,Hamburg,Kiel,17:20,20:45,Frecciarossa,"Mon,Wed,Fri",102,72
+R01155,Hamburg,Rostock,12:10,16:04,TER,Mon-Fri,63,49
+R01161,Hannover,Bremen,12:05,14:28,RJX,Sat-Sun,75,52
+R01163,Hannover,Essen,08:40,09:40,AVE,Daily,68,41
+R01166,Hannover,Hamburg,13:30,15:21,EuroCity,"Tue,Thu",60,38
+R01170,Heidelberg,Bonn,13:40,14:58,RJX,Mon-Fri,52,35
+R01171,Heidelberg,Cologne,12:45,16:03,IC,Fri-Sun,97,64
+R01174,Heidelberg,Frankfurt,08:25,09:31,AVE,Mon-Fri,68,41
+R01175,Heidelberg,Frankfurt,09:20,12:37,Italo,Sat-Sun,128,85
+R01176,Heidelberg,Würzburg,09:00,12:46,IC,"Tue,Thu",86,65
+R01179,Helsingborg,Gothenburg,18:00,06:34 (+1d),Nightjet,Fri-Sun,396,264
+R01181,Helsingborg,Lund,18:35,20:26,Thalys,Sat-Sun,57,41
+R01182,Helsingborg,Lund,18:05,06:25 (+1d),Nightjet,Sat-Sun,347,219
+R01184,Helsingborg,Malmö,05:25,06:42,ICE,"Tue,Thu",61,38
+R01190,Helsinki,Bergen,15:10,19:26,RegioExpress,"Mon,Wed,Fri",74,61
+R01191,Helsinki,Bergen,13:40,15:50,Thalys,"Tue,Thu",76,56
+R01196,Helsinki,Tampere,11:30,12:56,Eurostar,Fri-Sun,64,42
+R01198,Helsinki,Turku,12:45,15:27,RE,Daily,47,38
+R01199,Helsinki,Turku,12:15,15:02,Intercités,Daily,70,49
+R01204,Iași,Katowice,14:35,18:36,IC,"Tue,Thu",82,52
+R01205,Iași,Katowice,19:40,23:46,TER,Fri-Sun,66,54
+R01208,Iași,Krakow,15:05,17:22,EuroCity,"Mon,Wed,Fri",50,33
+R01211,Iași,Timișoara,16:15,18:19,ICE,"Tue,Thu",62,44
+R01212,Iași,Timișoara,17:10,19:57,Frecciarossa,Fri-Sun,106,63
+R01215,Innsbruck,Graz,11:10,13:43,TGV,"Tue,Thu",111,74
+R01216,Innsbruck,Graz,10:00,12:27,Eurostar,"Tue,Thu",80,55
+R01218,Innsbruck,Lugano,10:30,14:14,Intercités,Daily,95,67
+R01219,Innsbruck,Lugano,15:15,16:29,ICE,"Tue,Thu",65,47
+R01221,Innsbruck,Salzburg,16:50,20:49,Intercités,Mon-Fri,62,44
+R01222,Innsbruck,Salzburg,15:50,18:41,ICE,Fri-Sun,89,65
+R01227,Karlsruhe,Frankfurt,10:05,11:55,TER,"Mon,Wed,Fri",28,21
+R01228,Karlsruhe,Frankfurt,21:25,09:54 (+1d),Nightjet,Daily,412,247
+R01231,Karlsruhe,Mannheim,17:20,20:10,EuroCity,Daily,79,51
+R01232,Karlsruhe,Mannheim,15:55,17:44,RegioExpress,Daily,22,17
+R01235,Karlsruhe,Regensburg,17:30,19:16,AVE,Sat-Sun,82,57
+R01241,Katowice,Iași,19:55,21:57,Frecciarossa,Daily,55,41
+R01248,Katowice,Poznań,06:00,09:15,Intercités,Daily,88,57
+R01253,Kiel,Bremen,14:45,16:45,Italo,Sat-Sun,96,60
+R01257,Kiel,Hamburg,18:10,20:45,Railjet,Mon-Fri,112,68
+R01260,Kiel,Leipzig,15:50,17:57,Thalys,Sat-Sun,86,53
+R01263,Kiel,Rostock,15:30,18:08,Italo,"Mon,Wed,Fri",68,48
+R01264,Kiel,Rostock,09:00,10:48,RE,Daily,32,24
+R01268,Košice,Bratislava,09:10,11:29,RegioExpress,Daily,26,21
+R01271,Košice,Budapest,10:40,13:43,ICE,Sat-Sun,83,58
+R01272,Košice,Budapest,06:40,08:28,TGV,"Mon,Wed,Fri",59,37
+R01273,Košice,Debrecen,06:40,09:22,Railjet,"Mon,Wed,Fri",112,70
+R01274,Košice,Debrecen,06:30,07:22,Eurostar,Fri-Sun,48,34
+R01276,Košice,Ostrava,08:50,13:48,RegioExpress,Daily,85,66
+R01277,Košice,Ostrava,12:40,15:52,Intercités,Fri-Sun,63,49
+R01281,Krakow,Iași,11:50,14:45,RJX,Fri-Sun,88,61
+R01289,Krakow,Timișoara,12:25,14:59,Frecciarossa,Sat-Sun,108,72
+R01290,Krakow,Warsaw,12:25,14:28,Italo,Mon-Fri,71,49
+R01291,Krakow,Warsaw,10:45,13:41,InterCity,Sat-Sun,80,58
+R01294,Krakow,Wrocław,07:05,08:35,Eurostar,"Tue,Thu",72,49
+R01295,Krakow,Wrocław,14:20,17:09,IC,"Mon,Wed,Fri",77,51
+R01298,L'Aquila,Naples,15:20,16:58,Thalys,"Mon,Wed,Fri",50,35
+R01299,L'Aquila,Rome,18:50,20:26,Thalys,Mon-Fri,61,41
+R01302,L'Aquila,Salerno,14:20,16:40,Eurostar,Daily,83,52
+R01303,L'Aquila,Salerno,14:35,17:41,Frecciarossa,"Tue,Thu",125,78
+R01306,L'Aquila,Terni,10:40,13:57,EuroCity,Mon-Fri,80,56
+R01308,La Rochelle,Bordeaux,08:45,11:57,Railjet,Fri-Sun,86,59
+R01313,La Rochelle,Limoges,07:25,09:57,TGV,Mon-Fri,80,59
+R01315,La Rochelle,Poitiers,14:30,17:44,AVE,"Mon,Wed,Fri",92,61
+R01323,La Spezia,Livorno,15:55,18:36,Italo,Fri-Sun,76,53
+R01325,La Spezia,Piacenza,10:10,12:06,ICE,"Mon,Wed,Fri",49,33
+R01332,Lausanne,Bern,12:15,13:44,RJX,"Tue,Thu",54,36
+R01333,Lausanne,Bern,14:55,16:13,EuroCity,Sat-Sun,36,26
+R01334,Lausanne,Geneva,18:40,21:57,Eurostar,"Mon,Wed,Fri",107,71
+R01335,Lausanne,Geneva,11:20,14:24,RE,Daily,53,44
+R01339,Le Mans,Angers,05:00,08:49,TER,"Mon,Wed,Fri",60,46
+R01340,Le Mans,Angers,19:50,22:40,Railjet,Mon-Fri,86,59
+R01348,Le Mans,Tours,06:15,07:24,Frecciarossa,"Mon,Wed,Fri",43,27
+R01349,Le Mans,Tours,10:45,12:21,ICE,"Tue,Thu",45,28
+R01352,Leeds,Birmingham,16:30,21:41,RegioExpress,"Mon,Wed,Fri",78,62
+R01353,Leeds,Birmingham,18:30,22:42,RE,"Tue,Thu",47,39
+R01355,Leeds,Liverpool,13:05,15:45,Thalys,Sat-Sun,101,72
+R01357,Leeds,Manchester,13:55,15:51,TGV,Sat-Sun,107,65
+R01358,Leeds,Manchester,13:05,15:21,RE,Daily,42,31
+R01360,Leeds,Sheffield,09:05,10:42,Thalys,"Mon,Wed,Fri",71,47
+R01361,Leeds,Sheffield,12:50,15:03,Frecciarossa,Daily,100,65
+R01363,Leicester,Cambridge,09:35,12:08,InterCity,Fri-Sun,68,47
+R01365,Leicester,Derby,11:25,13:56,TGV,Sat-Sun,85,60
+R01371,Leicester,Plymouth,18:40,21:31,TGV,Daily,90,56
+R01372,Leicester,Plymouth,09:35,12:54,InterCity,Daily,70,51
+R01373,Leipzig,Berlin,17:20,19:39,ICE,"Tue,Thu",82,61
+R01374,Leipzig,Berlin,17:50,21:23,TER,Mon-Fri,53,43
+R01382,Leipzig,Kiel,12:05,16:22,RE,Mon-Fri,46,36
+R01384,Leipzig,Rostock,18:20,21:11,Eurostar,Mon-Fri,69,46
+R01385,Leipzig,Rostock,06:05,08:52,TGV,Daily,93,62
+R01388,Lille,Amiens,05:30,07:01,RJX,"Mon,Wed,Fri",60,37
+R01391,Lille,Ashford,09:45,11:30,EuroCity,Daily,35,26
+R01396,Lille,Calais,07:50,10:50,Intercités,"Mon,Wed,Fri",52,36
+R01397,Lille,Calais,16:50,18:10,Eurostar,Mon-Fri,70,47
+R01398,Lille,London,11:25,14:18,Railjet,"Mon,Wed,Fri",66,49
+R01406,Lille,Rouen,16:55,17:46,AVE,"Mon,Wed,Fri",51,35
+R01407,Lille,Rouen,09:25,10:32,EuroCity,Daily,36,25
+R01409,Limerick,Cork,18:00,23:46,TER,Daily,77,58
+R01410,Limerick,Cork,16:20,19:01,RegioExpress,Sat-Sun,25,20
+R01412,Limerick,Galway,18:00,20:40,Thalys,Mon-Fri,106,63
+R01413,Limerick,Galway,19:40,21:26,TER,Sat-Sun,25,20
+R01414,Limerick,Waterford,11:20,13:03,ICE,"Mon,Wed,Fri",68,46
+R01415,Limerick,Waterford,09:10,11:19,Eurostar,Sat-Sun,69,44
+R01417,Limoges,Bordeaux,13:35,16:04,AVE,Sat-Sun,102,64
+R01420,Limoges,Clermont-Ferrand,15:55,18:41,Italo,Fri-Sun,90,61
+R01422,Limoges,La Rochelle,19:00,21:14,Frecciarossa,Mon-Fri,84,53
+R01423,Limoges,La Rochelle,10:45,13:42,Italo,Daily,105,78
+R01426,Limoges,Lyon,19:35,04:16 (+1d),Nightjet,"Mon,Wed,Fri",256,156
+R01429,Linköping,Norrköping,14:45,17:03,Eurostar,"Mon,Wed,Fri",71,50
+R01445,Linz,Munich,11:45,14:44,Railjet,"Mon,Wed,Fri",121,89
+R01446,Linz,Munich,07:20,10:44,RJX,Daily,134,81
+R01447,Linz,Salzburg,12:25,13:48,Thalys,Daily,57,39
+R01448,Linz,Salzburg,09:25,12:00,EuroCity,Mon-Fri,71,50
+R01449,Linz,Vienna,09:40,10:55,RJX,Mon-Fri,45,29
+R01451,Lisbon,Madrid,15:35,21:22,InterCity,"Tue,Thu",114,75
+R01457,Lisbon,Vigo,11:05,12:19,RJX,Daily,65,44
+R01459,Liverpool,Leeds,10:15,11:40,AVE,"Tue,Thu",53,35
+R01462,Liverpool,Manchester,09:50,11:52,Railjet,Daily,80,48
+R01466,Liverpool,Newcastle,08:30,10:33,ICE,Daily,85,63
+R01467,Liverpool,Newcastle,09:00,11:04,Intercités,Mon-Fri,31,23
+R01473,Livorno,Arezzo,15:25,17:27,TGV,Mon-Fri,63,44
+R01474,Livorno,Arezzo,07:35,10:13,AVE,Sat-Sun,87,58
+R01476,Livorno,Florence,07:50,09:35,RJX,Daily,73,52
+R01477,Livorno,Florence,16:10,18:37,TER,Daily,42,34
+R01480,Livorno,La Spezia,13:15,14:52,Frecciarossa,"Tue,Thu",54,35
+R01481,Livorno,La Spezia,14:05,15:41,RJX,Mon-Fri,54,35
+R01482,Livorno,Pisa,16:10,19:16,Thalys,Daily,139,92
+R01484,Liège,Amsterdam,15:50,18:50,InterCity,Mon-Fri,62,48
+R01487,Liège,Bruges,15:55,18:32,Eurostar,Mon-Fri,108,71
+R01488,Liège,Ghent,10:10,12:14,InterCity,Daily,34,26
+R01491,Liège,Rotterdam,19:50,21:07,AVE,"Mon,Wed,Fri",44,30
+R01492,Ljubljana,Maribor,14:30,17:09,Thalys,"Mon,Wed,Fri",83,56
+R01493,Ljubljana,Maribor,09:15,10:54,RJX,"Tue,Thu",51,35
+R01494,Ljubljana,Pécs,17:35,19:32,TGV,Sat-Sun,86,51
+R01495,Ljubljana,Pécs,15:30,17:34,Frecciarossa,Mon-Fri,85,59
+R01501,Ljubljana,Trieste,14:35,18:22,IC,"Tue,Thu",89,68
+R01502,Ljubljana,Trieste,08:00,11:51,Intercités,"Tue,Thu",116,76
+R01504,Ljubljana,Zagreb,12:55,15:24,IC,Sat-Sun,46,30
+R01505,Ljubljana,Zagreb,11:05,12:19,Frecciarossa,"Mon,Wed,Fri",64,42
+R01508,Logroño,Burgos,06:15,10:23,IC,Fri-Sun,97,74
+R01510,Logroño,Pamplona,13:35,16:49,InterCity,"Mon,Wed,Fri",57,41
+R01515,Logroño,Valladolid,17:00,20:04,Intercités,Fri-Sun,66,44
+R01523,London,Ashford,12:30,15:19,IC,Mon-Fri,71,55
+R01528,London,Lille,08:35,10:24,Frecciarossa,Fri-Sun,39,28
+R01529,London,Lille,06:10,08:08,Thalys,Daily,49,35
+R01534,Lublin,Warsaw,13:15,15:35,Italo,Mon-Fri,60,42
+R01535,Lublin,Warsaw,19:35,21:33,Eurostar,Mon-Fri,74,51
+R01539,Lublin,Łódź,10:15,11:34,RegioExpress,Daily,19,14
+R01540,Lucerne,Geneva,06:10,08:21,InterCity,Sat-Sun,54,36
+R01544,Lucerne,Lausanne,11:25,13:03,Frecciarossa,Mon-Fri,62,40
+R01545,Lucerne,Lugano,13:55,16:07,TGV,"Mon,Wed,Fri",79,48
+R01549,Lucerne,St. Gallen,15:25,17:14,Italo,Mon-Fri,51,36
+R01550,Lucerne,St. Gallen,13:50,16:59,InterCity,"Tue,Thu",61,46
+R01555,Lugano,Lucerne,09:45,14:36,TER,"Tue,Thu",68,51
+R01556,Lugano,Lucerne,12:35,14:04,Italo,"Mon,Wed,Fri",54,39
+R01558,Lugano,Salzburg,12:45,14:00,Intercités,Mon-Fri,42,31
+R01559,Lugano,St. Gallen,11:45,14:42,RJX,Daily,118,72
+R01562,Lund,Aalborg,09:55,12:52,Italo,Daily,84,62
+R01565,Lund,Gothenburg,13:50,16:40,RE,Daily,33,27
+R01566,Lund,Helsingborg,14:25,17:23,RE,"Tue,Thu",27,22
+R01568,Lund,Malmö,20:40,08:39 (+1d),Nightjet,Fri-Sun,410,267
+R01569,Lund,Malmö,15:15,19:01,IC,"Tue,Thu",96,67
+R01571,Lyon,Avignon,09:50,12:54,Railjet,Fri-Sun,112,73
+R01572,Lyon,Avignon,12:10,13:29,TGV,Daily,60,43
+R01574,Lyon,Chambéry,20:35,04:34 (+1d),Nightjet,"Tue,Thu",273,172
+R01576,Lyon,Clermont-Ferrand,05:45,08:17,Frecciarossa,"Mon,Wed,Fri",84,51
+R01580,Lyon,Geneva,15:45,17:53,RJX,Mon-Fri,69,47
+R01583,Lyon,Grenoble,13:50,16:09,Intercités,Mon-Fri,58,38
+R01587,Lyon,Paris,19:30,21:31,ICE,"Mon,Wed,Fri",58,42
+R01589,Madrid,Bordeaux,10:25,13:06,Intercités,Daily,45,32
+R01597,Madrid,Lisbon,06:30,15:42,RegioExpress,Daily,101,75
+R01598,Madrid,Paris,16:20,22:45,InterCity,"Mon,Wed,Fri",149,94
+R01599,Madrid,Paris,13:50,19:05,Railjet,"Mon,Wed,Fri",197,143
+R01605,Madrid,Toledo,09:35,12:32,EuroCity,Fri-Sun,55,40
+R01606,Madrid,Toledo,13:55,16:22,IC,"Mon,Wed,Fri",61,43
+R01607,Madrid,Valladolid,12:15,13:12,Thalys,"Tue,Thu",62,41
+R01612,Malmö,Aalborg,07:50,09:57,Frecciarossa,Sat-Sun,75,46
+R01613,Malmö,Aarhus,19:35,04:50 (+1d),Nightjet,"Mon,Wed,Fri",246,134
+R01614,Malmö,Aarhus,15:35,18:00,Frecciarossa,Daily,79,49
+R01617,Malmö,Copenhagen,14:35,17:22,TER,"Mon,Wed,Fri",47,35
+R01621,Malmö,Helsingborg,12:10,16:29,InterCity,Daily,106,70
+R01623,Malmö,Lund,15:25,18:37,Italo,Mon-Fri,123,79
+R01624,Malmö,Lund,15:25,18:17,RJX,"Tue,Thu",87,56
+R01629,Manchester,Amsterdam,17:45,20:11,InterCity,"Mon,Wed,Fri",69,46
+R01632,Manchester,Birmingham,11:05,13:36,AVE,"Tue,Thu",109,68
+R01637,Manchester,Liverpool,16:45,18:50,AVE,Sat-Sun,69,50
+R01640,Mannheim,Frankfurt,16:35,18:07,Railjet,"Tue,Thu",57,35
+R01641,Mannheim,Frankfurt,10:35,13:37,RE,"Mon,Wed,Fri",48,35
+R01645,Mannheim,Karlsruhe,12:40,16:17,IC,"Mon,Wed,Fri",65,43
+R01646,Mannheim,Stuttgart,19:00,22:00,InterCity,"Tue,Thu",94,61
+R01647,Mannheim,Stuttgart,09:15,11:51,TGV,Fri-Sun,72,50
+R01652,Maribor,Ljubljana,15:00,17:12,Railjet,"Tue,Thu",72,47
+R01653,Maribor,Ljubljana,07:20,09:16,Italo,"Tue,Thu",67,40
+R01655,Maribor,Pécs,07:20,09:19,Railjet,"Mon,Wed,Fri",48,35
+R01656,Maribor,Pécs,11:00,14:01,RegioExpress,"Tue,Thu",60,45
+R01659,Maribor,Rijeka,20:25,08:31 (+1d),Nightjet,"Tue,Thu",367,242
+R01662,Maribor,Zagreb,07:05,11:03,RE,Fri-Sun,48,37
+R01663,Maribor,Zagreb,15:15,18:29,Eurostar,Daily,111,82
+R01665,Marseille,Nice,19:15,21:45,EuroCity,Daily,40,27
+R01667,Marseille,Paris,14:15,15:35,RJX,Daily,80,51
+R01668,Marseille,Paris,09:50,12:37,Thalys,"Mon,Wed,Fri",99,67
+R01673,Messina,Palermo,08:35,10:57,Eurostar,"Mon,Wed,Fri",89,59
+R01674,Messina,Palermo,07:50,09:45,InterCity,Sat-Sun,39,30
+R01678,Messina,Taranto,15:00,19:51,RE,Daily,64,47
+R01683,Metz,Mulhouse,11:30,15:00,IC,Fri-Sun,66,47
+R01685,Metz,Nancy,12:45,13:45,TGV,Fri-Sun,48,31
+R01686,Metz,Nancy,06:55,08:51,RJX,Fri-Sun,81,56
+R01689,Metz,Reims,12:20,17:41,TER,Mon-Fri,58,44
+R01693,Metz,Strasbourg,12:35,13:45,Eurostar,"Tue,Thu",52,38
+R01694,Milan,Bergamo,09:25,11:32,Eurostar,Sat-Sun,53,38
+R01703,Milan,Rome,05:45,11:31,InterCity,Sat-Sun,122,77
+R01705,Milan,Turin,12:45,14:43,Railjet,"Tue,Thu",65,42
+R01713,Milan,Zurich,17:05,22:22,TGV,Fri-Sun,169,106
+R01720,Modena,Parma,10:15,12:36,IC,"Mon,Wed,Fri",49,32
+R01724,Modena,Reggio Emilia,11:05,13:21,IC,Fri-Sun,55,41
+R01726,Montpellier,Narbonne,16:30,21:03,InterCity,Sat-Sun,104,80
+R01727,Montpellier,Narbonne,12:55,15:51,Railjet,Fri-Sun,105,68
+R01730,Montpellier,Nîmes,15:25,16:58,RE,"Tue,Thu",22,17
+R01733,Mostar,Belgrade,14:10,18:57,TER,"Mon,Wed,Fri",62,50
+R01734,Mostar,Belgrade,06:55,09:49,Railjet,Daily,88,61
+R01740,Mostar,Sarajevo,13:15,14:59,Eurostar,Daily,54,40
+R01742,Mostar,Split,12:10,13:49,Railjet,Daily,85,51
+R01747,Mulhouse,Besançon,13:45,15:49,IC,Sat-Sun,70,45
+R01750,Mulhouse,Metz,19:40,22:21,RJX,"Tue,Thu",114,73
+R01752,Mulhouse,Nancy,12:15,16:56,RegioExpress,Fri-Sun,82,59
+R01753,Mulhouse,Nancy,07:20,10:26,RJX,"Mon,Wed,Fri",84,57
+R01755,Mulhouse,Paris,21:55,08:02 (+1d),Nightjet,Sat-Sun,344,192
+R01756,Mulhouse,Paris,10:55,13:21,RE,"Tue,Thu",41,32
+R01760,Munich,Augsburg,16:20,19:07,RegioExpress,"Tue,Thu",48,35
+R01762,Munich,Linz,14:10,16:54,AVE,"Mon,Wed,Fri",94,67
+R01765,Munich,Nuremberg,11:55,13:35,TER,"Mon,Wed,Fri",29,22
+R01768,Munich,Salzburg,08:50,12:21,IC,Fri-Sun,110,73
+R01771,Munich,Vienna,17:15,21:48,Frecciarossa,Sat-Sun,158,113
+R01773,Munich,Zurich,14:35,21:12,TER,Daily,74,61
+R01776,Murcia,Alicante,09:20,11:34,IC,"Tue,Thu",50,34
+R01777,Murcia,Alicante,08:10,11:34,RegioExpress,Mon-Fri,56,42
+R01781,Murcia,Cartagena,18:30,03:11 (+1d),Nightjet,"Tue,Thu",333,180
+R01784,Murcia,Valencia,12:20,14:23,TGV,Mon-Fri,85,53
+R01787,Málaga,Almería,18:05,04:41 (+1d),Nightjet,"Mon,Wed,Fri",362,224
+R01790,Málaga,Córdoba,06:40,09:36,AVE,Fri-Sun,74,54
+R01793,Málaga,Granada,05:40,09:44,RE,Fri-Sun,59,48
+R01795,Málaga,Seville,08:20,11:11,Intercités,Sat-Sun,60,46
+R01798,Nancy,Besançon,16:05,18:14,AVE,Fri-Sun,93,63
+R01801,Nancy,Metz,17:25,19:58,EuroCity,Daily,66,45
+R01802,Nancy,Metz,15:25,18:09,ICE,Daily,80,48
+R01810,Nantes,Angers,15:35,17:40,AVE,Fri-Sun,92,62
+R01818,Nantes,Le Mans,18:45,20:33,AVE,"Mon,Wed,Fri",56,41
+R01819,Nantes,Le Mans,15:35,17:18,InterCity,Mon-Fri,52,36
+R01820,Nantes,Rennes,07:05,09:26,RegioExpress,Daily,28,21
+R01821,Nantes,Rennes,18:20,21:22,TGV,Daily,82,57
+R01823,Naples,Bari,17:40,19:59,TER,Sat-Sun,27,21
+R01826,Naples,L'Aquila,16:45,20:11,Italo,Daily,110,73
+R01828,Naples,Rome,09:20,12:23,TER,Fri-Sun,42,31
+R01829,Naples,Rome,18:15,21:18,InterCity,Mon-Fri,82,61
+R01830,Naples,Salerno,15:25,18:31,Thalys,Sat-Sun,107,68
+R01831,Naples,Salerno,14:40,16:32,InterCity,Daily,56,37
+R01833,Naples,Terni,13:00,15:43,Italo,"Mon,Wed,Fri",124,89
+R01834,Naples,Terni,05:55,08:12,IC,Mon-Fri,56,43
+R01836,Narbonne,Montpellier,18:50,23:48,TER,Mon-Fri,73,58
+R01837,Narbonne,Montpellier,10:30,13:19,EuroCity,"Mon,Wed,Fri",46,36
+R01840,Narbonne,Perpignan,15:45,19:14,Eurostar,"Mon,Wed,Fri",120,71
+R01842,Newcastle,Edinburgh,14:05,18:37,RegioExpress,Mon-Fri,73,59
+R01846,Newcastle,Sheffield,14:55,18:06,RegioExpress,"Mon,Wed,Fri",54,45
+R01848,Newcastle,York,09:50,12:33,Frecciarossa,Daily,101,70
+R01849,Newcastle,York,18:45,21:26,RE,Daily,47,37
+R01853,Nice,Marseille,11:35,13:35,ICE,Daily,76,48
+R01856,Niš,Belgrade,19:25,21:02,Intercités,Fri-Sun,56,38
+R01858,Niš,Novi Sad,17:40,19:38,TGV,Fri-Sun,71,51
+R01870,Norrköping,Linköping,09:50,11:36,EuroCity,"Mon,Wed,Fri",48,31
+R01871,Norrköping,Linköping,12:55,17:05,RegioExpress,"Mon,Wed,Fri",58,45
+R01874,Norrköping,Oslo,12:00,15:01,Intercités,Fri-Sun,55,37
+R01876,Norrköping,Västerås,12:50,14:44,Railjet,Daily,62,43
+R01877,Norrköping,Västerås,14:40,17:04,AVE,Sat-Sun,70,47
+R01881,Nottingham,Derby,05:35,07:49,AVE,"Mon,Wed,Fri",68,46
+R01886,Nottingham,Leicester,17:25,19:18,Intercités,Mon-Fri,34,26
+R01889,Nottingham,Plymouth,17:50,21:12,Italo,Mon-Fri,129,81
+R01890,Nottingham,Plymouth,13:05,15:31,AVE,"Mon,Wed,Fri",100,59
+R01891,Novi Sad,Belgrade,09:40,13:12,InterCity,"Mon,Wed,Fri",84,60
+R01892,Novi Sad,Belgrade,15:55,19:28,RE,"Tue,Thu",51,39
+R01894,Novi Sad,Mostar,14:45,17:58,Intercités,Daily,82,58
+R01901,Novi Sad,Sofia,10:25,11:26,Intercités,Fri-Sun,37,29
+R01905,Nuremberg,Augsburg,07:25,10:12,AVE,"Tue,Thu",72,52
+R01908,Nuremberg,Munich,12:40,14:08,Italo,Daily,50,30
+R01910,Nuremberg,Regensburg,13:20,15:41,RE,Fri-Sun,34,26
+R01911,Nuremberg,Regensburg,10:05,13:14,EuroCity,"Tue,Thu",104,66
+R01915,Nuremberg,Stuttgart,13:45,17:29,Eurostar,"Mon,Wed,Fri",122,87
+R01918,Nîmes,Avignon,19:45,21:01,ICE,"Tue,Thu",51,32
+R01919,Nîmes,Avignon,09:50,13:00,Frecciarossa,Mon-Fri,111,72
+R01922,Nîmes,Montpellier,14:35,16:18,Railjet,"Mon,Wed,Fri",60,43
+R01926,Odense,Aalborg,10:25,12:59,TER,Fri-Sun,36,29
+R01927,Odense,Aalborg,19:15,05:36 (+1d),Nightjet,Daily,309,170
+R01933,Oslo,Drammen,12:20,15:49,IC,Sat-Sun,70,52
+R01934,Oslo,Drammen,15:40,19:47,Intercités,Sat-Sun,79,50
+R01936,Oslo,Gothenburg,08:25,18:19,RE,"Mon,Wed,Fri",97,80
+R01937,Oslo,Linköping,18:45,22:06,ICE,"Mon,Wed,Fri",97,62
+R01938,Oslo,Linköping,19:10,21:40,Thalys,"Tue,Thu",72,53
+R01939,Oslo,Norrköping,13:50,15:29,Eurostar,Fri-Sun,59,39
+R01940,Oslo,Norrköping,21:10,08:50 (+1d),Nightjet,"Mon,Wed,Fri",382,213
+R01942,Oslo,Trondheim,12:20,14:24,Eurostar,"Tue,Thu",60,40
+R01944,Ostrava,Bratislava,12:40,17:25,TER,"Mon,Wed,Fri",81,65
+R01946,Ostrava,Brno,15:10,17:40,Intercités,Daily,92,58
+R01951,Ostrava,Košice,11:00,13:28,Intercités,Daily,55,37
+R01953,Ostrava,České Budějovice,13:25,15:42,Railjet,"Mon,Wed,Fri",67,46
+R01954,Ostrava,České Budějovice,16:15,21:49,RE,"Tue,Thu",106,78
+R01956,Oulu,Tampere,17:40,20:03,Intercités,Sat-Sun,40,29
+R01957,Oulu,Tampere,13:20,15:09,AVE,"Mon,Wed,Fri",53,39
+R01959,Oulu,Turku,16:10,18:01,ICE,"Tue,Thu",55,38
+R01960,Oulu,Turku,10:45,16:18,TER,Sat-Sun,83,63
+R01965,Oviedo,Bilbao,10:20,13:01,Intercités,"Mon,Wed,Fri",63,48
+R01966,Oviedo,Bilbao,16:00,17:35,Railjet,Sat-Sun,32,22
+R01975,Oxford,Cambridge,15:50,18:34,RegioExpress,Fri-Sun,41,34
+R01976,Oxford,Cambridge,10:10,13:11,Railjet,Mon-Fri,99,68
+R01978,Oxford,Derby,15:45,18:40,EuroCity,Fri-Sun,82,54
+R01979,Oxford,Derby,12:55,15:47,Intercités,Mon-Fri,51,33
+R01982,Oxford,Portsmouth,14:15,17:48,InterCity,Daily,77,52
+R01983,Oxford,Portsmouth,17:45,20:43,AVE,Fri-Sun,101,70
+R01984,Oxford,Southampton,07:00,09:32,InterCity,Sat-Sun,74,54
+R01985,Oxford,Southampton,19:45,03:58 (+1d),Nightjet,Daily,278,144
+R01989,Padua,Trento,09:10,11:27,ICE,Daily,73,51
+R01991,Padua,Venice,09:15,12:17,Railjet,"Mon,Wed,Fri",87,60
+R01992,Padua,Venice,10:00,12:01,RJX,Mon-Fri,75,52
+R01994,Padua,Verona,19:15,07:59 (+1d),Nightjet,Daily,428,256
+R01996,Padua,Vicenza,12:15,14:42,EuroCity,Daily,64,42
+R01997,Padua,Vicenza,16:25,17:54,ICE,Sat-Sun,49,33
+R02001,Palermo,Catania,12:20,14:42,TGV,Fri-Sun,83,62
+R02005,Palermo,Messina,15:55,17:30,RegioExpress,Sat-Sun,23,18
+R02010,Pamplona,Burgos,07:20,08:20,RJX,"Tue,Thu",56,36
+R02013,Pamplona,Logroño,09:15,11:53,RE,Daily,39,29
+R02014,Pamplona,Logroño,15:10,19:02,IC,Fri-Sun,75,51
+R02016,Pamplona,San Sebastián,14:20,17:16,EuroCity,Fri-Sun,75,49
+R02019,Pamplona,Zaragoza,10:25,12:50,Italo,Sat-Sun,101,64
+R02022,Paris,Amsterdam,11:20,15:05,Frecciarossa,Daily,127,81
+R02023,Paris,Amsterdam,19:50,22:01,Railjet,Sat-Sun,58,42
+R02024,Paris,Ashford,06:05,08:41,Eurostar,Daily,90,60
+R02025,Paris,Ashford,14:35,17:29,InterCity,"Tue,Thu",50,33
+R02027,Paris,Besançon,16:50,19:06,Railjet,"Tue,Thu",90,64
+R02031,Paris,Bordeaux,17:00,18:47,RJX,Fri-Sun,54,38
+R02035,Paris,Brussels,09:15,11:25,TGV,Mon-Fri,66,40
+R02039,Paris,London,12:15,20:08,InterCity,"Tue,Thu",145,111
+R02044,Paris,Madrid,14:30,19:53,InterCity,Mon-Fri,104,67
+R02045,Paris,Madrid,12:15,17:33,EuroCity,Daily,137,102
+R02047,Paris,Marseille,11:20,15:41,TER,"Tue,Thu",56,46
+R02049,Paris,Mulhouse,17:20,20:49,EuroCity,Fri-Sun,101,65
+R02050,Paris,Mulhouse,07:10,09:58,IC,"Tue,Thu",76,52
+R02051,Paris,Rouen,07:00,09:55,TER,Sat-Sun,38,28
+R02052,Paris,Rouen,12:20,14:16,RJX,"Tue,Thu",61,42
+R02058,Paris,Versailles,05:30,07:34,Frecciarossa,"Mon,Wed,Fri",63,43
+R02059,Paris,Versailles,18:05,21:03,AVE,"Mon,Wed,Fri",70,48
+R02062,Parma,Bologna,08:10,12:33,RegioExpress,Sat-Sun,86,64
+R02063,Parma,Bologna,17:05,19:11,IC,"Tue,Thu",44,34
+R02067,Parma,Modena,17:55,22:19,Intercités,Daily,84,54
+R02069,Parma,Piacenza,13:50,15:53,Railjet,Sat-Sun,73,53
+R02072,Parma,Reggio Emilia,12:30,15:21,Thalys,Mon-Fri,77,50
+R02073,Perpignan,Barcelona,18:25,20:06,RJX,"Mon,Wed,Fri",53,38
+R02074,Perpignan,Barcelona,10:05,13:57,Intercités,Sat-Sun,94,72
+R02083,Perugia,Arezzo,06:40,09:32,ICE,"Mon,Wed,Fri",85,54
+R02084,Perugia,Florence,13:05,16:34,Intercités,Mon-Fri,83,64
+R02085,Perugia,Florence,16:45,20:43,IC,Daily,85,63
+R02087,Perugia,Rimini,19:45,22:16,TGV,"Tue,Thu",70,47
+R02088,Perugia,Rimini,15:00,17:31,ICE,Daily,81,48
+R02089,Piacenza,Genoa,18:15,02:13 (+1d),Nightjet,Sat-Sun,243,145
+R02090,Piacenza,Genoa,11:35,14:20,Italo,Daily,106,70
+R02100,Pisa,Florence,14:40,16:04,Frecciarossa,Daily,44,32
+R02104,Pisa,La Spezia,07:25,09:09,IC,"Tue,Thu",44,28
+R02105,Pisa,La Spezia,15:00,18:26,RegioExpress,"Tue,Thu",56,44
+R02107,Pisa,Livorno,18:35,23:45,RE,Fri-Sun,85,63
+R02108,Pisa,Livorno,15:30,18:49,RJX,"Tue,Thu",123,77
+R02110,Plovdiv,Burgas,20:25,05:01 (+1d),Nightjet,Mon-Fri,251,160
+R02113,Plovdiv,Niš,16:40,18:56,RJX,Daily,110,73
+R02114,Plovdiv,Niš,16:10,18:11,TGV,"Tue,Thu",54,35
+R02117,Plovdiv,Sofia,09:45,11:49,RJX,Fri-Sun,55,38
+R02120,Plovdiv,Varna,19:00,21:55,Thalys,Fri-Sun,102,65
+R02121,Plovdiv,Varna,11:00,13:45,Railjet,Daily,107,70
+R02123,Plymouth,Exeter,12:40,15:17,Railjet,Daily,95,61
+R02126,Plymouth,Leicester,10:25,12:02,Italo,Daily,44,27
+R02128,Plymouth,Nottingham,08:40,12:25,TER,Daily,71,55
+R02130,Plymouth,Swansea,06:40,09:18,IC,"Tue,Thu",58,41
+R02136,Plzeň,Prague,12:00,17:40,TER,Mon-Fri,93,74
+R02141,Poitiers,Bordeaux,20:00,07:46 (+1d),Nightjet,"Mon,Wed,Fri",335,182
+R02145,Poitiers,La Rochelle,19:50,23:31,RE,"Mon,Wed,Fri",61,47
+R02146,Poitiers,La Rochelle,15:30,19:10,Railjet,Sat-Sun,88,58
+R02148,Poitiers,Le Mans,15:50,18:00,Eurostar,Fri-Sun,75,51
+R02149,Poitiers,Le Mans,13:45,16:36,RegioExpress,Fri-Sun,47,36
+R02153,Porto,Lisbon,07:35,11:43,TER,"Tue,Thu",61,48
+R02154,Porto,Lisbon,07:45,10:06,Intercités,"Tue,Thu",63,41
+R02156,Porto,Santiago de Compostela,18:25,04:48 (+1d),Nightjet,"Tue,Thu",327,187
+R02158,Porto,Vigo,06:40,08:56,RJX,Mon-Fri,75,55
+R02159,Porto,Vigo,07:35,08:54,Italo,Sat-Sun,67,43
+R02162,Portsmouth,Oxford,12:25,15:05,EuroCity,Mon-Fri,55,36
+R02167,Portsmouth,Reading,13:20,15:53,EuroCity,Mon-Fri,71,47
+R02170,Portsmouth,Southampton,13:05,14:46,Railjet,Sat-Sun,75,48
+R02173,Potsdam,Berlin,17:00,20:34,RegioExpress,Fri-Sun,45,36
+R02175,Potsdam,Dresden,15:10,19:43,RE,"Tue,Thu",60,44
+R02176,Potsdam,Dresden,12:45,15:35,Italo,Daily,71,52
+R02179,Poznań,Gdańsk,16:25,18:59,Intercités,Daily,70,46
+R02182,Poznań,Gdynia,07:30,10:26,EuroCity,Mon-Fri,79,54
+R02183,Poznań,Gdynia,09:45,10:53,Thalys,Mon-Fri,46,29
+R02185,Poznań,Katowice,10:40,13:27,RegioExpress,"Mon,Wed,Fri",40,30
+R02186,Poznań,Katowice,09:15,12:00,RJX,Mon-Fri,115,77
+R02188,Poznań,Wrocław,19:10,21:19,IC,"Tue,Thu",42,30
+R02189,Poznań,Wrocław,11:30,13:54,Railjet,"Tue,Thu",115,68
+R02195,Prague,Krakow,05:55,07:32,InterCity,Fri-Sun,26,20
+R02196,Prague,Krakow,05:55,08:08,RJX,Sat-Sun,85,58
+R02198,Prague,Plzeň,17:55,21:21,InterCity,Sat-Sun,66,48
+R02203,Prague,České Budějovice,08:40,11:38,Italo,Sat-Sun,108,73
+R02204,Prague,České Budějovice,12:10,13:52,Thalys,Fri-Sun,69,46
+R02206,Pécs,Debrecen,07:10,09:43,AVE,"Tue,Thu",97,60
+R02209,Pécs,Ljubljana,12:40,15:52,Intercités,"Tue,Thu",77,53
+R02210,Pécs,Ljubljana,10:05,12:43,Thalys,"Mon,Wed,Fri",97,61
+R02212,Pécs,Maribor,08:10,12:39,TER,Fri-Sun,55,41
+R02213,Pécs,Maribor,07:45,11:13,Intercités,Mon-Fri,72,53
+R02215,Pécs,Szeged,10:35,13:29,InterCity,Sat-Sun,77,49
+R02220,Ravenna,Forlì,19:35,21:54,TGV,Daily,99,64
+R02224,Ravenna,Rimini,18:35,21:42,ICE,"Mon,Wed,Fri",107,78
+R02226,Ravenna,Rome,05:50,09:14,InterCity,"Mon,Wed,Fri",67,45
+R02227,Ravenna,Rome,05:25,09:49,RE,Mon-Fri,51,42
+R02230,Reading,Brighton,19:50,22:17,ICE,Mon-Fri,99,61
+R02231,Reading,Cork,12:20,14:24,Italo,Daily,84,61
+R02232,Reading,Cork,12:20,14:16,Frecciarossa,Fri-Sun,75,52
+R02236,Reading,Portsmouth,16:20,17:20,Railjet,Fri-Sun,51,36
+R02241,Regensburg,Karlsruhe,07:15,11:38,RE,Mon-Fri,56,43
+R02245,Regensburg,Nuremberg,14:10,16:56,ICE,"Tue,Thu",98,59
+R02248,Regensburg,Stuttgart,17:00,18:29,Italo,Fri-Sun,55,41
+R02250,Reggio Calabria,Brindisi,14:15,17:49,Railjet,Sat-Sun,127,80
+R02254,Reggio Calabria,Messina,15:20,18:26,Railjet,Mon-Fri,90,66
+R02255,Reggio Calabria,Palermo,13:00,15:29,Railjet,Sat-Sun,90,59
+R02256,Reggio Calabria,Palermo,12:35,14:11,AVE,"Tue,Thu",83,55
+R02259,Reggio Calabria,Taranto,09:40,11:42,RegioExpress,Daily,27,20
+R02265,Reggio Emilia,Modena,14:45,16:14,AVE,Fri-Sun,38,26
+R02266,Reggio Emilia,Parma,12:20,16:32,Intercités,Mon-Fri,93,67
+R02277,Reims,Dijon,15:30,19:21,EuroCity,"Mon,Wed,Fri",105,77
+R02280,Reims,Metz,13:50,16:47,Frecciarossa,Daily,113,75
+R02281,Reims,Metz,15:30,17:55,InterCity,Sat-Sun,69,49
+R02283,Reims,Strasbourg,13:45,17:28,IC,Daily,89,61
+R02284,Reims,Strasbourg,15:10,17:14,Italo,"Mon,Wed,Fri",94,61
+R02285,Rennes,Angers,09:35,12:31,RE,"Mon,Wed,Fri",45,37
+R02286,Rennes,Angers,09:20,12:36,Eurostar,Daily,92,67
+R02288,Rennes,Brest,15:05,16:38,RJX,"Tue,Thu",62,41
+R02289,Rennes,Nantes,12:50,16:37,AVE,"Mon,Wed,Fri",135,86
+R02290,Rennes,Nantes,17:05,21:36,TER,Mon-Fri,73,61
+R02292,Rijeka,Maribor,05:35,06:49,Italo,Sat-Sun,74,45
+R02293,Rijeka,Maribor,16:40,18:55,RE,Daily,46,35
+R02295,Rijeka,Sarajevo,10:55,13:10,Thalys,"Mon,Wed,Fri",60,40
+R02296,Rijeka,Sarajevo,14:10,16:52,IC,Sat-Sun,44,34
+R02299,Rijeka,Split,15:15,18:35,RegioExpress,Daily,52,41
+R02305,Rimini,Ancona,18:50,05:08 (+1d),Nightjet,"Tue,Thu",407,245
+R02306,Rimini,Forlì,05:50,08:59,InterCity,"Mon,Wed,Fri",65,50
+R02307,Rimini,Forlì,19:55,22:34,Eurostar,"Mon,Wed,Fri",96,65
+R02310,Rimini,Perugia,18:25,20:23,EuroCity,"Tue,Thu",49,36
+R02313,Rimini,Ravenna,15:10,16:32,Eurostar,Sat-Sun,40,29
+R02314,Rome,Ferrara,13:10,14:54,Thalys,"Tue,Thu",63,41
+R02315,Rome,Ferrara,09:35,13:00,IC,Mon-Fri,81,51
+R02316,Rome,Florence,17:30,22:16,RegioExpress,"Tue,Thu",78,57
+R02317,Rome,Florence,15:40,19:11,Intercités,Daily,76,50
+R02320,Rome,L'Aquila,19:40,23:02,Eurostar,Fri-Sun,116,69
+R02322,Rome,Milan,15:05,18:49,RJX,"Mon,Wed,Fri",101,62
+R02323,Rome,Milan,08:35,12:05,ICE,Mon-Fri,92,66
+R02326,Rome,Naples,05:55,10:41,RE,Daily,88,65
+R02328,Rome,Ravenna,10:00,12:54,ICE,Fri-Sun,97,58
+R02336,Rostock,Dresden,06:35,08:42,RegioExpress,Fri-Sun,26,21
+R02337,Rostock,Dresden,05:15,06:13,Eurostar,Mon-Fri,38,28
+R02338,Rostock,Hamburg,15:50,17:42,AVE,Fri-Sun,75,49
+R02341,Rostock,Kiel,12:45,16:22,RE,"Tue,Thu",61,45
+R02344,Rostock,Leipzig,17:55,20:44,Railjet,Fri-Sun,124,75
+R02348,Rotterdam,Amsterdam,18:10,19:39,Italo,Fri-Sun,47,33
+R02359,Rotterdam,Utrecht,18:15,20:06,AVE,Daily,64,38
+R02361,Rouen,Amiens,08:45,10:40,TGV,Fri-Sun,73,47
+R02367,Rouen,Paris,15:05,18:34,InterCity,Mon-Fri,107,72
+R02368,Rouen,Paris,19:30,21:40,AVE,Mon-Fri,67,41
+R02370,Rouen,Versailles,19:35,23:50,RegioExpress,"Tue,Thu",44,36
+R02373,Salamanca,Burgos,14:05,15:55,ICE,"Tue,Thu",43,32
+R02374,Salamanca,Burgos,06:05,07:23,Railjet,"Mon,Wed,Fri",63,38
+R02377,Salamanca,Madrid,14:50,16:59,ICE,"Tue,Thu",52,39
+R02378,Salamanca,Madrid,08:00,10:50,Italo,Mon-Fri,93,56
+R02380,Salamanca,Toledo,11:40,13:54,IC,Daily,63,43
+R02381,Salamanca,Toledo,14:05,16:49,Eurostar,Daily,88,54
+R02384,Salamanca,Valladolid,13:40,17:21,IC,Fri-Sun,60,44
+R02387,Salerno,Bari,17:55,20:01,RegioExpress,Sat-Sun,28,22
+R02391,Salerno,Brindisi,10:35,12:26,Thalys,Mon-Fri,54,39
+R02392,Salerno,Brindisi,15:05,17:36,AVE,Daily,82,50
+R02396,Salerno,L'Aquila,06:55,09:05,TGV,Fri-Sun,74,44
+R02398,Salerno,Naples,18:15,03:52 (+1d),Nightjet,Fri-Sun,321,167
+R02399,Salerno,Naples,13:10,15:21,AVE,Sat-Sun,50,36
+R02402,Salzburg,Graz,11:40,15:10,RE,Mon-Fri,59,49
+R02405,Salzburg,Innsbruck,16:40,19:00,Thalys,Sat-Sun,92,58
+R02406,Salzburg,Innsbruck,18:55,20:50,RJX,"Mon,Wed,Fri",86,54
+R02408,Salzburg,Linz,06:00,09:12,ICE,Fri-Sun,106,70
+R02412,Salzburg,Lugano,13:30,15:30,Frecciarossa,Sat-Sun,78,51
+R02413,Salzburg,Lugano,15:25,17:28,ICE,"Mon,Wed,Fri",71,52
+R02416,Salzburg,Munich,09:50,13:28,IC,Mon-Fri,77,56
+R02418,Salzburg,Vienna,15:10,18:13,Railjet,Fri-Sun,122,90
+R02425,San Sebastián,Pamplona,07:20,10:49,InterCity,Fri-Sun,95,72
+R02432,Santander,A Coruña,13:25,16:21,AVE,"Tue,Thu",85,59
+R02433,Santander,A Coruña,09:10,11:53,Eurostar,"Mon,Wed,Fri",88,63
+R02435,Santander,Bilbao,15:40,18:46,Italo,"Tue,Thu",107,70
+R02439,Santander,Oviedo,15:30,17:02,ICE,Daily,55,35
+R02440,Santander,Oviedo,09:30,11:25,Railjet,Fri-Sun,79,49
+R02442,Santander,San Sebastián,07:15,12:32,TER,"Mon,Wed,Fri",69,55
+R02443,Santander,San Sebastián,14:00,15:41,RJX,Fri-Sun,54,34
+R02445,Santiago de Compostela,A Coruña,13:05,15:19,AVE,Sat-Sun,76,54
+R02446,Santiago de Compostela,Oviedo,13:00,15:00,EuroCity,Daily,44,29
+R02447,Santiago de Compostela,Oviedo,10:25,13:51,Eurostar,Fri-Sun,122,74
+R02449,Santiago de Compostela,Porto,14:15,16:11,EuroCity,"Tue,Thu",41,30
+R02452,Santiago de Compostela,Vigo,07:35,11:12,RegioExpress,Sat-Sun,31,25
+R02453,Santiago de Compostela,Vigo,18:15,20:03,RJX,Fri-Sun,72,48
+R02454,Sarajevo,Belgrade,07:35,09:23,Intercités,Daily,45,29
+R02455,Sarajevo,Belgrade,20:00,06:19 (+1d),Nightjet,Mon-Fri,271,158
+R02457,Sarajevo,Mostar,20:50,05:19 (+1d),Nightjet,Mon-Fri,280,175
+R02458,Sarajevo,Mostar,13:45,15:22,AVE,"Mon,Wed,Fri",59,35
+R02461,Sarajevo,Rijeka,13:50,16:47,InterCity,"Mon,Wed,Fri",78,53
+R02465,Sarajevo,Split,09:50,12:40,Eurostar,"Mon,Wed,Fri",84,53
+R02468,Seville,Badajoz,12:20,15:51,RegioExpress,Mon-Fri,47,36
+R02471,Seville,Cádiz,07:15,10:37,RegioExpress,Daily,38,30
+R02472,Seville,Cádiz,14:30,16:08,AVE,Mon-Fri,69,46
+R02474,Seville,Córdoba,18:35,20:20,Eurostar,"Mon,Wed,Fri",53,37
+R02475,Seville,Córdoba,19:20,22:00,TER,Daily,40,32
+R02480,Sheffield,Leeds,12:00,15:03,Intercités,Sat-Sun,89,60
+R02481,Sheffield,Leeds,12:40,16:29,EuroCity,Sat-Sun,98,62
+R02484,Sheffield,Liverpool,09:50,11:28,RJX,Sat-Sun,63,40
+R02487,Sheffield,Newcastle,09:10,09:53,Railjet,Sat-Sun,43,28
+R02488,Sheffield,Newcastle,09:40,12:40,TER,Daily,56,42
+R02491,Sheffield,York,13:00,16:58,RE,"Tue,Thu",63,50
+R02492,Sofia,Belgrade,07:55,10:45,TGV,Daily,122,78
+R02493,Sofia,Belgrade,19:45,21:19,Railjet,Mon-Fri,54,39
+R02496,Sofia,Bucharest,14:10,19:11,Frecciarossa,Daily,151,102
+R02498,Sofia,Niš,15:05,17:31,IC,Fri-Sun,66,47
+R02501,Sofia,Novi Sad,09:05,12:26,RegioExpress,"Tue,Thu",46,39
+R02502,Sofia,Novi Sad,21:35,08:55 (+1d),Nightjet,Daily,420,223
+R02504,Sofia,Plovdiv,14:10,16:34,IC,Sat-Sun,58,40
+R02507,Sofia,Thessaloniki,08:45,11:57,EuroCity,Fri-Sun,72,51
+R02508,Sofia,Thessaloniki,11:45,15:47,RE,Daily,53,43
+R02510,Sofia,Varna,09:05,11:00,EuroCity,Fri-Sun,32,23
+R02511,Sofia,Varna,14:05,17:40,RegioExpress,Fri-Sun,56,43
+R02517,Sopot,Gdynia,17:30,20:21,TGV,"Tue,Thu",69,43
+R02519,Sopot,Warsaw,12:10,15:00,Italo,Fri-Sun,87,52
+R02526,Southampton,Brighton,19:25,22:32,AVE,Daily,114,74
+R02527,Southampton,Brighton,19:25,22:15,Italo,Mon-Fri,88,63
+R02530,Southampton,Cambridge,18:25,21:17,Frecciarossa,Daily,114,78
+R02533,Southampton,Oxford,06:55,08:19,Railjet,Mon-Fri,58,41
+R02537,Southampton,Portsmouth,20:50,06:20 (+1d),Nightjet,Sat-Sun,283,160
+R02538,Southampton,Portsmouth,12:05,14:30,IC,Sat-Sun,52,35
+R02541,Split,Mostar,11:20,14:18,TER,Fri-Sun,48,36
+R02543,Split,Rijeka,19:35,22:23,TGV,Mon-Fri,96,69
+R02544,Split,Rijeka,19:35,21:55,Intercités,"Tue,Thu",66,43
+R02549,Split,Zagreb,15:40,17:26,RJX,"Tue,Thu",53,33
+R02552,St. Gallen,Geneva,19:05,21:08,ICE,Mon-Fri,66,49
+R02555,St. Gallen,Innsbruck,17:25,19:53,InterCity,"Mon,Wed,Fri",60,46
+R02556,St. Gallen,Innsbruck,18:25,04:05 (+1d),Nightjet,Sat-Sun,313,186
+R02558,St. Gallen,Lucerne,18:00,21:25,Frecciarossa,Sat-Sun,90,62
+R02559,St. Gallen,Lugano,09:50,11:36,Railjet,"Tue,Thu",65,43
+R02569,Stavanger,Tampere,16:45,19:54,RJX,Fri-Sun,147,93
+R02570,Stavanger,Tampere,09:20,12:10,RegioExpress,Daily,31,25
+R02571,Stavanger,Trondheim,06:05,09:01,AVE,Fri-Sun,99,59
+R02579,Stockholm,Helsingborg,19:40,06:52 (+1d),Nightjet,"Mon,Wed,Fri",345,217
+R02582,Stockholm,Malmö,17:00,21:07,RE,Sat-Sun,59,45
+R02586,Stockholm,Uppsala,11:50,12:55,RJX,Sat-Sun,63,38
+R02589,Stockholm,Örebro,08:45,10:55,RJX,Fri-Sun,58,43
+R02592,Strasbourg,Basel,08:10,11:16,Thalys,Daily,144,86
+R02595,Strasbourg,Dijon,17:05,20:54,RE,Mon-Fri,52,38
+R02596,Strasbourg,Dijon,12:00,15:30,TER,Mon-Fri,58,46
+R02604,Strasbourg,Paris,11:20,12:50,EuroCity,Daily,61,39
+R02605,Strasbourg,Paris,14:30,16:17,AVE,Mon-Fri,46,29
+R02609,Stuttgart,Karlsruhe,11:50,13:35,RJX,"Tue,Thu",89,54
+R02611,Stuttgart,Mannheim,17:45,20:05,ICE,"Mon,Wed,Fri",95,65
+R02614,Stuttgart,Nuremberg,05:40,08:10,Eurostar,"Mon,Wed,Fri",76,47
+R02615,Stuttgart,Nuremberg,09:10,12:54,RegioExpress,Mon-Fri,53,42
+R02621,Swansea,Bristol,05:10,07:07,Frecciarossa,"Tue,Thu",39,28
+R02630,Swansea,Plymouth,13:55,16:31,AVE,Sat-Sun,92,68
+R02631,Swansea,Plymouth,10:00,13:08,Frecciarossa,Mon-Fri,122,88
+R02635,Szeged,Budapest,08:55,13:57,RegioExpress,"Tue,Thu",62,45
+R02637,Szeged,Debrecen,19:00,21:56,RE,Daily,56,45
+R02643,Szeged,Pécs,11:25,12:47,Frecciarossa,Fri-Sun,84,52
+R02646,Tampere,Helsinki,18:15,20:21,TGV,Fri-Sun,88,57
+R02647,Tampere,Helsinki,18:30,22:00,RegioExpress,"Mon,Wed,Fri",54,45
+R02654,Tampere,Stavanger,15:15,19:36,InterCity,"Mon,Wed,Fri",84,55
+R02659,Tampere,Turku,12:05,14:51,ICE,"Mon,Wed,Fri",120,73
+R02661,Taranto,Bari,15:30,16:57,Italo,Mon-Fri,61,43
+R02664,Taranto,Brindisi,18:40,22:49,RegioExpress,"Tue,Thu",74,57
+R02667,Taranto,Messina,05:20,07:08,Intercités,Sat-Sun,44,31
+R02676,Terni,L'Aquila,21:45,08:58 (+1d),Nightjet,Daily,384,210
+R02678,Terni,Naples,15:55,20:47,RegioExpress,Sat-Sun,64,47
+R02679,Terni,Naples,06:45,09:54,InterCity,Sat-Sun,70,49
+R02681,Terni,Rome,12:20,15:27,RE,Fri-Sun,51,40
+R02685,The Hague,Eindhoven,12:10,14:04,ICE,Daily,71,45
+R02689,The Hague,Rotterdam,15:30,17:02,ICE,"Mon,Wed,Fri",61,37
+R02691,The Hague,Utrecht,07:00,09:42,TGV,"Mon,Wed,Fri",95,69
+R02693,Thessaloniki,Sofia,19:45,23:00,TGV,Fri-Sun,122,81
+R02696,Timișoara,Brașov,09:40,12:19,InterCity,Daily,44,33
+R02697,Timișoara,Brașov,14:15,17:06,ICE,Sat-Sun,104,63
+R02699,Timișoara,Cluj-Napoca,07:05,10:58,InterCity,"Mon,Wed,Fri",94,72
+R02700,Timișoara,Iași,10:15,14:02,IC,Fri-Sun,97,68
+R02710,Toledo,Madrid,09:10,11:03,Frecciarossa,Fri-Sun,62,46
+R02714,Toledo,Salamanca,19:45,22:33,Railjet,Fri-Sun,74,48
+R02716,Toledo,Valencia,16:05,18:19,Eurostar,"Tue,Thu",81,56
+R02718,Toulouse,Barcelona,17:55,19:48,RegioExpress,Mon-Fri,29,23
+R02721,Tours,Angers,10:40,13:46,Frecciarossa,Mon-Fri,140,90
+R02722,Tours,Angers,19:55,21:33,Railjet,Fri-Sun,54,37
+R02724,Tours,Bordeaux,15:45,16:43,TGV,Daily,54,40
+R02725,Tours,Bordeaux,12:25,14:08,Intercités,"Mon,Wed,Fri",44,33
+R02731,Tours,Poitiers,14:45,17:23,InterCity,Sat-Sun,57,41
+R02733,Trento,Bologna,18:40,22:33,RJX,Sat-Sun,129,81
+R02734,Trento,Bologna,17:45,20:12,EuroCity,Sat-Sun,52,34
+R02737,Trento,Bolzano,14:15,17:37,EuroCity,Sat-Sun,97,71
+R02738,Trento,Bolzano,07:20,09:06,AVE,Mon-Fri,79,54
+R02741,Trento,Padua,18:10,21:18,Intercités,Fri-Sun,61,41
+R02742,Trento,Venice,18:00,20:58,Italo,Fri-Sun,98,63
+R02745,Trieste,Ljubljana,15:05,18:08,InterCity,Mon-Fri,67,46
+R02747,Trieste,Venice,16:35,18:47,Frecciarossa,"Tue,Thu",73,48
+R02748,Trieste,Venice,05:00,10:00,TER,Fri-Sun,60,48
+R02755,Trondheim,Drammen,05:55,07:44,Intercités,Daily,34,23
+R02759,Trondheim,Oslo,05:35,07:30,ICE,Sat-Sun,54,38
+R02763,Trondheim,Stavanger,12:45,15:58,TER,Sat-Sun,49,36
+R02765,Turin,Como,12:30,15:22,EuroCity,"Mon,Wed,Fri",76,52
+R02768,Turin,Milan,05:55,07:15,Italo,"Mon,Wed,Fri",41,28
+R02774,Turku,Oulu,10:15,12:28,ICE,"Tue,Thu",68,51
+R02778,Turku,Tampere,07:00,12:02,RegioExpress,Mon-Fri,58,48
+R02779,Turku,Tampere,17:40,20:55,Thalys,"Tue,Thu",97,65
+R02783,Uppsala,Stockholm,09:40,12:30,AVE,"Mon,Wed,Fri",111,70
+R02787,Uppsala,Västerås,18:30,05:19 (+1d),Nightjet,Mon-Fri,296,184
+R02788,Uppsala,Västerås,12:05,14:49,Italo,"Mon,Wed,Fri",98,61
+R02790,Uppsala,Örebro,18:05,01:11 (+1d),Nightjet,Daily,268,138
+R02793,Utrecht,Amsterdam,09:35,13:26,RE,Fri-Sun,73,57
+R02795,Utrecht,Eindhoven,16:10,19:21,Frecciarossa,Fri-Sun,78,54
+R02796,Utrecht,Eindhoven,10:00,12:49,Italo,Mon-Fri,85,62
+R02800,Utrecht,The Hague,07:00,08:58,IC,Mon-Fri,44,31
+R02801,Utrecht,The Hague,09:55,11:00,Railjet,Daily,51,33
+R02803,Valencia,Alicante,12:55,14:53,RegioExpress,Mon-Fri,24,18
+R02810,Valencia,Murcia,11:25,14:49,InterCity,Sat-Sun,83,58
+R02812,Valencia,Toledo,08:50,10:20,ICE,"Tue,Thu",62,44
+R02815,Valladolid,Burgos,13:45,15:15,Thalys,"Mon,Wed,Fri",82,57
+R02816,Valladolid,Burgos,21:35,07:19 (+1d),Nightjet,Sat-Sun,273,175
+R02818,Valladolid,Logroño,07:05,09:21,Italo,"Tue,Thu",76,51
+R02820,Valladolid,Madrid,15:55,19:52,RegioExpress,"Tue,Thu",64,47
+R02821,Valladolid,Madrid,15:45,17:10,Railjet,"Mon,Wed,Fri",52,36
+R02824,Valladolid,Salamanca,12:25,15:10,Eurostar,Fri-Sun,75,53
+R02827,Varna,Bucharest,19:10,20:26,Thalys,Mon-Fri,56,40
+R02830,Varna,Burgas,07:40,10:33,Railjet,Daily,85,62
+R02834,Varna,Plovdiv,10:15,13:47,InterCity,Fri-Sun,56,40
+R02835,Varna,Sofia,09:15,11:10,Eurostar,"Mon,Wed,Fri",70,44
+R02839,Venice,Bolzano,05:35,08:00,Italo,Mon-Fri,81,58
+R02845,Venice,Padua,19:35,06:02 (+1d),Nightjet,Daily,385,219
+R02846,Venice,Padua,14:25,17:38,Railjet,Fri-Sun,77,51
+R02848,Venice,Trento,21:20,05:52 (+1d),Nightjet,Mon-Fri,284,185
+R02849,Venice,Trento,18:05,20:58,TGV,"Tue,Thu",109,77
+R02851,Venice,Trieste,15:00,18:21,IC,Sat-Sun,81,58
+R02856,Venice,Vicenza,09:35,12:16,RE,Daily,36,30
+R02858,Verona,Bergamo,12:00,14:22,AVE,"Tue,Thu",79,58
+R02861,Verona,Brescia,14:50,18:58,InterCity,Daily,87,59
+R02864,Verona,Padua,13:25,16:51,EuroCity,Sat-Sun,64,47
+R02867,Verona,Vicenza,08:45,11:38,Thalys,Fri-Sun,80,54
+R02868,Verona,Vicenza,16:40,18:08,Eurostar,"Tue,Thu",48,30
+R02870,Versailles,Amiens,15:50,18:22,EuroCity,Sat-Sun,67,45
+R02871,Versailles,Amiens,11:40,14:31,RJX,"Mon,Wed,Fri",86,59
+R02874,Versailles,Besançon,12:05,14:56,Railjet,Sat-Sun,99,62
+R02878,Versailles,Paris,13:25,16:12,ICE,"Mon,Wed,Fri",101,64
+R02880,Versailles,Rouen,14:00,18:14,RegioExpress,Daily,44,34
+R02883,Vicenza,Brescia,08:40,11:20,Frecciarossa,Daily,103,73
+R02884,Vicenza,Brescia,12:25,16:28,IC,Mon-Fri,117,75
+R02886,Vicenza,Padua,09:40,12:26,TGV,Daily,93,61
+R02887,Vicenza,Padua,19:40,23:40,IC,"Mon,Wed,Fri",99,72
+R02888,Vicenza,Venice,11:50,16:50,TER,Sat-Sun,77,61
+R02889,Vicenza,Venice,09:50,11:43,EuroCity,Fri-Sun,55,35
+R02890,Vicenza,Verona,12:35,14:24,TGV,Sat-Sun,61,39
+R02891,Vicenza,Verona,15:15,18:16,Intercités,"Mon,Wed,Fri",66,47
+R02893,Vienna,Augsburg,15:05,16:40,IC,Daily,39,25
+R02898,Vienna,Bratislava,21:55,08:38 (+1d),Nightjet,Fri-Sun,337,222
+R02899,Vienna,Budapest,11:35,17:42,Railjet,Fri-Sun,208,148
+R02900,Vienna,Budapest,09:00,15:45,Intercités,Daily,160,119
+R02902,Vienna,Graz,09:35,12:08,Thalys,Sat-Sun,118,82
+R02905,Vienna,Linz,05:25,07:26,RE,Mon-Fri,29,23
+R02906,Vienna,Linz,20:05,07:55 (+1d),Nightjet,Fri-Sun,442,266
+R02909,Vienna,Munich,07:55,14:29,RJX,"Mon,Wed,Fri",208,152
+R02911,Vienna,Prague,11:55,21:31,RE,"Mon,Wed,Fri",164,132
+R02912,Vienna,Prague,07:45,13:53,Eurostar,Mon-Fri,245,147
+R02913,Vienna,Salzburg,15:40,19:54,RegioExpress,"Tue,Thu",51,42
+R02916,Vigo,A Coruña,19:35,23:46,TER,Mon-Fri,54,42
+R02920,Vigo,Lisbon,18:00,20:09,RJX,Sat-Sun,86,55
+R02927,Västerås,Linköping,08:25,10:47,Eurostar,"Mon,Wed,Fri",95,59
+R02928,Västerås,Linköping,10:00,12:30,Railjet,"Mon,Wed,Fri",99,61
+R02929,Västerås,Norrköping,16:55,18:41,ICE,Fri-Sun,57,39
+R02930,Västerås,Norrköping,09:35,12:22,Thalys,"Tue,Thu",103,62
+R02932,Västerås,Uppsala,14:25,17:31,IC,"Mon,Wed,Fri",71,48
+R02936,Västerås,Örebro,19:00,22:01,InterCity,Daily,84,60
+R02939,Warsaw,Gdańsk,15:10,20:46,RegioExpress,Mon-Fri,95,70
+R02945,Warsaw,Krakow,11:25,14:07,EuroCity,Sat-Sun,75,52
+R02946,Warsaw,Krakow,15:25,19:00,TER,"Mon,Wed,Fri",42,34
+R02948,Warsaw,Lublin,09:45,13:43,Intercités,Sat-Sun,86,63
+R02949,Warsaw,Lublin,11:35,14:16,ICE,"Mon,Wed,Fri",98,59
+R02955,Warsaw,Łódź,08:55,10:02,Italo,Mon-Fri,56,36
+R02956,Warsaw,Łódź,17:50,20:10,RE,Fri-Sun,29,24
+R02965,Wrocław,Gdańsk,09:00,11:42,InterCity,Mon-Fri,53,35
+R02969,Wrocław,Katowice,15:30,18:32,Thalys,Mon-Fri,106,72
+R02973,Wrocław,Poznań,09:20,11:04,AVE,Mon-Fri,57,36
+R02976,Würzburg,Cologne,10:55,13:25,RJX,Mon-Fri,92,64
+R02981,Würzburg,Heidelberg,14:55,19:07,IC,Sat-Sun,88,59
+R02983,Würzburg,Mannheim,10:10,12:14,Italo,Sat-Sun,86,51
+R02984,Würzburg,Mannheim,08:05,10:10,TGV,Mon-Fri,70,52
+R02986,York,Edinburgh,06:00,09:11,EuroCity,Fri-Sun,87,55
+R02990,York,Glasgow,17:55,20:05,ICE,Daily,69,41
+R02994,York,Newcastle,16:00,18:09,IC,"Tue,Thu",49,32
+R02995,York,Newcastle,15:55,18:06,Thalys,"Tue,Thu",85,62
+R02998,York,Sheffield,18:50,22:13,Italo,Fri-Sun,82,56
+R03001,Zagreb,Budapest,16:30,21:20,Thalys,Fri-Sun,180,108
+R03002,Zagreb,Budapest,18:00,21:28,Frecciarossa,"Mon,Wed,Fri",137,95
+R03004,Zagreb,Ljubljana,08:50,10:27,ICE,"Tue,Thu",84,53
+R03005,Zagreb,Ljubljana,09:15,11:49,Intercités,Daily,76,55
+R03007,Zagreb,Maribor,19:15,22:00,TER,Daily,41,34
+R03008,Zagreb,Maribor,15:30,17:29,Intercités,Fri-Sun,41,27
+R03010,Zagreb,Rijeka,14:15,16:10,Frecciarossa,Fri-Sun,58,42
+R03012,Zagreb,Split,20:05,05:51 (+1d),Nightjet,Mon-Fri,319,186
+R03013,Zagreb,Split,09:40,11:45,Italo,Fri-Sun,72,50
+R03015,Zaragoza,Bilbao,11:30,14:59,AVE,Mon-Fri,115,71
+R03018,Zaragoza,Logroño,06:05,07:29,RJX,Fri-Sun,70,43
+R03020,Zaragoza,Pamplona,13:55,16:29,ICE,Fri-Sun,112,69
+R03021,Zaragoza,Pamplona,11:55,14:45,AVE,Sat-Sun,125,78
+R03024,Zaragoza,San Sebastián,18:40,05:06 (+1d),Nightjet,Sat-Sun,440,231
+R03025,Zaragoza,San Sebastián,10:45,13:26,RE,Sat-Sun,32,24
+R03032,Zurich,Bern,13:20,16:47,RegioExpress,Fri-Sun,48,36
+R03036,Zurich,Geneva,19:55,22:48,IC,Fri-Sun,49,36
+R03038,Zurich,Milan,11:20,17:14,Italo,"Tue,Thu",215,144
+R03040,Zurich,Munich,08:10,12:19,AVE,Daily,169,100
+R03041,Zurich,Munich,09:30,16:16,InterCity,Daily,159,107
+R03045,Örebro,Linköping,05:25,09:07,InterCity,Daily,63,49
+R03047,Örebro,Stockholm,11:00,13:15,Thalys,Sat-Sun,97,61
+R03048,Örebro,Stockholm,07:45,10:03,Intercités,Fri-Sun,41,28
+R03050,Örebro,Uppsala,07:50,12:14,RE,Fri-Sun,82,60
+R03057,České Budějovice,Brno,18:45,03:15 (+1d),Nightjet,"Tue,Thu",240,141
+R03058,České Budějovice,Ostrava,15:05,17:19,TGV,Sat-Sun,102,65
+R03059,České Budějovice,Ostrava,12:20,15:53,IC,"Tue,Thu",68,44
+R03061,České Budějovice,Plzeň,17:05,20:24,EuroCity,Daily,73,47
+R03062,České Budějovice,Plzeň,12:50,14:33,RegioExpress,"Tue,Thu",30,23
+R03063,České Budějovice,Prague,17:50,20:42,Intercités,Daily,67,49
+R03067,Łódź,Lublin,05:55,07:06,RJX,Sat-Sun,41,28
+R03068,Łódź,Lublin,14:30,16:38,IC,Mon-Fri,54,34
+R03070,Łódź,Sopot,17:10,19:52,AVE,Mon-Fri,108,68

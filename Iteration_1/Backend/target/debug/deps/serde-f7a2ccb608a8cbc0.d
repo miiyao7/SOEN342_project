@@ -1,0 +1,14 @@
+C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\deps\serde-f7a2ccb608a8cbc0.d: C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\deps\libserde-f7a2ccb608a8cbc0.rlib: C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\deps\libserde-f7a2ccb608a8cbc0.rmeta: C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs:
+C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs:
+C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs:
+C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs:
+C:\Users\mai\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs:
+C:\Users\mai\Documents\GitHub\SOEN342_project\Iteration_1\backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs:
+
+# env-dep:OUT_DIR=C:\\Users\\mai\\Documents\\GitHub\\SOEN342_project\\Iteration_1\\backend\\target\\debug\\build\\serde-1b7533b97850a95b\\out
