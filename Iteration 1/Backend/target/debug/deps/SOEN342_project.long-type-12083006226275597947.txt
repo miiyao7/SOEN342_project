@@ -1,0 +1,1 @@
+Result<RailNetwork, Box<(dyn StdError + 'static)>>

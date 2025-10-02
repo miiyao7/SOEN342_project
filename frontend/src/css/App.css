@@ -49,7 +49,7 @@ h1{
 .app{
   padding: 15%;
 }
-.form-component{
+.form-container{
   max-width: 85vw;
 }
 .form-tile{
@@ -61,7 +61,7 @@ h1{
   padding: 2% 30%;
   text-align: center;
 }
-.form-tile.filters{
+.form-tile.filters, .form-tile.sorters{
   padding: 1% 10% 2% 10%;
 }
 .form-tile h2{  
@@ -76,7 +76,7 @@ h1{
 .cardContainer{
   display: inline-grid !important;    
   grid-template-columns: repeat(4, 1fr);  
-  grid-auto-rows: 80px;
+  grid-auto-rows: 1fr;
   grid-gap: 20px;
   align-items: flex-end;
 }
@@ -84,6 +84,26 @@ h1{
   display: flex;    
   flex-direction: column;
   width: 100%;
+  height: 100%;
+}
+.pair{
+  display: flex;    
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  height: 100%;
+  gap: 5px;
+}
+.pair input{
+  min-width: 20px;
+  height: 20px;
+}
+.pair label{
+  min-width: 20px;
+  height: fit-content;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 5px;
 }
 select {
   width: 100%;
@@ -98,12 +118,19 @@ input[type=text]{
   margin: 10px 0;
   box-sizing: border-box;
 }
-input[type=file]{
-  width: 100%;
-  padding: 5px;
-  margin: 10px 0;
-  border-radius: 8px;
+#file-input {
+  display: none;
 }
+#file-input-label{  
+  border-radius: 8px;
+  background-color: lightblue;  
+}
+/*input[type=file]{
+  width: 150px;
+  padding: 5px;
+  margin: 10px auto;
+  border-radius: 8px;
+}*/
 input[type=text]:focus {
   background-color: lightblue;  
   border: 3px solid #555;

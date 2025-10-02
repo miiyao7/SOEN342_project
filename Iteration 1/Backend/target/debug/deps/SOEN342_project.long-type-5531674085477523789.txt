@@ -1,0 +1,1 @@
+&Result<Vec<rail_network::Route>, Box<dyn StdError>>

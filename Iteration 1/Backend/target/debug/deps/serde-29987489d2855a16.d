@@ -1,0 +1,14 @@
+D:\Andrea\Documents\GitHub\SOEN342_project\Iteration 1\Backend\target\debug\deps\serde-29987489d2855a16.d: C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs D:\Andrea\Documents\GitHub\SOEN342_project\Iteration\ 1\Backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+D:\Andrea\Documents\GitHub\SOEN342_project\Iteration 1\Backend\target\debug\deps\libserde-29987489d2855a16.rlib: C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs D:\Andrea\Documents\GitHub\SOEN342_project\Iteration\ 1\Backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+D:\Andrea\Documents\GitHub\SOEN342_project\Iteration 1\Backend\target\debug\deps\libserde-29987489d2855a16.rmeta: C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs D:\Andrea\Documents\GitHub\SOEN342_project\Iteration\ 1\Backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs
+
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\lib.rs:
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\integer128.rs:
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\mod.rs:
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\de.rs:
+C:\Users\andre\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.226\src\private\ser.rs:
+D:\Andrea\Documents\GitHub\SOEN342_project\Iteration\ 1\Backend\target\debug\build\serde-1b7533b97850a95b\out/private.rs:
+
+# env-dep:OUT_DIR=D:\\Andrea\\Documents\\GitHub\\SOEN342_project\\Iteration 1\\Backend\\target\\debug\\build\\serde-1b7533b97850a95b\\out
