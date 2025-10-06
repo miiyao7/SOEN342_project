@@ -14,3 +14,4 @@ strum = "0.27"
 strum_macros = "0.27"
 tower-http = { version = "0.3", features = ["cors"] }
 tower = "0.5.2"
+once_cell = "1.21.3"

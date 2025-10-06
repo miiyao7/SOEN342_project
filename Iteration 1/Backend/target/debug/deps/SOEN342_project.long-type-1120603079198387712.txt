@@ -1,0 +1,2 @@
+fn() -> impl Future<Output = Result<Vec<rail_network::Route>, Box<(dyn StdError + 'static)>>> {call_parse_csv}
+fn() -> impl Future<Output = Result<Vec<rail_network::Route>, Box<(dyn StdError + 'static)>>> {call_parse_csv}: Handler<_, _, _>

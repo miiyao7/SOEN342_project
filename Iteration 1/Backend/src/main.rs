@@ -1,6 +1,7 @@
 //    IMPORTS    \\
 mod rail_network;
 mod handler;
+mod search_functionality;
 
 //     USES      \\
 use axum::{
@@ -12,12 +13,14 @@ use axum::{
 };
 use tower_http::cors::{CorsLayer, Any};
 use tower::ServiceBuilder;
-use std::fs::File;
-use std::io::Write;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use std::sync::Arc;
 use std::net::SocketAddr;
-use handler::{get_enum_cities, get_enum_trains, get_enum_days, upload_csv};
+use handler::{start_handler, search_handler};
+use rail_network::parse_CSV;
+use crate::search_functionality::{RailNetwork, SearchFunctionality, TicketClass, SortBy};
+
 
 #[tokio::main]
 async fn main() {
@@ -30,12 +33,17 @@ async fn main() {
         // Allow common headers you need
         .allow_headers(Any);
 
+    // parse CSV and create RailNetwork instance once (example)
+    let routes = parse_CSV().expect("Failed to parse CSV");
+    let rn = RailNetwork::new(routes);
+
+    // share RailNetwork via Arc for handler state
+    let shared_rn = std::sync::Arc::new(rn);
+
     let app = Router::new()
-        .route("/upload", post(upload_csv))
-        .route("/handler/cities", get(get_enum_cities))
-        .route("/handler/trains", get(get_enum_trains))
-        .route("/handler/days", get(get_enum_days))
-        // Attach CORS middleware layer
+        .route("/handler/search", post(search_handler))
+        .route("/handler/get", get(start_handler))
+        .with_state(shared_rn)
         .layer(ServiceBuilder::new().layer(cors));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3001));

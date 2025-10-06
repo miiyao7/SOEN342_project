@@ -6,37 +6,37 @@ import DisplayTile from './Tile_Display';
 import Spinner from './Spinner';
 
 const UserForm: React.FC = () => {
-  /*const FetchSelect = ({ url, label }: { url: string; label: string }) => {
-    const [options, setOptions] = useState<string[]>([]);
-
-    useEffect(() => {
-      fetch(url)
-        .then((resp) => resp.json())
-        .then(setOptions);
-    }, [url]);
-  }*/
-
-
-
-
     const [parsedData, setParsedData] = useState<any|null>(null);
+    const [filters, setFilters] = useState<any|null>(null);
+    const [sorter, setSorter] = useState<any|null>(null);
     const [loading, setLoading] = useState(false);
     // Callback to receive parsing result from UploadTile
     const handleParsedData = (data: any) => {
       setParsedData(data);
+      console.log("DEBUG {PARENT} all", data);
     };
     const handleLoading = (data: any) => {
       setLoading(data);
     };
-  
+    const handleFilteredData = (data: any) => {
+      setFilters(data);
+      console.log("DEBUG {PARENT} filters", data);
+    };
+    const handleSortedData = (data: any) => {
+      setSorter(data);
+      console.log("DEBUG {PARENT} sorters", data);
+    };
+  const showFilter = parsedData && !loading;
+  const showSortAndDisplay = showFilter && filters;
   return (
     <div className="form-container">
       <UploadTile onParsed={handleParsedData} onLoading={handleLoading} />
       {/* Conditionally show other tiles if parsedData exists */}
-      {(parsedData && !loading) && <FilterTile data={parsedData} loading={parsedData} />}
-      {(parsedData && !loading) && <SorterTile data={parsedData} loading={parsedData} />}
-      {(parsedData && !loading) && <DisplayTile data={parsedData} loading={parsedData} />}
-      {!parsedData && <p>Please upload and parse a CSV file.</p>}
+      {showFilter && <FilterTile onFiltered={handleFilteredData} handler={handleFilteredData} />}
+      {showSortAndDisplay && <SorterTile onSorted={handleSortedData} handler={handleSortedData} />}
+      {showSortAndDisplay && <DisplayTile filterList={filters} sortTag={sorter} loading={loading} />}
+  
+
       {loading && <Spinner/>}
     </div>
   );

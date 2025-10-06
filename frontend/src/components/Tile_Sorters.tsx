@@ -1,43 +1,42 @@
 import React, { useState } from 'react';
 
-interface SorterTileProps {
-  data: JSON; // Callback prop type
-  loading: (data: any) => void; // Callback prop type
+interface Sorter {
+  label: string;
+  value: string;
 }
 
-const SorterTile: React.FC<SorterTileProps> = ({ data, loading }) => {
-    const [routes, setRoutes] = useState(null);
+interface SorterTileProps {
+  onSorted: (data: String) => void; // Callback prop type
+  handler: (data: any) => void; // Callback prop type
+}
 
+const SorterTile: React.FC<SorterTileProps> = ({ onSorted, handler }) => {
+  const [sorter, setSorter] = useState<String>("");
 
-    const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {        
-        const file = e.target.files?.[0];
-        if (!file) return;
+  const handleSorter = () => {
+    onSorted(sorter);
+  }
 
-        const formData = new FormData();
-        formData.append('file', file);
-
-        const response = await fetch('http://localhost:3000/upload', {
-        method: 'POST',
-        body: formData,
-        });
-
-        const json = await response.json();
-        setRoutes(json);
-    };
+const handleSorterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let sorterID = event.target.id;    
+    setSorter(sorterID);
+    onSorted(sorter);
+    //console.log("Sorter: " + sorterID);
+  };
     return (    
       <div className="form-tile sorters">     
         <h2>Sorters</h2>             
         <form>
           <div className="form-group">  
             <div className="cardContainer">
-              <div className="pair"><input type="radio" id="CityDeparture" name="sorter"/><label htmlFor="CityDeparture">Departure City</label></div>
-              <div className="pair"><input type="radio" id="CityArrival"   name="sorter"/><label htmlFor="CityArrival">Arrival City</label></div>
-              <div className="pair"><input type="radio" id="TimeDeparture" name="sorter"/><label htmlFor="TimeDeparture">Departure Time</label></div>
-              <div className="pair"><input type="radio" id="TimeArrival"   name="sorter"/><label htmlFor="TimeArrival">Arrival Time</label></div>
-              <div className="pair"><input type="radio" id="TrainType"     name="sorter"/><label htmlFor="TrainType">Train Type</label></div>
-              <div className="pair"><input type="radio" id="OperationDays" name="sorter"/><label htmlFor="OperationDays">Days of Operation</label></div>
-              <div className="pair"><input type="radio" id="Rates1st"      name="sorter"/><label htmlFor="Rates1st">Ticket Rates (₤): 1st Class</label></div>
-              <div className="pair"><input type="radio" id="Rates2nd"      name="sorter"/><label htmlFor="Rates2nd">Ticket Rates (₤): 2nd Class</label></div>
+              <div className="pair"><input type="radio" id="CityDeparture"    name="sorter" onChange={handleSorterChange}/><label htmlFor="CityDeparture">Departure City</label></div>
+              <div className="pair"><input type="radio" id="CityArrival"      name="sorter" onChange={handleSorterChange}/><label htmlFor="CityArrival">Arrival City</label></div>
+              <div className="pair"><input type="radio" id="TimeAscendant"    name="sorter" onChange={handleSorterChange}/><label htmlFor="TimeAscendant">⇗ Departure Time</label></div>
+              <div className="pair"><input type="radio" id="TrainType"        name="sorter" onChange={handleSorterChange}/><label htmlFor="TrainType">Train Type</label></div>
+              <div className="pair"><input type="radio" id="Day"              name="sorter" onChange={handleSorterChange}/><label htmlFor="Day">Week Day</label></div>
+              <div className="pair"><input type="radio" id="TicketClass"     name="sorter" onChange={handleSorterChange}/><label htmlFor="TicketClass">Ticket Class</label></div>
+              <div className="pair"><input type="radio" id="PriceDescendant" name="sorter" onChange={handleSorterChange}/><label htmlFor="PriceDescendant">Highest Price</label></div>
+              <div className="pair"><input type="radio" id="PriceAscendant"  name="sorter" onChange={handleSorterChange}/><label htmlFor="PriceAscendant">Lowest Price</label></div>
             </div>
           </div>
         </form>

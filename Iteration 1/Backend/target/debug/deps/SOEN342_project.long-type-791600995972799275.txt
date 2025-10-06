@@ -1,0 +1,2 @@
+fn(axum::extract::State<Arc<search_functionality::RailNetwork>>) -> impl Future<Output = Result<Json<Arc<search_functionality::RailNetwork>>, axum::http::StatusCode>> {start_handler}
+fn(axum::extract::State<Arc<search_functionality::RailNetwork>>) -> impl Future<Output = Result<Json<Arc<search_functionality::RailNetwork>>, axum::http::StatusCode>> {start_handler}: Handler<_, _, _>

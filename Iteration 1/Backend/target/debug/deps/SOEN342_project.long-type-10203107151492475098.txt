@@ -1,0 +1,1 @@
+fn() -> impl Future<Output = Vec<&str, {type error}>> {get_timeD}: Handler<_, _, _>

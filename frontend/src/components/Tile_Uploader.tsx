@@ -6,36 +6,27 @@ interface UploadTileProps {
 
 const UploadTile: React.FC<UploadTileProps> = ({ onParsed, onLoading }) => {
     const [routes, setRoutes] = useState(null);
-    const [fileName, setFileName] = useState('Select a File');
     const showSpinner = () => {
       onLoading(true);         // Show the element
       setTimeout(() => {
-        onLoading(false);      // Hide the element after 5 seconds
-      }, 5000);
-    };
+        onLoading(false);      // Hide the element after 3 seconds
+      }, 3000);
+    };  
     
-    
-    const onFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {    
+    const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {    
         showSpinner();
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const formData = new FormData();
-        formData.append('file', file);
-        setFileName(file.name);
         try {
-          const response = await fetch("http://localhost:3001/upload", {
-              method: "POST",
-              body: formData,
+          const response = await fetch("http://localhost:3001/handler/get", {
+              method: "GET"
           });
 
           if (!response.ok) {
-              throw new Error(`Upload failed: ${response.statusText}`);
+              throw new Error(`Get failed: ${response.statusText}`);
           }
 
           const json = await response.json();
-          setRoutes(json); // or update state as needed
-          onParsed(json);   // inform parent with actual backend data
+          setRoutes(json);
+          onParsed(json);
         } catch (err) {
             console.error(err);
             // You could set error state here to inform user
@@ -45,8 +36,8 @@ const UploadTile: React.FC<UploadTileProps> = ({ onParsed, onLoading }) => {
       <div className="form-tile sheet">
         <h2>Upload Spread Sheet</h2>
           <div className="form-group">
-            <input type="file" accept=".csv" id="file-input" onChange={onFileChange}/>
-            <label id="file-input-label" htmlFor="file-input">{fileName}</label>
+            <button type="button" id="file-input" onClick={handleClick}/>
+            <label id="file-input-label" htmlFor="file-input">Load Railway Data</label>
           </div>
       </div>    
     )
