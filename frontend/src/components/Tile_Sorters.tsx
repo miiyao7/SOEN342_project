@@ -6,22 +6,17 @@ interface Sorter {
 }
 
 interface SorterTileProps {
-  onSorted: (data: String) => void; // Callback prop type
-  handler: (data: any) => void; // Callback prop type
+  onSorted: (data: string) => void; // Callback prop type
 }
 
-const SorterTile: React.FC<SorterTileProps> = ({ onSorted, handler }) => {
-  const [sorter, setSorter] = useState<String>("");
+const SorterTile: React.FC<SorterTileProps> = ({ onSorted }) => {
+  const [sort, setSort] = useState<string>("");
 
-  const handleSorter = () => {
-    onSorted(sorter);
-  }
-
-const handleSorterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSorterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let sorterID = event.target.id;    
-    setSorter(sorterID);
-    onSorted(sorter);
-    //console.log("Sorter: " + sorterID);
+    setSort(sorterID);
+    onSorted(sorterID);
+    // console.log("Sorter: " + sorterID);
   };
     return (    
       <div className="form-tile sorters">     

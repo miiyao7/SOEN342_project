@@ -10,6 +10,12 @@ const UserForm: React.FC = () => {
     const [filters, setFilters] = useState<any|null>(null);
     const [sorter, setSorter] = useState<any|null>(null);
     const [loading, setLoading] = useState(false);
+    const showSpinner = (time: number) => {
+      setLoading(true);         // Show the element
+      setTimeout(() => {
+        setLoading(false);      // Hide the element after 3 seconds
+      }, time);
+    };  
     // Callback to receive parsing result from UploadTile
     const handleParsedData = (data: any) => {
       setParsedData(data);
@@ -20,20 +26,22 @@ const UserForm: React.FC = () => {
     };
     const handleFilteredData = (data: any) => {
       setFilters(data);
+      showSpinner(25000);
       console.log("DEBUG {PARENT} filters", data);
     };
-    const handleSortedData = (data: any) => {
+    const handleSortedData = (data: string) => {
       setSorter(data);
       console.log("DEBUG {PARENT} sorters", data);
     };
+  const showWithLoader = loading && filters;
   const showFilter = parsedData && !loading;
   const showSortAndDisplay = showFilter && filters;
   return (
     <div className="form-container">
       <UploadTile onParsed={handleParsedData} onLoading={handleLoading} />
       {/* Conditionally show other tiles if parsedData exists */}
-      {showFilter && <FilterTile onFiltered={handleFilteredData} handler={handleFilteredData} />}
-      {showSortAndDisplay && <SorterTile onSorted={handleSortedData} handler={handleSortedData} />}
+      {(showFilter || showWithLoader) && <FilterTile onFiltered={handleFilteredData} />}
+      {showSortAndDisplay && <SorterTile onSorted={handleSortedData}/>}
       {showSortAndDisplay && <DisplayTile filterList={filters} sortTag={sorter} loading={loading} />}
   
 

@@ -171,6 +171,7 @@ label:has(#tooltip){
   text-overflow: ellipsis; /* Optional: add "..." if clipped */
   display: inline-block; /* Make label respect widths */
   font-size: 80%;
+  margin: 3px;
 }
 .pair{
   display: flex;    
@@ -192,18 +193,25 @@ label:has(#tooltip){
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
 }
-select, input.optionSearch {
-  padding: 5px;
-  border: none;
-  border-radius: 4px;
+select, input {
+  padding: 5%;
+  border-radius: 4px;  
+  border: solid white 2px;
   background-color: #f1f1f1;
+}input:has(~ datalist) {  
+  display: flex;
+  min-height: unset;
+}
+select{
+  padding: 4.4%;
 }
 input[type=text]{
   width: 100%;
-  padding: 5px;
-  border: none;
   box-sizing: border-box;
   border-radius: 4px;
+}
+.checkbox input[type="checkbox"]{
+  margin: unset !important;
 }
 #file-input {
   display: none;
@@ -246,15 +254,6 @@ input[type=button], input[type=submit], input[type=reset] {
   cursor: pointer;
   border-radius: 8px;
   border: 2px solid #555;
-}
-select[multiple] {
-  width: 100%;
-  max-height: 25px;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 0 5px;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
 }
 select[multiple]:focus {
   display: none;

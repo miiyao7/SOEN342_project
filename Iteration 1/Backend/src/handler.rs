@@ -102,7 +102,7 @@ pub async fn search_handler(
     State(rn): State<std::sync::Arc<RailNetwork>>,
     Json(payload): Json<SearchRequest>,
 ) -> Result<ResponseJson<Vec<crate::search_functionality::Itinerary>>, StatusCode> {
-    println!("{:?}", payload.filters);
+    println!("{:?}", payload.sorter);
     let earliest_departure = match &payload.filters.earliest_departure {
         Some(time_str) => match NaiveTime::parse_from_str(time_str, "%H:%M:%S") {
             Ok(t) => Some(t),
