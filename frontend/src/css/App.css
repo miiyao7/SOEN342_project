@@ -75,6 +75,7 @@ h1{
 
 .form-tile.filters{
   padding: 1% 10% 2% 10%;
+  width: 100%;
 }
 
 .form-tile.sorters{
@@ -92,7 +93,7 @@ h1{
 }.display:has(table){
   overflow: scroll;
 }.display table th{
-  font-size: 60%;
+  font-size: 75%;
 }
 
 
