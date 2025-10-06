@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "Iteration 1/Backend"
+        working-directory: "Backend"
 
     steps:
     - uses: actions/checkout@v4
