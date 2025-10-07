@@ -1,0 +1,2 @@
+fn(axum::extract::State<Arc<RailNetwork>>, Json<SearchRequest>) -> impl Future<Output = Result<Json<Vec<Itinerary>>, axum::http::StatusCode>> {search_handler}
+fn(axum::extract::State<Arc<RailNetwork>>, Json<SearchRequest>) -> impl Future<Output = Result<Json<Vec<Itinerary>>, axum::http::StatusCode>> {search_handler}: Handler<_, _, _>

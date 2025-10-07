@@ -88,10 +88,12 @@ h1{
 
 .form-tile.display{
   padding: 1% 2% 2% 2%;
-  width: 70%;
+  width: 100%;
   max-height: 80vh;
-}.display:has(table){
-  overflow: scroll;
+  overflow-y: scroll !important;
+}.display table{
+  table-layout: auto !important;
+  width: 100% !important;
 }.display table th{
   font-size: 75%;
 }
@@ -294,4 +296,18 @@ label.has-error ~ input{
 @keyframes errorFlash {
   from {  border: solid red 2px; }
   to { border: solid white 2px;}
+}
+th{
+  vertical-align: top;
+}
+span:has(button.sorter){
+  display: flex;
+  flex-direction: column !important;
+}
+button.sorter{
+  background-color: transparent;
+  border: none;
+}
+button.sorter:hover{
+  mix-blend-mode: difference;
 }

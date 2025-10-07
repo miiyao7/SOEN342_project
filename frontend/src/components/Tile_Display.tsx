@@ -1,13 +1,23 @@
 import { match } from 'assert';
 import React, { useState, useEffect } from 'react';
+import Spinner from './Spinner';
 interface DisplayTileProps {
   filterList: any; // Callback prop type
-  sortTag: String; // Callback prop type
   loading: boolean;
 }
 
-const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, sortTag, loading }) => {
-  
+const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
+  const [sort, setSort] = useState<string>("");
+  const [data, setData] = useState<any>(null);
+  const [loader, setLoader] = useState<boolean>(loading);
+  const [hasNoMatch, setHasNoMatch] = useState<boolean>(false);
+  const Sorter = { sort_by: sort }
+  const showSpinner = (time: number) => {
+      setLoader(true);     
+      setTimeout(() => {
+        setLoader(false);   
+      }, time);
+    };  
   const Filters = {
       departure_city: filterList.CityDeparture || null,
       arrival_city: filterList.CityArrival || null,
@@ -19,13 +29,19 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, sortTag, loading 
       allowed_transfers: filterList.Transferring || null,
       min_transfer_minutes: filterList.Minutes || null,
   }
-  const Sorter = { sort_by: sortTag }
+  
+  const handleSorterChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
 
-  const [data, setData] = useState<any>(null);
-
+    const button: HTMLButtonElement = event.currentTarget;
+    let sorterID = button.name;    
+    setSort(sorterID);
+    console.log("Sorter: " + sorterID);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       try {
           const response = await fetch("http://localhost:3001/handler/search", {
               method: "POST",
@@ -37,29 +53,24 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, sortTag, loading 
               throw new Error(`Get failed: ${response.statusText}`);
           }
 
+          showSpinner(5000);
           const filtered = await response.json();
-          setData(filtered)
+          setData(filtered);
+          //console.log("filtered: ", filtered);
         } catch (err) {
             console.error(err);
         } 
     };
     fetchData();
-  }, [filterList, sortTag]);
+  }, [filterList, sort]);
       
   const renderTable = () => {
     if(data[0] == null){
-      return (<table><thead><tr><th>NO MATCHES FOUND</th></tr></thead></table>);
+      setHasNoMatch(true);
+      return (<tbody></tbody>);
     } 
     let headers = Object.keys(data[0]);
     return (
-    <table className="result-table">
-      <thead>
-        <tr>
-          {headers.map((key) => (
-            <th key={key}>{key.replaceAll('_', ' ').toUpperCase()}</th>
-          ))}
-        </tr>
-      </thead>
         <tbody>
           {data.map((item: any, index: number) => (
             <tr key={index}>
@@ -73,8 +84,6 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, sortTag, loading 
             </tr>
           ))}
         </tbody>
-  
-      </table>
     )
   }
   const tableElement = React.useMemo(() => {
@@ -83,8 +92,26 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, sortTag, loading 
   }, [data]);
   return (
       <div className="form-tile display">
-          {loading && <div className="mini-spinner"></div>}
-          {tableElement}
+          <table className="result-table">
+          <thead>
+            <tr>
+              <th>Connections</th>
+              <th>Total Duration<span>
+                <button name="Duration" className="sorter" onClick={handleSorterChange}>▲</button></span></th>
+              <th>First Price<span>
+                <button name="PriceAscendant1" className="sorter" onClick={handleSorterChange}>▲</button>
+                <button name="PriceDescendant1" className="sorter" onClick={handleSorterChange}>▼</button></span></th>
+              <th>Second Price<span>
+                <button name="PriceAscendant2" className="sorter" onClick={handleSorterChange}>▲</button>
+                <button name="PriceDescendant2" className="sorter" onClick={handleSorterChange}>▼</button></span></th>
+              <th>Transfer Duration<span>
+                <button name="TimeAscendant" className="sorter" onClick={handleSorterChange}>▲</button></span></th>
+            </tr>
+          </thead>            
+            {tableElement}
+          </table>
+            {loader && <Spinner/>}
+            {(hasNoMatch && !loader) && <div>No matches found</div>}
       </div>
   );
 };

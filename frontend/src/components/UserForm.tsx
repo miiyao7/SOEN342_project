@@ -1,48 +1,84 @@
 import React, { useState, useEffect } from 'react';
-import UploadTile from './Tile_Uploader';
 import FilterTile from './Tile_Filters';
-import SorterTile from './Tile_Sorters';
 import DisplayTile from './Tile_Display';
 import Spinner from './Spinner';
 
 const UserForm: React.FC = () => {
     const [parsedData, setParsedData] = useState<any|null>(null);
+    const [validCities, setValidCities] = useState<any|null>(null);
+    const [validTrains, setValidTrains] = useState<any|null>(null);
     const [filters, setFilters] = useState<any|null>(null);
     const [sorter, setSorter] = useState<any|null>(null);
     const [loading, setLoading] = useState(false);
     const showSpinner = (time: number) => {
-      setLoading(true);         // Show the element
+      setLoading(true);     
       setTimeout(() => {
-        setLoading(false);      // Hide the element after 3 seconds
+        setLoading(false);   
       }, time);
     };  
-    // Callback to receive parsing result from UploadTile
-    const handleParsedData = (data: any) => {
-      setParsedData(data);
-      console.log("DEBUG {PARENT} all", data);
-    };
-    const handleLoading = (data: any) => {
-      setLoading(data);
-    };
+    
+    useEffect(() => {
+      const fetchData = async () => {
+          setLoading(true);
+          try {
+            const response = await fetch("http://localhost:3001/handler/get", {
+                method: "GET"
+            });
+            if (!response.ok) {
+                throw new Error(`Get failed: ${response.statusText}`);
+            }
+            const json = await response.json();
+            setParsedData(json);
+            showSpinner(3000);
+          } catch (err) {
+              console.error(err);
+          } 
+          try {
+            const response = await fetch("http://localhost:3001/handler/getTrains", {
+                method: "GET"
+            });
+            if (!response.ok) {
+                throw new Error(`Get failed: ${response.statusText}`);
+            }
+            const vt = await response.json();
+            setValidTrains(vt);
+            //console.log("DEBUG {PARENT} validTrains", vt);
+          } catch (err) {
+              console.error(err);
+          } 
+          try {
+            const response = await fetch("http://localhost:3001/handler/getCities", {
+                method: "GET"
+            });
+            if (!response.ok) {
+                throw new Error(`Get failed: ${response.statusText}`);
+            }
+            const vc = await response.json();
+            setValidCities(vc);
+            //console.log("DEBUG {PARENT} validCities", vc);
+          } catch (err) {
+              console.error(err);
+          } 
+      };
+      fetchData();
+    }, []);
+    
     const handleFilteredData = (data: any) => {
       setFilters(data);
-      showSpinner(25000);
+      showSpinner(5000);
       console.log("DEBUG {PARENT} filters", data);
     };
-    const handleSortedData = (data: string) => {
-      setSorter(data);
-      console.log("DEBUG {PARENT} sorters", data);
-    };
-  const showWithLoader = loading && filters;
-  const showFilter = parsedData && !loading;
-  const showSortAndDisplay = showFilter && filters;
+    
+    const showWithLoader = loading && filters;
+    const showFilter = parsedData && !loading;
+    const showSortAndDisplay = showFilter && filters;
+  //<UploadTile onParsed={handleParsedData} onLoading={handleLoading} />
+ //{showSortAndDisplay && <SorterTile onSorted={handleSortedData}/>}
   return (
     <div className="form-container">
-      <UploadTile onParsed={handleParsedData} onLoading={handleLoading} />
       {/* Conditionally show other tiles if parsedData exists */}
-      {(showFilter || showWithLoader) && <FilterTile onFiltered={handleFilteredData} />}
-      {showSortAndDisplay && <SorterTile onSorted={handleSortedData}/>}
-      {showSortAndDisplay && <DisplayTile filterList={filters} sortTag={sorter} loading={loading} />}
+      {(showFilter || showWithLoader) && <FilterTile onFiltered={handleFilteredData} validTrains={validTrains} validCities={validCities}/>}
+      {showSortAndDisplay && <DisplayTile filterList={filters} loading={loading} />}
   
 
       {loading && <Spinner/>}
