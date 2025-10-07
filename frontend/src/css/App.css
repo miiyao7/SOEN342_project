@@ -312,5 +312,5 @@ button.sorter{
   border: none;
 }
 button.sorter:hover{
-  mix-blend-mode: difference;
+  mix-blend-mode: hue;
 }

@@ -8,6 +8,7 @@ interface DisplayTileProps {
 
 const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
   const [sort, setSort] = useState<string>("");
+  const [sortChange, setSortChange] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
   const [loader, setLoader] = useState<boolean>(loading);
   const [hasNoMatch, setHasNoMatch] = useState<boolean>(false);
@@ -32,6 +33,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
   
   const handleSorterChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    setSortChange(true);  
 
     const button: HTMLButtonElement = event.currentTarget;
     let sorterID = button.name;    
@@ -53,7 +55,9 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
               throw new Error(`Get failed: ${response.statusText}`);
           }
 
-          showSpinner(5000);
+          if(sortChange) {
+            setLoader(false);   
+          } else {showSpinner(3000);}
           const filtered = await response.json();
           setData(filtered);
           //console.log("filtered: ", filtered);
@@ -108,7 +112,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
                 <button name="TimeAscendant" className="sorter" onClick={handleSorterChange}>▲</button></span></th>
             </tr>
           </thead>            
-            {tableElement}
+            {!loader && tableElement}
           </table>
             {loader && <Spinner/>}
             {(hasNoMatch && !loader) && <div>No matches found</div>}
