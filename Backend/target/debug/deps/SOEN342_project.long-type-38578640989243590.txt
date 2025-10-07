@@ -1,1 +1,0 @@
-fn() -> impl Future<Output = Vec<&str, {type error}>> {get_rate1}: Handler<_, _, _>

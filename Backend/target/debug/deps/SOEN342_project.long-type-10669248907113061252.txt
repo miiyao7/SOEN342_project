@@ -1,2 +1,0 @@
-fn() -> Result<Vec<rail_network::Route>, Box<(dyn StdError + 'static)>> {parse_CSV}
-fn() -> Result<Vec<rail_network::Route>, Box<(dyn StdError + 'static)>> {parse_CSV}: Handler<_, _, _>

@@ -1,2 +1,0 @@
-for<'a> fn(Json<SearchFunctionality<'a>>) -> impl Future<Output = impl IntoResponse> {filter_with}
-for<'a> fn(Json<SearchFunctionality<'a>>) -> impl Future<Output = impl IntoResponse> {filter_with}: Handler<_, _, _>
