@@ -82,13 +82,20 @@ pub async fn search_handler(
             Err(_) => None,
         }
     });
-
+    
+    let tr_type: Option<&str> = payload.filters.train_type.as_ref()
+    .and_then(|train_str| {
+        match Train::from_str(train_str) {
+            Ok(train_enum) => Some(train_enum.as_str()),
+            Err(_) => None,
+        }
+    });
     // Build SearchFunctionality struct (use owned Strings or convert to &str safely)
     let q = SearchFunctionality {
         departure_city: dep_city,
         arrival_city: arr_city,
         earliest_departure,
-        train_type: payload.filters.train_type.as_deref(),
+        train_type: tr_type,
         day_of_week: payload.filters.day_of_week.as_deref(),
         price_range,
         max_price: payload.filters.max_price,
