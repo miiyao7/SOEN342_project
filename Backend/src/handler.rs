@@ -6,11 +6,8 @@ use crate::rail_network::{self, City, Itinerary, RailNetwork, Route, SearchFunct
 use std::sync::Arc;
 */
 use axum::{extract::{State, Json}, http::StatusCode, response::Json as ResponseJson};
-use chrono::{Duration, NaiveTime};
-use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
-use std::net::SocketAddr;
-use std::error::Error;
+use chrono::{NaiveTime};
+use serde::{Deserialize};
 use std::str::FromStr;
 
 

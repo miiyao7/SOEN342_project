@@ -6,9 +6,8 @@ mod handler;
 use axum::{
     routing::post,    
     routing::get,
-    extract::Multipart,
     http::Method,
-    Json, Router,
+    Router,
 };
 use tower_http::cors::{CorsLayer, Any};
 use tower::ServiceBuilder;

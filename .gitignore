@@ -1,4 +1,3 @@
-/target
 .DS_Store
 *.swp
 .vscode/
@@ -27,4 +26,6 @@ venv/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/Backend/target
+/Backend/target/
+/Backend/target/debug/
+/target/
