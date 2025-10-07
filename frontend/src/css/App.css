@@ -300,6 +300,9 @@ label.has-error ~ input{
 th{
   vertical-align: top;
 }
+td{
+  text-align: center;
+}
 span:has(button.sorter){
   display: flex;
   flex-direction: column !important;
