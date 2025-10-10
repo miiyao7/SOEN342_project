@@ -9,7 +9,7 @@ use chrono::Timelike;
 
 // -- RAIL NETWORK -- \\
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug)]
 pub struct RailNetwork { pub routes: Vec<Route> } 
 impl RailNetwork {
     pub fn new() -> Result<Self, Box<dyn Error>> {
@@ -31,9 +31,31 @@ impl RailNetwork {
             itineraries.extend(Self::one_stop_itineraries(routes, &idx, q));
             itineraries.extend(Self::two_stop_itineraries(routes, &idx, q));
         }
+        itineraries.retain(|it| self.passes_arrival_time_filter(it, q));
     
         self.sort(&mut itineraries, q);
         itineraries
+    }
+
+    fn passes_arrival_time_filter(&self, it: &Itinerary, q: &SearchFunctionality) -> bool {
+        if q.arrival_time_from.is_none() && q.arrival_time_to.is_none() {
+            return true; 
+        }
+        let last_route = match it.connections.last().and_then(|&idx| self.routes.get(idx)) {
+            Some(route) => route,
+            None => return false, 
+        };
+        if let Some(from) = q.arrival_time_from {
+            if last_route.arrival_time < from {
+                return false; 
+            }
+        }
+        if let Some(to) = q.arrival_time_to {
+            if last_route.arrival_time > to {
+                return false; 
+            }
+        }
+        true
     }
 
 
@@ -110,9 +132,9 @@ impl RailNetwork {
                     out.push(Itinerary {
                         connections: vec![i],
                         total_duration: Self::per_connection_duration(r),
+                        transfer_duration: vec![],
                         total_first_price: r.first_class_ticket_rate as u32,
                         total_second_price: r.second_class_ticket_rate as u32,
-                        transfer_duration: vec![],
                     });
                 }
             }
@@ -281,12 +303,26 @@ pub enum SortBy {
     PriceDescendant(TicketClass),
     DepartureTimeAscendant,
 }
+#[derive(Clone, Debug)]
+pub struct Route {
+    pub idx: usize,
+    pub departure_city: String,
+    pub arrival_city: String,
+    pub departure_time: NaiveTime,
+    pub arrival_time: NaiveTime,
+    pub train_type: String,
+    pub days_of_operation: Vec<Day>,
+    pub first_class_ticket_rate: u32,
+    pub second_class_ticket_rate: u32,
+}
 
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct SearchFunctionality<'a> {
     pub departure_city: Option<&'a str>,
     pub arrival_city:   Option<&'a str>,
     pub earliest_departure: Option<NaiveTime>,
+    pub arrival_time_from: Option<NaiveTime>,
+    pub arrival_time_to:   Option<NaiveTime>,
     pub train_type:     Option<&'a str>,   
     pub day_of_week:    Option<&'a str>,   
     pub price_range:    Option<TicketClass>,
@@ -354,16 +390,18 @@ pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
         } else {
             row.days_of_operation.split(|c| c == ',' || c == '-').filter_map(|s| s.parse().ok()).collect()
         };
+        let idx = routes.len();
         let route = Route {
-            route_id: {RouteID::new(row.route_id)},
-            departure_city: row.departure_city.parse()?,
-            arrival_city: row.arrival_city.parse()?,
+            idx,
+            departure_city: row.departure_city,
+            arrival_city: row.arrival_city,
             departure_time: NaiveTime::parse_from_str(&row.departure_time, "%H:%M")?,
-            arrival_time: NaiveTime::parse_from_str(&row.arrival_time.split_whitespace().next().unwrap(), "%H:%M")?,
-            train_type: row.train_type.parse()?,
+            arrival_time:  NaiveTime::parse_from_str(row.arrival_time.split_whitespace().next().unwrap_or(&row.arrival_time),
+    "%H:%M")?,
+            train_type: row.train_type,
             days_of_operation: days,
-            first_class_ticket_rate: row.first_class_ticket_rate,
-            second_class_ticket_rate: row.second_class_ticket_rate
+            first_class_ticket_rate: row.first_class_ticket_rate as u32,
+            second_class_ticket_rate: row.second_class_ticket_rate as u32,
         };
         routes.push(route);
     }
@@ -373,36 +411,15 @@ pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
 
 // -- ROUTE -- \\
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct Route {
-    route_id: RouteID,
-    pub departure_city: City,
-    pub arrival_city: City,
-    pub departure_time: NaiveTime,
-    pub arrival_time: NaiveTime,
-    pub train_type: Train,
-    pub days_of_operation: Vec<Day>,
-    pub first_class_ticket_rate: u16,
-    pub second_class_ticket_rate: u16
-} impl Route {
+
+impl Route {
     pub fn arrival_is_next_day(&self) -> bool {self.arrival_time.signed_duration_since(self.departure_time) < Duration::zero()}
     pub fn duration(&self) -> Duration {
         let duration = self.arrival_time.signed_duration_since(self.departure_time);
         if duration < Duration::zero() {Duration::hours(24) + duration} else {duration}
     }
-    fn get_route_id(&self) -> String {self.route_id.get_route_id()}
-    fn set_route_id(&mut self, route_id: String) {self.route_id.set_route_id(route_id)}
 }
 
-
-// -- ROUTE ID -- \\
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-struct RouteID {id: u16} impl RouteID {
-    pub fn new(id: String) -> Self {RouteID {id: id[2..].parse().expect("Error: not a number.")}}
-    pub fn get_route_id(&self) -> String {format!("{}{}{}", 'R', 0, self.id)}
-    pub fn set_route_id(&mut self, route_id: String) {self.id = route_id[2..].parse().expect("Error: not a number.")}
-}
 
 
 // -- CITY -- \\
@@ -442,7 +459,7 @@ pub fn get_all_train_names() -> Vec<&'static str> {
 #[derive(Clone, Debug, EnumIter, AsRefStr, Serialize, Deserialize)]
 pub enum Day {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday} 
 impl Day {
-    pub fn as_str(&self) -> &'static str {match self {Day::Monday => "Monday", Day::Tuesday => "Tuesday", Day::Wednesday => "Wedenesday", Day::Thursday => "Thursday", Day::Friday => "Friday", Day::Saturday => "Saturday", Day::Sunday => "Sunday"}}
+    pub fn as_str(&self) -> &'static str {match self {Day::Monday => "Monday", Day::Tuesday => "Tuesday", Day::Wednesday => "Wednesday", Day::Thursday => "Thursday", Day::Friday => "Friday", Day::Saturday => "Saturday", Day::Sunday => "Sunday"}}
     pub fn daily() -> Vec<Day> {vec![Day::Monday, Day::Tuesday, Day::Wednesday, Day::Thursday, Day::Friday, Day::Saturday, Day::Sunday]}
 } impl FromStr for Day {
     type Err = String;

@@ -3,6 +3,8 @@ import FilterTile from './Tile_Filters';
 import DisplayTile from './Tile_Display';
 import Spinner from './Spinner';
 
+const API = "http://127.0.0.1:4001";
+
 const UserForm: React.FC = () => {
     const [parsedData, setParsedData] = useState<any|null>(null);
     const [validCities, setValidCities] = useState<any|null>(null);
@@ -10,58 +12,54 @@ const UserForm: React.FC = () => {
     const [filters, setFilters] = useState<any|null>(null);
     const [sorter, setSorter] = useState<any|null>(null);
     const [loading, setLoading] = useState(false);
+
+
     const showSpinner = (time: number) => {
       setLoading(true);     
       setTimeout(() => {
         setLoading(false);   
       }, time);
-    };  
+  };  
     
     useEffect(() => {
-      const fetchData = async () => {
-          setLoading(true);
-          try {
-            const response = await fetch("http://localhost:3001/handler/get", {
-                method: "GET"
-            });
-            if (!response.ok) {
-                throw new Error(`Get failed: ${response.statusText}`);
-            }
-            const json = await response.json();
-            setParsedData(json);
-            showSpinner(3000);
-          } catch (err) {
-              console.error(err);
-          } 
-          try {
-            const response = await fetch("http://localhost:3001/handler/getTrains", {
-                method: "GET"
-            });
-            if (!response.ok) {
-                throw new Error(`Get failed: ${response.statusText}`);
-            }
-            const vt = await response.json();
-            setValidTrains(vt);
-            //console.log("DEBUG {PARENT} validTrains", vt);
-          } catch (err) {
-              console.error(err);
-          } 
-          try {
-            const response = await fetch("http://localhost:3001/handler/getCities", {
-                method: "GET"
-            });
-            if (!response.ok) {
-                throw new Error(`Get failed: ${response.statusText}`);
-            }
-            const vc = await response.json();
-            setValidCities(vc);
-            //console.log("DEBUG {PARENT} validCities", vc);
-          } catch (err) {
-              console.error(err);
-          } 
-      };
-      fetchData();
-    }, []);
+    const ac = new AbortController();
+    const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
+
+    const fetchJSON = async (url: string) =>  {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        credentials: "omit",
+        signal: ac.signal,
+      });
+      if (!resp.ok) {
+        throw new Error(`${url} failed: ${resp.status} ${resp.statusText}`);
+      }
+      return resp.json();
+    };
+
+    const fetchData = async () => {
+     setLoading(true);
+    try {
+      const [vt, vc, routes] = await Promise.all([
+        fetchJSON(`${API}/handler/getTrains`),
+        fetchJSON(`${API}/handler/getCities`),
+        fetchJSON(`${API}/handler/get`),
+      ]);
+      if (ac.signal.aborted) return;        // guard after awaits
+      setValidTrains(vt);
+      setValidCities(vc);
+      setParsedData(routes);
+    } catch (e) {
+      if (!isAbort(e)) console.error(e);    // ignore AbortError
+    } finally {
+      if (!ac.signal.aborted) setLoading(false);
+    }
+  };
+
+    fetchData();
+    return () => ac.abort();
+  }, []);
     
     const handleFilteredData = (data: any) => {
       setFilters(data);
