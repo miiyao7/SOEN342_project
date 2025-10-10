@@ -45,7 +45,7 @@ async fn main() -> Result<(), Box<dyn Error>>{
         .with_state(shared_rn)
         .layer(TraceLayer::new_for_http())
         .layer(cors);
-    let addr = SocketAddr::from(([127, 0, 0, 1], 4001));
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3001));
 
     println!("Listening on http://{}", addr);
 
