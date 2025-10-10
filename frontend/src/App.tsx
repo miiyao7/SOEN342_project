@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import UserForm from './components/UserForm';
 import './css/App.css';
 

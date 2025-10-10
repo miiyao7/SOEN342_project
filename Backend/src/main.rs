@@ -4,20 +4,16 @@ mod handler;
 mod domain;
 
 //     USES      \\
-use axum::{
-    routing::post,    
-    routing::get,
-    http::Method,
-    Router,
-};
+use axum::{routing::post};
+use http::Method;
 use tower_http::cors::{CorsLayer, Any};
-use tower::ServiceBuilder;
 use std::sync::Arc;
 use std::net::SocketAddr;
 use std::error::Error;
 use handler::{start_handler, search_handler, get_cities, get_trains};
-use crate::domain::{ItineraryResponse, Route as DomainRoute, Train as DomainTrain, Day};
 use rail_network::{RailNetwork};
+use tower_http::trace::TraceLayer;
+use tracing_subscriber::prelude::*;
 
 
 
@@ -36,13 +32,9 @@ async fn main() -> Result<(), Box<dyn Error>>{
         ))
         .with(tracing_subscriber::fmt::layer())
         .init();
-    // Configure CORS to allow requests from your frontend origin
     let cors = CorsLayer::new()
-        // Allow only your frontend origin - replace with actual origin as needed
         .allow_origin(Any)
-        // Allow POST and GET methods you use
         .allow_methods(vec![Method::GET, Method::POST])
-        // Allow common headers you need
         .allow_headers(Any);
 
     let app = axum::Router::new()
@@ -51,15 +43,20 @@ async fn main() -> Result<(), Box<dyn Error>>{
         .route("/handler/getCities", post(get_cities))
         .route("/handler/getTrains", post(get_trains))
         .with_state(shared_rn)
-        .layer(cors).layer(TraceLayer::new_for_http())
+        .layer(TraceLayer::new_for_http())
+        .layer(cors);
     let addr = SocketAddr::from(([127, 0, 0, 1], 4001));
 
     println!("Listening on http://{}", addr);
 
-    axum::Server::bind(&addr)
-        .http1_max_buf_size(64 * 1024) 
-        .serve(app.into_make_service())
-        .await;
+    use tokio::net::TcpListener;
+
+let listener = TcpListener::bind(&addr).await.unwrap();
+
+axum::serve(listener, app.into_make_service())
+    .with_graceful_shutdown(async {tokio::signal::ctrl_c().await.ok();})
+    .await
+    .unwrap();
 
     Ok(())
 }
