@@ -64,6 +64,14 @@ impl RailNetwork {
     // -- SORTING FUNCTION -- \\
 
     fn sort(&self, itineraries: &mut Vec<Itinerary>, q: &SearchFunctionality) {
+            // If max_price is set, filter itineraries accordingly first
+        if let Some(max_price) = q.max_price {
+            itineraries.retain(|it| {
+                // Check if price_for for both classes <= max_price (depending on logic)
+                it.price_for(TicketClass::FirstClass) <= max_price &&
+                it.price_for(TicketClass::SecondClass) <= max_price
+            });
+        }
         match q.sort_by.unwrap_or(SortBy::DepartureTimeAscendant) {
             SortBy::Duration => itineraries.sort_by_key(|it| it.total_duration.num_minutes()),
             SortBy::PriceAscendant(cls) =>

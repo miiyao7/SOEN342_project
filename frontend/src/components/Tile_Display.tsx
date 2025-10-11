@@ -143,7 +143,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
     return <div>{getFormattedText(result)}</div>;
   };
   const renderTable = () => {
-    if(data == null){
+    if(data == null || data[0] == null){
       setHasNoMatch(true);
       return (<tbody></tbody>);
     } 
