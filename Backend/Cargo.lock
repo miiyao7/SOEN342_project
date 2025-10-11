@@ -178,10 +178,7 @@ dependencies = [
  "iana-time-zone",
  "js-sys",
  "num-traits",
-<<<<<<< HEAD
-=======
  "serde",
->>>>>>> updated-search-functionality
  "wasm-bindgen",
  "windows-link",
 ]
