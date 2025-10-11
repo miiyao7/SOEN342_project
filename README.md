@@ -6,11 +6,43 @@
 | **Andrea Torres**       | 40289711   |
 | **Thi Hong Mai Nguyen** | 40248343   |
 
+Installation:
+
+Backend (Ubuntu):
+sudo apt update
+sudo apt install build-essential pkg-config libssl-dev curl
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+rustup update
+cargo fetch
+
+Frontend:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+nvm use --lts
+npm install
+
+Compile:
+
+Backend:
+cargo fetch
+
+Frontend:
+npm run build
+
+Run:
+
+Backend:
+cargo run
+
+Frontend:
+npm start
+
+
 Dependencies needed:
 
-
-backend:
-
+Backend:
 http = "1"
 chrono = { version = "0.4.42", features = ["serde"] }
 csv = "1.3.1"
@@ -26,8 +58,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 once_cell = "1.21.3"
 
-frontend:
-
+Frontend:
 {
   "name": "frontend",
   "version": "0.1.0",
