@@ -7,6 +7,7 @@ use strum_macros::{EnumIter, AsRefStr};
 use std::collections::HashMap;
 use chrono::Timelike;
 
+
 // -- RAIL NETWORK -- \\
 
 #[derive(Debug)]
@@ -19,6 +20,7 @@ impl RailNetwork {
     pub fn get_all_routes(&self) -> &Vec<Route> {
         &self.routes
     }
+
 
     // -- MAIN SEARCH FUNCTION -- \\
 
@@ -41,7 +43,7 @@ impl RailNetwork {
         if q.arrival_time_from.is_none() && q.arrival_time_to.is_none() {
             return true; 
         }
-        let last_route = match it.connections.last().and_then(|&idx| self.routes.get(idx)) {
+        let last_route = match it.connections.last() {
             Some(route) => route,
             None => return false, 
         };
@@ -69,10 +71,11 @@ impl RailNetwork {
             SortBy::PriceDescendant(cls) =>
                 itineraries.sort_by(|a, b| b.price_for(cls).cmp(&a.price_for(cls))),
             SortBy::DepartureTimeAscendant =>
-                itineraries.sort_by_key(|it| self.routes[it.connections[0]].departure_time)
+                itineraries.sort_by_key(|it| it.connections[0].departure_time)
         }
     }
 
+    
     // -- FILTERING AND MATCHING -- \\
 
     fn matches_train(r: &Route, t: Option<&str>) -> bool {
@@ -116,64 +119,45 @@ impl RailNetwork {
 
     // -- ITINERARY BUILDERS -- \\
 
-    fn direct_routes(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> { // Direct Routes
+    fn direct_routes(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> {
         let mut out = Vec::new();
 
-
-        // -- MATCH FUNCTION -- \\
-
-        match (q.departure_city, q.arrival_city) { // If match is found, enter block and pull routes
+        match (q.departure_city, q.arrival_city) {
             (Some(dep), Some(arr)) => {
                 for i in idx.get_departures(dep) {
                     let r = &routes[i];
                     if !r.arrival_city.as_str().eq_ignore_ascii_case(arr) { continue; }
                     if !Self::matches_common(r, q) || !Self::depart_after_first_connection(r, q.earliest_departure) { continue; }
 
-                    out.push(Itinerary {
-                        connections: vec![i],
-                        total_duration: Self::per_connection_duration(r),
-                        transfer_duration: vec![],
-                        total_first_price: r.first_class_ticket_rate as u32,
-                        total_second_price: r.second_class_ticket_rate as u32,
-                    });
+                    let mut it = Itinerary::default();
+                    it.addRoute(r.clone());
+                    out.push(it);
                 }
             }
             (Some(dep), None) => {
                 for i in idx.get_departures(dep) {
                     let r = &routes[i];
                     if !Self::matches_common(r, q) || !Self::depart_after_first_connection(r, q.earliest_departure) { continue; }
-                    out.push(Itinerary {
-                        connections: vec![i],
-                        total_duration: Self::per_connection_duration(r),
-                        total_first_price: r.first_class_ticket_rate as u32,
-                        total_second_price: r.second_class_ticket_rate as u32,
-                        transfer_duration: vec![],
-                    });
+                    let mut it = Itinerary::default();
+                    it.addRoute(r.clone());
+                    out.push(it);
                 }
             }
             (None, Some(arr)) => {
                 for i in idx.get_arrivals(arr) {
                     let r = &routes[i];
                     if !Self::matches_common(r, q) || !Self::depart_after_first_connection(r, q.earliest_departure) { continue; }
-                    out.push(Itinerary {
-                        connections: vec![i],
-                        total_duration: Self::per_connection_duration(r),
-                        total_first_price: r.first_class_ticket_rate as u32,
-                        total_second_price: r.second_class_ticket_rate as u32,
-                        transfer_duration: vec![],
-                    });
+                    let mut it = Itinerary::default();
+                    it.addRoute(r.clone());
+                    out.push(it);
                 }
             }
             (None, None) => {
                 for (i, r) in routes.iter().enumerate() {
                     if !Self::matches_common(r, q) || !Self::depart_after_first_connection(r, q.earliest_departure) { continue; }
-                    out.push(Itinerary {
-                        connections: vec![i],
-                        total_duration: Self::per_connection_duration(r),
-                        total_first_price: r.first_class_ticket_rate as u32,
-                        total_second_price: r.second_class_ticket_rate as u32,
-                        transfer_duration: vec![],
-                    });
+                    let mut it = Itinerary::default();
+                    it.addRoute(r.clone());
+                    out.push(it);
                 }
             }
         }
@@ -181,13 +165,10 @@ impl RailNetwork {
         out
     }
 
-    fn one_stop_itineraries(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> { // One-Stop Routes
+    fn one_stop_itineraries(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> {
         let mut out = Vec::new();
 
-
-        // -- MATCH FUNCTION -- \\
-
-        let a_indices: Vec<usize> = match q.departure_city { // If match is found, pull routes
+        let a_indices: Vec<usize> = match q.departure_city {
             Some(dep) => idx.get_departures(dep).collect(),
             None      => (0..routes.len()).collect(),
         };
@@ -196,10 +177,7 @@ impl RailNetwork {
             let a = &routes[ia];
             if !Self::matches_common(a, q) || !Self::depart_after_first_connection(a, q.earliest_departure) { continue; }
 
-
-            // -- MATCH FUNCTION -- \\
-
-            let b_indices: Vec<usize> = match q.arrival_city { // If match is found, pull routes
+            let b_indices: Vec<usize> = match q.arrival_city {
                 Some(arr) => idx.get_arrivals(arr).collect(),
                 None      => (0..routes.len()).collect(),
             };
@@ -209,15 +187,11 @@ impl RailNetwork {
                 if !Self::matches_common(b, q) { continue; }
                 if !a.arrival_city.as_str().eq_ignore_ascii_case(b.departure_city.as_str()) { continue; }
 
-                if let Some(wait) = Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) {
-                    let total = Self::sum_chain(routes, &[ia, ib], &[wait]);
-                    out.push(Itinerary {
-                        connections: vec![ia, ib],
-                        total_duration: total,
-                        total_first_price: (a.first_class_ticket_rate as u32) + (b.first_class_ticket_rate as u32),
-                        total_second_price: (a.second_class_ticket_rate as u32) + (b.second_class_ticket_rate as u32),
-                        transfer_duration: vec![wait],
-                    });
+                if let Some(_wait) = Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) {
+                    let mut it = Itinerary::default();
+                    it.addRoute(a.clone());
+                    it.addRoute(b.clone());
+                    out.push(it);
                 }
             }
         }
@@ -225,13 +199,10 @@ impl RailNetwork {
         out
     }
 
-    fn two_stop_itineraries(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> { // Two-Stop Routes
+    fn two_stop_itineraries(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> {
         let mut out = Vec::new();
 
-
-        // -- MATCH FUNCTION -- \\
-
-        let a_indices: Vec<usize> = match q.departure_city { // If match is found, pull routes
+        let a_indices: Vec<usize> = match q.departure_city {
             Some(dep) => idx.get_departures(dep).collect(),
             None      => (0..routes.len()).collect(),
         };
@@ -247,18 +218,12 @@ impl RailNetwork {
                 if !Self::matches_common(b, q) { continue; }
                 if norm(b.arrival_city.as_str()) == norm(a.departure_city.as_str()) { continue; }
 
-
-                // -- MATCH FUNCTION -- \\
-
-                let w1 = match Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) { // If match is found, pull routes
+                let _w1 = match Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) {
                     Some(m) => m,
                     None => continue,
                 };
 
-
-                // -- MATCH FUNCTION -- \\
-
-                let c_indices: Vec<usize> = match q.arrival_city { // If match is found, pull routes
+                let c_indices: Vec<usize> = match q.arrival_city {
                     Some(arr) => idx.get_arrivals(arr).collect(),
                     None      => (0..routes.len()).collect(),
                 };
@@ -268,19 +233,12 @@ impl RailNetwork {
                     if !Self::matches_common(c, q) { continue; }
                     if !b.arrival_city.as_str().eq_ignore_ascii_case(c.departure_city.as_str()) { continue; }
 
-                    if let Some(w2) = Self::possible_transfer(b.arrival_time, c.departure_time, q.min_transfer_minutes) {
-                        let total = Self::sum_chain(routes, &[ia, ib, ic], &[w1, w2]);
-                        out.push(Itinerary {
-                            connections: vec![ia, ib, ic],
-                            total_duration: total,
-                            total_first_price: (a.first_class_ticket_rate as u32)
-                                            + (b.first_class_ticket_rate as u32)
-                                            + (c.first_class_ticket_rate as u32),
-                            total_second_price: (a.second_class_ticket_rate as u32)
-                                            + (b.second_class_ticket_rate as u32)
-                                            + (c.second_class_ticket_rate as u32),
-                            transfer_duration: vec![w1, w2],
-                        });
+                    if let Some(_w2) = Self::possible_transfer(b.arrival_time, c.departure_time, q.min_transfer_minutes) {
+                        let mut it = Itinerary::default();
+                        it.addRoute(a.clone());
+                        it.addRoute(b.clone());
+                        it.addRoute(c.clone());
+                        out.push(it);
                     }
                 }
             }
@@ -290,6 +248,7 @@ impl RailNetwork {
     }
 
 }
+
 
 // -- SEARCH FUNCTIONALITY -- \\
 
@@ -303,7 +262,7 @@ pub enum SortBy {
     PriceDescendant(TicketClass),
     DepartureTimeAscendant,
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize)]
 pub struct Route {
     pub idx: usize,
     pub departure_city: String,
@@ -334,7 +293,7 @@ pub struct SearchFunctionality<'a> {
 
 #[derive(Clone, Debug, Default, Serialize)]
 pub struct Itinerary {
-    pub connections: Vec<usize>,
+    pub connections: Vec<Route>,
     pub total_duration: Duration,   
     pub total_first_price: u32,
     pub total_second_price: u32,
@@ -347,8 +306,21 @@ impl Itinerary {
             TicketClass::SecondClass => self.total_second_price,
         }
     }
+    pub fn addRoute(&mut self, route: Route) {
+        if let Some(prev) = self.connections.last() {
+            let mut secs = (route.departure_time.num_seconds_from_midnight() as i64)
+                        - (prev.arrival_time.num_seconds_from_midnight() as i64);
+            if secs < 0 { secs += 24 * 60 * 60; }
+            let wait = secs / 60;
+            self.transfer_duration.push(wait);
+            self.total_duration = self.total_duration + Duration::minutes(wait);
+        }
+        self.total_duration = self.total_duration + route.duration();
+        self.total_first_price = self.total_first_price.saturating_add(route.first_class_ticket_rate);
+        self.total_second_price = self.total_second_price.saturating_add(route.second_class_ticket_rate);
+        self.connections.push(route);
+    }
 }
-
 
 
 // -- INDEXING -- \\
@@ -409,8 +381,8 @@ pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
 }
 #[derive(Debug, Deserialize)] struct CSVRoute {#[serde(rename = "Route ID")] route_id: String, #[serde(rename = "Departure City")] departure_city: String, #[serde(rename = "Arrival City")] arrival_city: String, #[serde(rename = "Departure Time")] departure_time: String, #[serde(rename = "Arrival Time")] arrival_time: String, #[serde(rename = "Train Type")] train_type: String, #[serde(rename = "Days of Operation")] days_of_operation: String, #[serde(rename = "First Class ticket rate (in euro)")] first_class_ticket_rate: u16, #[serde(rename = "Second Class ticket rate (in euro)")] second_class_ticket_rate: u16}
 
-// -- ROUTE -- \\
 
+// -- ROUTE -- \\
 
 impl Route {
     pub fn arrival_is_next_day(&self) -> bool {self.arrival_time.signed_duration_since(self.departure_time) < Duration::zero()}
@@ -419,7 +391,6 @@ impl Route {
         if duration < Duration::zero() {Duration::hours(24) + duration} else {duration}
     }
 }
-
 
 
 // -- CITY -- \\
@@ -431,10 +402,8 @@ impl FromStr for City {
     type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {match s {"A Coruña" => Ok(City::ACoruna), "Aalborg" => Ok(City::Aalborg), "Aarhus" => Ok(City::Aarhus), "Alicante" => Ok(City::Alicante), "Almería" => Ok(City::Almeria), "Amiens" => Ok(City::Amiens), "Amsterdam" => Ok(City::Amsterdam), "Ancona" => Ok(City::Ancona), "Angers" => Ok(City::Angers), "Annecy" => Ok(City::Annecy), "Antwerp" => Ok(City::Antwerp), "Arezzo" => Ok(City::Arezzo), "Ashford" => Ok(City::Ashford), "Augsburg" => Ok(City::Augsburg), "Avignon" => Ok(City::Avignon), "Badajoz" => Ok(City::Badajoz), "Barcelona" => Ok(City::Barcelona), "Bari" => Ok(City::Bari), "Basel" => Ok(City::Basel), "Belgrade" => Ok(City::Belgrade), "Bergamo" => Ok(City::Bergamo), "Bergen" => Ok(City::Bergen), "Berlin" => Ok(City::Berlin), "Bern" => Ok(City::Bern), "Besançon" => Ok(City::Besancon), "Bilbao" => Ok(City::Bilbao), "Birmingham" => Ok(City::Birmingham), "Bochum" => Ok(City::Bochum), "Bologna" => Ok(City::Bologna), "Bolzano" => Ok(City::Bolzano), "Bonn" => Ok(City::Bonn), "Bordeaux" => Ok(City::Bordeaux), "Bratislava" => Ok(City::Bratislava), "Brașov" => Ok(City::Brasov), "Bremen" => Ok(City::Bremen), "Brescia" => Ok(City::Brescia), "Brest" => Ok(City::Brest), "Brighton" => Ok(City::Brighton), "Brindisi" => Ok(City::Brindisi), "Bristol" => Ok(City::Bristol), "Brno" => Ok(City::Brno), "Bruges" => Ok(City::Bruges), "Brussels" => Ok(City::Brussels), "Bucharest" => Ok(City::Bucharest), "Budapest" => Ok(City::Budapest), "Burgas" => Ok(City::Burgas), "Burgos" => Ok(City::Burgos), "Calais" => Ok(City::Calais), "Cambridge" => Ok(City::Cambridge), "Cardiff" => Ok(City::Cardiff), "Cartagena" => Ok(City::Cartagena), "Catania" => Ok(City::Catania), "Chambéry" => Ok(City::Chambery), "Clermont-Ferrand" => Ok(City::ClermontFerrand), "Cluj-Napoca" => Ok(City::ClujNapoca), "Cologne" => Ok(City::Cologne), "Como" => Ok(City::Como), "Copenhagen" => Ok(City::Copenhagen), "Cork" => Ok(City::Cork), "Cuenca" => Ok(City::Cuenca), "Cádiz" => Ok(City::Cadiz), "Córdoba" => Ok(City::Cordoba), "Debrecen" => Ok(City::Debrecen), "Derby" => Ok(City::Derby), "Dijon" => Ok(City::Dijon), "Dortmund" => Ok(City::Dortmund), "Drammen" => Ok(City::Drammen), "Dresden" => Ok(City::Dresden), "Dublin" => Ok(City::Dublin), "Düsseldorf" => Ok(City::Dusseldorf), "Edinburgh" => Ok(City::Edinburgh), "Eindhoven" => Ok(City::Eindhoven), "Essen" => Ok(City::Essen), "Exeter" => Ok(City::Exeter), "Ferrara" => Ok(City::Ferrara), "Florence" => Ok(City::Florence), "Forlì" => Ok(City::Forli), "Frankfurt" => Ok(City::Frankfurt), "Galway" => Ok(City::Galway), "Gdańsk" => Ok(City::Gdansk), "Gdynia" => Ok(City::Gdynia), "Geneva" => Ok(City::Geneva), "Genoa" => Ok(City::Genoa), "Ghent" => Ok(City::Ghent), "Glasgow" => Ok(City::Glasgow), "Gothenburg" => Ok(City::Gothenburg), "Granada" => Ok(City::Granada), "Graz" => Ok(City::Graz), "Grenoble" => Ok(City::Grenoble), "Hamburg" => Ok(City::Hamburg), "Hannover" => Ok(City::Hannover), "Heidelberg" => Ok(City::Heidelberg), "Helsingborg" => Ok(City::Helsingborg), "Helsinki" => Ok(City::Helsinki), "Iași" => Ok(City::Iasi), "Innsbruck" => Ok(City::Innsbruck), "Karlsruhe" => Ok(City::Karlsruhe), "Katowice" => Ok(City::Katowice), "Kiel" => Ok(City::Kiel), "Košice" => Ok(City::Kosice), "Krakow" => Ok(City::Krakow), "L'Aquila" => Ok(City::LAquila), "La Rochelle" => Ok(City::LaRochelle), "La Spezia" => Ok(City::LaSpezia), "Lausanne" => Ok(City::Lausanne), "Le Mans" => Ok(City::LeMans), "Leeds" => Ok(City::Leeds), "Leicester" => Ok(City::Leicester), "Leipzig" => Ok(City::Leipzig), "Lille" => Ok(City::Lille), "Limerick" => Ok(City::Limerick), "Limoges" => Ok(City::Limoges), "Linköping" => Ok(City::Linkoping), "Linz" => Ok(City::Linz), "Lisbon" => Ok(City::Lisbon), "Liverpool" => Ok(City::Liverpool), "Livorno" => Ok(City::Livorno), "Liège" => Ok(City::Liege), "Ljubljana" => Ok(City::Ljubljana), "Logroño" => Ok(City::Logrono), "London" => Ok(City::London), "Lublin" => Ok(City::Lublin), "Lucerne" => Ok(City::Lucerne), "Lugano" => Ok(City::Lugano), "Lund" => Ok(City::Lund), "Lyon" => Ok(City::Lyon), "Madrid" => Ok(City::Madrid), "Malmö" => Ok(City::Malmo), "Manchester" => Ok(City::Manchester), "Mannheim" => Ok(City::Mannheim), "Maribor" => Ok(City::Maribor), "Marseille" => Ok(City::Marseille), "Messina" => Ok(City::Messina), "Metz" => Ok(City::Metz), "Milan" => Ok(City::Milan), "Modena" => Ok(City::Modena), "Montpellier" => Ok(City::Montpellier), "Mostar" => Ok(City::Mostar), "Mulhouse" => Ok(City::Mulhouse), "Munich" => Ok(City::Munich), "Murcia" => Ok(City::Murcia), "Málaga" => Ok(City::Malaga), "Nancy" => Ok(City::Nancy), "Nantes" => Ok(City::Nantes), "Naples" => Ok(City::Naples), "Narbonne" => Ok(City::Narbonne), "Newcastle" => Ok(City::Newcastle), "Nice" => Ok(City::Nice), "Niš" => Ok(City::Nis), "Norrköping" => Ok(City::Norrkoping), "Nottingham" => Ok(City::Nottingham), "Novi Sad" => Ok(City::NoviSad), "Nuremberg" => Ok(City::Nuremberg), "Nîmes" => Ok(City::Nimes), "Odense" => Ok(City::Odense), "Oslo" => Ok(City::Oslo), "Ostrava" => Ok(City::Ostrava), "Oulu" => Ok(City::Oulu), "Oviedo" => Ok(City::Oviedo), "Oxford" => Ok(City::Oxford), "Padua" => Ok(City::Padua), "Palermo" => Ok(City::Palermo), "Pamplona" => Ok(City::Pamplona), "Paris" => Ok(City::Paris), "Parma" => Ok(City::Parma), "Perpignan" => Ok(City::Perpignan), "Perugia" => Ok(City::Perugia), "Piacenza" => Ok(City::Piacenza), "Pisa" => Ok(City::Pisa), "Plovdiv" => Ok(City::Plovdiv), "Plymouth" => Ok(City::Plymouth), "Plzeň" => Ok(City::Plzen), "Poitiers" => Ok(City::Poitiers), "Porto" => Ok(City::Porto), "Portsmouth" => Ok(City::Portsmouth), "Potsdam" => Ok(City::Potsdam), "Poznań" => Ok(City::Poznan), "Prague" => Ok(City::Prague), "Pécs" => Ok(City::Pecs), "Ravenna" => Ok(City::Ravenna), "Reading" => Ok(City::Reading), "Regensburg" => Ok(City::Regensburg), "Reggio Calabria" => Ok(City::ReggioCalabria), "Reggio Emilia" => Ok(City::ReggioEmilia), "Reims" => Ok(City::Reims), "Rennes" => Ok(City::Rennes), "Rijeka" => Ok(City::Rijeka), "Rimini" => Ok(City::Rimini), "Rome" => Ok(City::Rome), "Rostock" => Ok(City::Rostock), "Rotterdam" => Ok(City::Rotterdam), "Rouen" => Ok(City::Rouen), "Salamanca" => Ok(City::Salamanca), "Salerno" => Ok(City::Salerno), "Salzburg" => Ok(City::Salzburg), "San Sebastián" => Ok(City::SanSebastian), "Santander" => Ok(City::Santander), "Santiago de Compostela" => Ok(City::SantiagoDeCompostela), "Sarajevo" => Ok(City::Sarajevo), "Seville" => Ok(City::Seville), "Sheffield" => Ok(City::Sheffield), "Sofia" => Ok(City::Sofia), "Sopot" => Ok(City::Sopot), "Southampton" => Ok(City::Southampton), "Split" => Ok(City::Split), "St. Gallen" => Ok(City::StGallen), "Stavanger" => Ok(City::Stavanger), "Stockholm" => Ok(City::Stockholm), "Strasbourg" => Ok(City::Strasbourg), "Stuttgart" => Ok(City::Stuttgart), "Swansea" => Ok(City::Swansea), "Szeged" => Ok(City::Szeged), "Tampere" => Ok(City::Tampere), "Taranto" => Ok(City::Taranto), "Terni" => Ok(City::Terni), "The Hague" => Ok(City::TheHague), "Thessaloniki" => Ok(City::Thessaloniki), "Timișoara" => Ok(City::Timisoara), "Toledo" => Ok(City::Toledo), "Toulouse" => Ok(City::Toulouse), "Tours" => Ok(City::Tours), "Trento" => Ok(City::Trento), "Trieste" => Ok(City::Trieste), "Trondheim" => Ok(City::Trondheim), "Turin" => Ok(City::Turin), "Turku" => Ok(City::Turku), "Uppsala" => Ok(City::Uppsala), "Utrecht" => Ok(City::Utrecht), "Valencia" => Ok(City::Valencia), "Valladolid" => Ok(City::Valladolid), "Varna" => Ok(City::Varna), "Venice" => Ok(City::Venice), "Verona" => Ok(City::Verona), "Versailles" => Ok(City::Versailles), "Vicenza" => Ok(City::Vicenza), "Vienna" => Ok(City::Vienna), "Vigo" => Ok(City::Vigo), "Västerås" => Ok(City::Vasteras), "Warsaw" => Ok(City::Warsaw), "Waterford" => Ok(City::Waterford), "Wrocław" => Ok(City::Wroclaw), "Würzburg" => Ok(City::Wurzburg), "York" => Ok(City::York), "Zagreb" => Ok(City::Zagreb), "Zaragoza" => Ok(City::Zaragoza), "Zurich" => Ok(City::Zurich), "Örebro" => Ok(City::Orebro), "České Budějovice" => Ok(City::CeskeBudejovice), "Łódź" => Ok(City::Lodz), _ => Err(format!("Unknown city: {}", s))}}
 }
-
 pub fn get_all_city_names() -> Vec<&'static str> {
     use strum::IntoEnumIterator;
-
     City::iter().map(|city| city.as_str()).collect()
 }
 
@@ -450,7 +419,6 @@ impl FromStr for Train {
 
 pub fn get_all_train_names() -> Vec<&'static str> {
     use strum::IntoEnumIterator;
-
     Train::iter().map(|train| train.as_str()).collect()
 }
 

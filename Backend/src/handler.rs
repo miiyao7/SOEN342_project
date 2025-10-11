@@ -1,16 +1,10 @@
-//    IMPORTS    \\
-/*use crate::rail_network;*/
 use crate::rail_network::{self, City, Itinerary, RailNetwork, Route, SearchFunctionality, SortBy, TicketClass, Train};
 use crate::domain::{ItineraryResponse, Route as DomainRoute, Day, Train as DomainTrain};
-//     USES      \\
-/*
-use std::sync::Arc;
-*/
 use axum::{extract::{State, Json}, http::StatusCode, response::Json as ResponseJson};
 use chrono::{NaiveTime};
 use serde::{Deserialize};
 use std::str::FromStr;
-//  HANDLER  \\
+
 #[derive(Debug, Deserialize)]
 pub struct SearchRequest {
     filters: Filters,
@@ -38,7 +32,6 @@ pub async fn search_handler(
     State(rn): State<std::sync::Arc<RailNetwork>>,
     Json(payload): Json<SearchRequest>,
 ) -> Result<ResponseJson<Vec<ItineraryResponse>>, StatusCode> {
-    //println!("{:?}", payload.sorter);
     let earliest_departure = match &payload.filters.earliest_departure {
         Some(time_str) => match NaiveTime::parse_from_str(time_str, "%H:%M:%S") {
             Ok(t) => Some(t),
@@ -49,14 +42,12 @@ pub async fn search_handler(
     let arrival_time_from = parse_time(&payload.filters.arrival_time_from);
     let arrival_time_to = parse_time(&payload.filters.arrival_time_to);
 
-    // Map price_range string to TicketClass enum
     let price_range = match payload.filters.price_range.as_deref() {
         Some("First") => Some(TicketClass::FirstClass),
         Some("Second") => Some(TicketClass::SecondClass),
         _ => Some(TicketClass::SecondClass),
     };
 
-    // Map sort_by string to SortBy enum
     let sort_by = payload.sorter.as_ref().and_then(|s| s.sort_by.as_ref()).and_then(|s|match s.as_str() {
         "Duration" => Some(SortBy::Duration),
         "PriceAscendant1" => Some(SortBy::PriceAscendant(TicketClass::FirstClass)),
@@ -88,7 +79,6 @@ pub async fn search_handler(
             Err(_) => None,
         }
     });
-    // Build SearchFunctionality struct (use owned Strings or convert to &str safely)
     let q = SearchFunctionality {
         departure_city: dep_city,
         arrival_city: arr_city,
@@ -165,11 +155,10 @@ fn map_train_to_enum(train: &str) -> Option<DomainTrain> {
     }
 }
 
-fn convert_itinerary_to_domain(it: &Itinerary, rn: &RailNetwork) -> ItineraryResponse {
+fn convert_itinerary_to_domain(it: &Itinerary, _rn: &RailNetwork) -> ItineraryResponse {
     let routes: Vec<DomainRoute> = it
         .connections
         .iter()
-        .filter_map(|&idxd| rn.get_all_routes().get(idxd))
         .map(convert_route_to_domain)
         .collect();
 
