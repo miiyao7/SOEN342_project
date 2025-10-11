@@ -2,20 +2,17 @@ Use Case: Filter, Sort and Obtain All European Train Route Connections
 Primary Actor: User
 Stakeholders and Interests: User: Wants a fast, clear, accurate and detailed way to view, filter and sort European train route options
 Preconditions: There is a user.
-Success Guarantee (Postconditions): The correct route table is returned for the user’s selected sorting and filtering options.
+Success Guarantee (Postconditions): The correct itinerary table is returned for the user’s selected sorting and filtering options.
 Main Success Scenario (or Basic Flow):
 	A potential traveller loads the webpage.
-	The user is presented with a table view. It has header titles (“Departing from”, “Arriving in”, “Departing at”, “Arriving at”, “Duration”, “Company”, “Departure Day”, “First-Class Price (€/person)”, “Second-Class Price (€/person)”) in the top row. To the right of each “Duration”, “First-Class Price (€/person)”and “Second-Class Price (€/person)“, there is a sorting button to flip the order between ascending and descending (and no sorting). Below each title (besides “Duration”), there are filtering options. To the right of the table’s header row, there is a “Include 1-stop and 2-stop indirect connections” unchecked checkbox and a“Search” button right below it. All available train routes are displayed below, unfiltered and unsorted.
-	The user selects filters for all, some or none of the possible columns, checks the checkbox, and clicks the “Search” button.
-	The user is presented with a filtered table (with identical column titles), based on their filters. Each “Arriving at” value that is on a different day from its corresponding “Departure Day” value is displayed to the right of the name of their day (separated with “, “). Indirect routes are displayed among the direct ones. In their “Duration” cells, the duration for each segment of the trip (including indicated wait times between train rides) are listed line by line.
+	The user is presented with a table view. It has header titles (“Total Duration”, “First-Class Price (€)”, “Second-Class Price (€)”, “Transfers”, “Departure City”, “Arrival City”, “Departure Time”, “Arrival Time”, “Train Type”, and “Days of Operation”) in the top row. To the bottom of each “Total Duration”, “First-Class Price (€)”and “Second-Class Price (€)“, there are sorting buttons to flip the order between ascending and descending. For each column (besides “Total Duration” and “Transfers”), there are filtering options. Below them, there is a “Filter” button.
+	The user selects filters for all, some or none of the possible columns and clicks the “Filter” button.
+	The user is presented with a filtered table (with identical column titles), based on their filters. In the “Transfers” cells, the wait times between train rides are listed line by line.
 	The user sorts the table by duration.
 	The user is immediately presented with an updated table based on the sorting order.
 	The user closes the webpage.
 Extensions (or Alternative Flows):
 	Clicking on another sorting option nulls the one previously selected.
-	If the checkbox is unchecked, indirect connections are not displayed.
-	If there are no direct connections for the user’s filters, the checkbox is automatically checked after the user clicks the “Search” button. If that is the case and the user subsequently unchecks the checkbox, no non-header rows are displayed. In their place, a text saying “No results.” is displayed.
-	If there are no results based on the user’s filters, no non-header rows are displayed. In their place, a text saying “No results.” is displayed.
 Special Requirements: A user with an electronic computerized device with an up-to-date browser and an internet connection.
 Technology and Data Variations List: A pointer (with mouse, trackpad, touchscreen, trackpoint or other pointing method) to click (or tap), a keyboard (or other typing method) to type (filter) and a display (screen, video projector or other display method) to display the webpage.
 Open Issues: Precise filtering and sorting options and user interface decisions, and artistic choices.
