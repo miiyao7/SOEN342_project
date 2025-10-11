@@ -28,6 +28,8 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
     cityDeparture: "",
     cityArrival: "",
     departureTime: "",
+    arrivalTimeFrom: "",
+    arrivalTime: "",
     trainType: "",
     minutes: "",
     price: "",
@@ -55,17 +57,26 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
     if(/^\d+$/.test(value) && parseInt(value) > 0){ return true; }
     return false;
   }
+  const isTimeWithSeconds = (value: string): boolean => {
+      // Matches time from 00:00:00 to 23:59:59
+      const timeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+      return timeRegex.test(value);
+  };
   const validation = (name: any, value: any) => {    
     // Validation
     if(value.trim() == "" || value == null){
       setHasError(false);
-      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", price: "", minutes: "", general: "" }));
+      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", arrivalTime: "", arrivalTimeFrom: "", price: "", minutes: "", general: "" }));
     } else if (name === "CityDeparture" && !validCities.includes(value)) {
       setErrors(prev => ({ ...prev, cityDeparture: "Invalid" })); setHasError(true);
     } else if (name === "CityArrival" && !validCities.includes(value)) {
       setErrors(prev => ({ ...prev, cityArrival: "Invalid" })); setHasError(true);
-    } else if (name === "DepartureTime" && !isInteger(value)) {
+    } else if (name === "DepartureTime" && !isTimeWithSeconds(value)) {
       setErrors(prev => ({ ...prev, departureTime: "Invalid" })); setHasError(true);
+    } else if (name === "ArrivalTimeFrom" && !isTimeWithSeconds(value)) {
+      setErrors(prev => ({ ...prev, arrivalTimeFrom: "Invalid" })); setHasError(true);
+    } else if (name === "ArrivalTime" && !isTimeWithSeconds(value)) {
+      setErrors(prev => ({ ...prev, arrivalTime: "Invalid" })); setHasError(true);
     } else if (name === "TrainType" && !validTrains.includes(value)) {
       setErrors(prev => ({ ...prev, trainType: "Invalid" })); setHasError(true);
     } else if (name === "Minutes" && !isInteger(value)) {
@@ -74,7 +85,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       setErrors(prev => ({ ...prev, price: "Invalid" })); setHasError(true);
     } else {
       setHasError(false);
-      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", price: "", minutes: "", general: "" }));
+      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", arrivalTime: "", arrivalTimeFrom: "", price: "", minutes: "", general: "" }));
     }
   }
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,11 +137,6 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
               <div className="card"><label htmlFor="DepartureTime" className={errors.departureTime ? "has-error" : ""}>Departure Time</label>
                 <input type="text" className="DepartureTime" name="DepartureTime" onChange={handleFilterChange}></input>
               </div>
-              <div className="card checkbox">
-                <label className={errors.minutes ? "has-error" : ""}><input type="checkbox" name="Transferring" onChange={handleFilterChange} defaultChecked={true} /> 
-                 {allfilters.Transferring ? "Transfer Minutes:" : "  Transferring?"}</label>
-                 {allfilters.Transferring ? <input type="text" name="Minutes" onChange={handleFilterChange}></input> : <input type="text" disabled></input>}
-              </div>
               <div className="card"><label htmlFor="SelectedDay">Week Day</label>
                 <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="None">
                   <option value="None">None</option>
@@ -142,13 +148,12 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
                   <option value="Saturday">Saturday</option>
                   <option value="Sunday">Sunday</option>
                 </select></div>
-              <div className="card">
-                <label htmlFor="TicketClass">Ticket Class</label>
-                <select id="TicketClass" name="TicketClass" onChange={handleSelectChange} defaultValue="None">
-                  <option value="None">None</option>
-                  <option value="First">First Class</option>
-                  <option value="Second">Second Class</option>
-                </select>
+                
+              <div className="card"><label htmlFor="ArrivalTimeFrom" className={errors.arrivalTimeFrom ? "has-error" : ""}>Arrival Time From</label>
+                <input type="text" className="ArrivalTimeFrom" name="ArrivalTimeFrom" onChange={handleFilterChange}></input>
+              </div>
+              <div className="card"><label htmlFor="ArrivalTime" className={errors.arrivalTime ? "has-error" : ""}>Arrival Time To</label>
+                <input type="text" className="ArrivalTime" name="ArrivalTime" onChange={handleFilterChange}></input>
               </div>
               <div className="card"><label htmlFor="TrainType" className={errors.trainType ? "has-error" : ""}>Train Type</label>
                 <input list="TrainType" className="optionSearch" name="TrainType" onChange={handleFilterChange}></input>
@@ -166,4 +171,20 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       </div>
     )
 }
+/*
+              <div className="card checkbox">
+                <label className={errors.minutes ? "has-error" : ""}><input type="checkbox" name="Transferring" onChange={handleFilterChange} defaultChecked={true} /> 
+                 {allfilters.Transferring ? "Transfer Minutes:" : "  Transferring?"}</label>
+                 {allfilters.Transferring ? <input type="text" name="Minutes" onChange={handleFilterChange}></input> : <input type="text" disabled></input>}
+              </div>
+
+              <div className="card">
+                <label htmlFor="TicketClass">Ticket Class</label>
+                <select id="TicketClass" name="TicketClass" onChange={handleSelectChange} defaultValue="None">
+                  <option value="None">None</option>
+                  <option value="First">First Class</option>
+                  <option value="Second">Second Class</option>
+                </select>
+              </div>
+ */
 export default FilterTile;

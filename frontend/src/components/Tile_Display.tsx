@@ -210,10 +210,10 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
             <tr>
               <th>Total Duration<span>
                 <button name="Duration" className="sorter" onClick={handleSorterChange}>▲</button></span></th>
-              <th>First-Class Price<span>
+              <th>1st-Class Price(€)<span>
                 <button name="PriceAscendant1"  className="sorter" onClick={handleSorterChange}>▲</button>
                 <button name="PriceDescendant1" className="sorter" onClick={handleSorterChange}>▼</button></span></th>
-              <th>Second-Class Price<span>
+              <th>2nd-Class Price(€)<span>
                 <button name="PriceAscendant2"  className="sorter" onClick={handleSorterChange}>▲</button>
                 <button name="PriceDescendant2" className="sorter" onClick={handleSorterChange}>▼</button></span></th>
               <th>Total Transfers<span>
