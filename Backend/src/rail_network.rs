@@ -64,7 +64,7 @@ impl RailNetwork {
     // -- SORTING FUNCTION -- \\
 
     fn sort(&self, itineraries: &mut Vec<Itinerary>, q: &SearchFunctionality) {
-            // If max_price is set, filter itineraries accordingly first
+        // If max_price is set, filter itineraries by both classes
         if let Some(max_price) = q.max_price {
             itineraries.retain(|it| {
                 // Check if price_for for both classes <= max_price (depending on logic)
