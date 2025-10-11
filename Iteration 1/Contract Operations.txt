@@ -1,5 +1,5 @@
 Contract: search
 Contract Operation: search(q)
 Cross References: Use Case, System Sequence Diagram
-Preconditions: The webpage is loaded and the user has clicked the “Search” button or on a sorting button (previous sorting and filtering logic is preserved).
-Postconditions: A filtered RouteList instance route_list was created and returned (instance creation).
+Preconditions: The webpage is loaded and the user has clicked the “Filter” button or on a sorting button (previous sorting and filtering logic is preserved).
+Postconditions: A filtered Iteration vector instance iterations was created and returned (instance creation).
