@@ -147,12 +147,12 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
       setHasNoMatch(true);
       return (<tbody></tbody>);
     } 
-    let outerheaders = Object.keys(data[0]);
+    /*let outerheaders = Object.keys(data[0]);
     let innerheaders = Object.keys(data[0].routes[0]);
     let headers = outerheaders.concat(innerheaders);
     console.log("DEBUG PATH", data[0].routes);
     console.log(innerheaders);
-    console.log(outerheaders);
+    console.log(outerheaders);*/
     return (
         <tbody>
           {data.map((item: any, idx: number) => (
@@ -217,7 +217,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
                 <button name="PriceAscendant2"  className="sorter" onClick={handleSorterChange}>▲</button>
                 <button name="PriceDescendant2" className="sorter" onClick={handleSorterChange}>▼</button></span></th>
               <th>Total Transfers<span>
-                <button name="TimeAscendant"    className="sorter" onClick={handleSorterChange}>▲</button></span></th>
+                <button name="TimeAscendant"    className="sorter" onClick={handleSorterChange}>▼</button></span></th>
               <th>Departure City</th>
               <th>Arrival City</th>
               <th>Departure Time</th>

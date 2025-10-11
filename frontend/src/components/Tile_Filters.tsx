@@ -138,8 +138,8 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
                 <input type="text" className="DepartureTime" name="DepartureTime" onChange={handleFilterChange}></input>
               </div>
               <div className="card"><label htmlFor="SelectedDay">Week Day</label>
-                <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="None">
-                  <option value="None">None</option>
+                <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="">
+                  <option value="">None</option>
                   <option value="Monday">Monday</option>
                   <option value="Tuesday">Tuesday</option>
                   <option value="Wednesday">Wednesday</option>
