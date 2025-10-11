@@ -7,6 +7,7 @@ type Filters = {
   CityArrival: string;
   DepartureTime: string;
   ArrivalTime: string;
+  ArrivalTimeFrom: string;
   TrainType: string;
   SelectedDay: string;
   TicketClass: string;
@@ -20,13 +21,9 @@ interface FilterTileProps {
   validTrains: string[];
   validCities: string[];
 }
-/*
-const validTrain = ["AVE", "EuroCity", "Eurostar", "Frecciarossa", "IC", "ICE", "InterCity", "Intercites", "Italo", "Nightjet", "RE", "RJX", "Railjet", "RegioExpress", "TER", "TGV", "Thalys"];
-const validCity = ["ACoruna", "Aalborg", "Aarhus", "Alicante", "Almeria", "Amiens", "Amsterdam", "Ancona", "Angers", "Annecy", "Antwerp", "Arezzo", "Ashford", "Augsburg", "Avignon", "Badajoz", "Barcelona", "Bari", "Basel", "Belgrade", "Bergamo", "Bergen", "Berlin", "Bern", "Besancon", "Bilbao", "Birmingham", "Bochum", "Bologna", "Bolzano", "Bonn", "Bordeaux", "Bratislava", "Brasov", "Bremen", "Brescia", "Brest", "Brighton", "Brindisi", "Bristol", "Brno", "Bruges", "Brussels", "Bucharest", "Budapest", "Burgas", "Burgos", "Calais", "Cambridge", "Cardiff", "Cartagena", "Catania", "Chambery", "ClermontFerrand", "ClujNapoca", "Cologne", "Como", "Copenhagen", "Cork", "Cuenca", "Cadiz", "Cordoba", "Debrecen", "Derby", "Dijon", "Dortmund", "Drammen", "Dresden", "Dublin", "Dusseldorf", "Edinburgh", "Eindhoven", "Essen", "Exeter", "Ferrara", "Florence", "Forli", "Frankfurt", "Galway", "Gdansk", "Gdynia", "Geneva", "Genoa", "Ghent", "Glasgow", "Gothenburg", "Granada", "Graz", "Grenoble", "Hamburg", "Hannover", "Heidelberg", "Helsingborg", "Helsinki", "Iasi", "Innsbruck", "Karlsruhe", "Katowice", "Kiel", "Kosice", "Krakow", "LAquila", "LaRochelle", "LaSpezia", "Lausanne", "LeMans", "Leeds", "Leicester", "Leipzig", "Lille", "Limerick", "Limoges", "Linkoping", "Linz", "Lisbon", "Liverpool", "Livorno", "Liege", "Ljubljana", "Logrono", "London", "Lublin", "Lucerne", "Lugano", "Lund", "Lyon", "Madrid", "Malmo", "Manchester", "Mannheim", "Maribor", "Marseille", "Messina", "Metz", "Milan", "Modena", "Montpellier", "Mostar", "Mulhouse", "Munich", "Murcia", "Malaga", "Nancy", "Nantes", "Naples", "Narbonne", "Newcastle", "Nice", "Nis", "Norrkoping", "Nottingham", "NoviSad", "Nuremberg", "Nimes", "Odense", "Oslo", "Ostrava", "Oulu", "Oviedo", "Oxford", "Padua", "Palermo", "Pamplona", "Paris", "Parma", "Perpignan", "Perugia", "Piacenza", "Pisa", "Plovdiv", "Plymouth", "Plzen", "Poitiers", "Porto", "Portsmouth", "Potsdam", "Poznan", "Prague", "Pecs", "Ravenna", "Reading", "Regensburg", "ReggioCalabria", "ReggioEmilia", "Reims", "Rennes", "Rijeka", "Rimini", "Rome", "Rostock", "Rotterdam", "Rouen", "Salamanca", "Salerno", "Salzburg", "SanSebastian", "Santander", "SantiagoDeCompostel", "Sarajevo", "Seville", "Sheffield", "Sofia", "Sopot", "Southampton", "Split", "StGallen", "Stavanger", "Stockholm", "Strasbourg", "Stuttgart", "Swansea", "Szeged", "Tampere", "Taranto", "Terni", "TheHague", "Thessaloniki", "Timisoara", "Toledo", "Toulouse", "Tours", "Trento", "Trieste", "Trondheim", "Turin", "Turku", "Uppsala", "Utrecht", "Valencia", "Valladolid", "Varna", "Venice", "Verona", "Versailles", "Vicenza", "Vienna", "Vigo", "Vasteras", "Warsaw", "Waterford", "Wroclaw", "Wurzburg", "York", "Zagreb", "Zaragoza", "Zurich", "Orebro", "CeskeBudejovice", "Lodz"];
-*/
 
 const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validTrains }) => {
-  const [allfilters, setAllFilters] = useState<Filters>({ CityDeparture: "", CityArrival: "", DepartureTime: "", ArrivalTime: "", TrainType: "", SelectedDay: "", TicketClass: "", Price: 0.00, Transferring: true, Minutes: 0});
+  const [allfilters, setAllFilters] = useState<Filters>({ CityDeparture: "", CityArrival: "", DepartureTime: "", ArrivalTime: "", ArrivalTimeFrom: "", TrainType: "", SelectedDay: "", TicketClass: "", Price: 0.00, Transferring: true, Minutes: 0});
   const [errors, setErrors] = useState({
     cityDeparture: "",
     cityArrival: "",

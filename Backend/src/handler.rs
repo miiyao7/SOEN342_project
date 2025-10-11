@@ -59,10 +59,10 @@ pub async fn search_handler(
     // Map sort_by string to SortBy enum
     let sort_by = payload.sorter.as_ref().and_then(|s| s.sort_by.as_ref()).and_then(|s|match s.as_str() {
         "Duration" => Some(SortBy::Duration),
-        "PriceAscendant1" => Some(SortBy::PriceAscendant(price_range.unwrap())),
-        "PriceAscendant2" => Some(SortBy::PriceAscendant(price_range.unwrap())),
-        "PriceDescendant1" => Some(SortBy::PriceDescendant(price_range.unwrap())),
-        "PriceDescendant2" => Some(SortBy::PriceDescendant(price_range.unwrap())),
+        "PriceAscendant1" => Some(SortBy::PriceAscendant(TicketClass::FirstClass)),
+        "PriceAscendant2" => Some(SortBy::PriceAscendant(TicketClass::SecondClass)),
+        "PriceDescendant1" => Some(SortBy::PriceDescendant(TicketClass::FirstClass)),
+        "PriceDescendant2" => Some(SortBy::PriceDescendant(TicketClass::SecondClass)),
         "TimeAscendant" => Some(SortBy::DepartureTimeAscendant),
         _ => None,
     });

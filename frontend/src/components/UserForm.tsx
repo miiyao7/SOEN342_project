@@ -64,7 +64,7 @@ const UserForm: React.FC = () => {
     const handleFilteredData = (data: any) => {
       setFilters(data);
       showSpinner(5000);
-      console.log("DEBUG {PARENT} filters", data);
+      //console.log("DEBUG {PARENT} filters", data);
     };
     
     const showWithLoader = loading && filters;
