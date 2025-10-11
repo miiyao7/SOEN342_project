@@ -1,0 +1,16 @@
+.spinner{
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    clip-path: circle();
+    margin: 0 auto;
+}
+#ring{
+    width: 100%;
+    height: 100%;
+    animation: spin 3s infinite alternate-reverse;
+}
+@keyframes spin{
+    0%   {rotate: 0deg;}
+    100% {rotate: 360deg;}
+}

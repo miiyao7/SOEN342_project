@@ -1,9 +1,4 @@
-.DS_Store
-*.swp
-.vscode/
-*.log
-*.py
-venv/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
@@ -26,6 +21,3 @@ venv/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/Backend/target/
-/Backend/target/debug/
-/target/
