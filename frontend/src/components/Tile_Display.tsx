@@ -70,17 +70,85 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
     fetchData();
   }, [filterList, sort]);
       
-  const getWeekValue = (arr: any) => {
+
+
+
+
+  const getDifferenceTime = (endTime: any, restartTime: any) => {
+    // Parse "HH:MM:SS" into seconds
+    const toSeconds = (t: string) => {
+      const [h, m, s] = t.split(":").map(Number);
+      return h * 3600 + m * 60;
+    };
+
+    const seconds1 = toSeconds(endTime);
+    const seconds2 = toSeconds(restartTime);
+    let diff = seconds2 - seconds1;
+    if(diff < 0) diff += 24 * 3600;  // handle overnight difference
+
+    // Convert diff back to HH:MM:SS
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+    
+    return `${String(h).padStart(2, "0")}h${String(m).padStart(2, "0")}m`;
+
+  };
+
+
+  const getFormattedText = (text: string) => {
+    const formattedText = text.split("\n").map((line, index) => (
+      <React.Fragment key={index}>
+        {line} <br />
+      </React.Fragment>
+    ));
+    return formattedText;
+  };
+
+
+  const getFormattedWeek = (arr: any) => {
     let trimmedArr = arr.map((str: any) => str.slice(0, 3));
     if(arr.length == 7) return "All Week";
     return trimmedArr.join(", ");
+  };
+  
+  const getFormattedTransfers = (t: string, routes: any) => {
+      let depStart = routes[0].departure_city;
+      let arrCity1 = routes[0].arrival_city;
+      let endTime = routes[0].arrival_time;
+      let startTime = routes[0].departure_time;
+      let t1 = getDifferenceTime(startTime, endTime);
+      let result = depStart + "-("+ t1 +")->" + arrCity1;
+    if(parseInt(t) >= 1){
+      let depCity2    = routes[1].departure_city;
+      let arrCity2    = routes[1].arrival_city;
+      let restartTime = routes[1].departure_time;
+      let finalTime   = routes[1].arrival_time;
+      let t2          = getDifferenceTime(restartTime, finalTime);
+      let transfer    = getDifferenceTime(endTime, restartTime);
+      result += "\n Wait (" + transfer + ")\n" + depCity2 + "-("+ t2+")->" + arrCity2;
+    }
+    if(parseInt(t) == 2){      
+      let arrCity2     = routes[1].arrival_city;
+      let depCity3     = routes[2].departure_city;
+      let arrCity3     = routes[2].arrival_city;
+      let depCity2Time = routes[1].departure_time;
+      let arrCity2Time = routes[1].arrival_time;
+      let depCity3Time = routes[2].departure_time;
+      let t3           = getDifferenceTime(depCity2Time, arrCity2Time);
+      let transfer     = getDifferenceTime(arrCity2Time, depCity3Time);
+      result += "\n Wait (" + transfer + ")\n" + depCity3 + "-("+ t3+")->" + arrCity3;
+    }
+    if(parseInt(t) == 0) return "None";
+    return <div>{getFormattedText(result)}</div>;
+    return "None";
   };
   const renderTable = () => {
     if(data == null){
       setHasNoMatch(true);
       return (<tbody></tbody>);
     } 
-    let outerheaders = Object.keys(data[0]);
+    let outerheaders = Object.values(data[0]);
     let innerheaders = Object.keys(data[0].routes[0]);
     let headers = outerheaders.concat(innerheaders);
     console.log("DEBUG PATH", data[0].routes);
@@ -98,7 +166,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
                     <td rowSpan={item.routes.length}>{item.total_duration}</td>      
                     <td rowSpan={item.routes.length}>{item.total_price_first}</td> 
                     <td rowSpan={item.routes.length}>{item.total_price_second}</td>
-                    <td rowSpan={item.routes.length}>{item.total_transfers}</td>
+                    <td rowSpan={item.routes.length}>{getFormattedTransfers(item.total_transfers, item.routes)}</td>
                   </>
                 ) : null}
                 
@@ -107,7 +175,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
                 <td>{route.departure_time}</td>
                 <td>{route.arrival_time}</td>
                 <td>{route.train_type}</td>
-                <td>{getWeekValue(route.days_of_operation)}</td>
+                <td>{getFormattedWeek(route.days_of_operation)}</td>
               </tr>
             ))
           ) : (
@@ -116,7 +184,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
               <td>{item.total_duration}</td>      
               <td>{item.total_price_first}</td> 
               <td>{item.total_price_second}</td>
-              <td>{item.total_transfers}</td>
+              <td>None</td>
               <td>-</td>
               <td>-</td>
               <td>-</td>
