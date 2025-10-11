@@ -141,14 +141,13 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
     }
     if(parseInt(t) == 0) return "None";
     return <div>{getFormattedText(result)}</div>;
-    return "None";
   };
   const renderTable = () => {
     if(data == null){
       setHasNoMatch(true);
       return (<tbody></tbody>);
     } 
-    let outerheaders = Object.values(data[0]);
+    let outerheaders = Object.keys(data[0]);
     let innerheaders = Object.keys(data[0].routes[0]);
     let headers = outerheaders.concat(innerheaders);
     console.log("DEBUG PATH", data[0].routes);
