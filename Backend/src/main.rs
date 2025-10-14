@@ -1,30 +1,22 @@
-//    IMPORTS    \\
 mod rail_network;
 mod handler;
 mod domain;
 
-//     USES      \\
-use axum::{routing::post};
+use axum::routing::post;
 use http::Method;
-use tower_http::cors::{CorsLayer, Any};
-use std::sync::Arc;
-use std::net::SocketAddr;
-use std::error::Error;
-use handler::{start_handler, search_handler, get_cities, get_trains};
-use rail_network::{RailNetwork};
-use tower_http::trace::TraceLayer;
+use tower_http::{cors::{CorsLayer, Any}, trace::TraceLayer};
+use std::{error::Error, net::SocketAddr, sync::Arc};
+use handler::{start_handler, search_handler, get_cities, get_trains, book_trip_handler, filter_bookings_handler};
+use rail_network::RailNetwork;
 use tracing_subscriber::prelude::*;
-
-
+use tokio::sync::RwLock;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{
     // parse CSV and create RailNetwork instance once (example)
     //let routes = parse_CSV().expect("Failed to parse CSV");
-    let rn = RailNetwork::new()?;
+    let rail_network = Arc::new(RwLock::new(RailNetwork::new().await?));
 
-    // share RailNetwork via Arc for handler state
-    let shared_rn = Arc::new(rn);
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             // tweak levels to taste:
@@ -42,7 +34,9 @@ async fn main() -> Result<(), Box<dyn Error>>{
         .route("/handler/get", post(start_handler))
         .route("/handler/getCities", post(get_cities))
         .route("/handler/getTrains", post(get_trains))
-        .with_state(shared_rn)
+        .route("/handler/bookTrip", post(book_trip_handler))
+        .route("/handler/filterBookings", post(filter_bookings_handler))
+        .with_state(rail_network)
         .layer(TraceLayer::new_for_http())
         .layer(cors);
     let addr = SocketAddr::from(([127, 0, 0, 1], 3001));
@@ -51,12 +45,12 @@ async fn main() -> Result<(), Box<dyn Error>>{
 
     use tokio::net::TcpListener;
 
-let listener = TcpListener::bind(&addr).await.unwrap();
+    let listener = TcpListener::bind(&addr).await.unwrap();
 
-axum::serve(listener, app.into_make_service())
-    .with_graceful_shutdown(async {tokio::signal::ctrl_c().await.ok();})
-    .await
-    .unwrap();
+    axum::serve(listener, app.into_make_service())
+        .with_graceful_shutdown(async {tokio::signal::ctrl_c().await.ok();})
+        .await
+        .unwrap();
 
     Ok(())
 }

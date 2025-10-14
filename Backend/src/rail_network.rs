@@ -1,26 +1,55 @@
 use serde::{Deserialize, Serialize};
 use csv::Reader;
-use std::error::Error;
-use chrono::{NaiveTime, Duration};
-use std::str::FromStr;
+use std::{error::Error, str::FromStr, collections::HashMap, env};
+use chrono::{NaiveTime, Duration, Timelike, NaiveDate, Local};
 use strum_macros::{EnumIter, AsRefStr};
-use std::collections::HashMap;
-use chrono::Timelike;
+use uuid::Uuid;
+use dotenvy::dotenv;
+use sqlx::{PgPool, Row};
 
 
 // -- RAIL NETWORK -- \\
 
 #[derive(Debug)]
-pub struct RailNetwork { pub routes: Vec<Route> } 
-impl RailNetwork {
-    pub fn new() -> Result<Self, Box<dyn Error>> {
+pub struct RailNetwork {
+    pub routes: Vec<Route>,
+    pub reservations: Vec<Trip>,
+    pub pool: PgPool
+} impl RailNetwork {
+    pub async fn new() -> Result<Self, Box<dyn Error>> {
         let routes = parse_CSV()?;
-        Ok(RailNetwork {routes})
+        let mut bookings = Vec::<Trip>::new();
+        dotenv().ok();
+        let pool = PgPool::connect(&env::var("DATABASE_URL").expect("DATABASE_URL must be set")).await?;
+        let trips = sqlx::query(r#"SELECT id, date, route_id FROM "Trips";"#)
+            .fetch_all(&pool)
+            .await?;
+        for trip in trips {
+            let mut route = Route::default();
+            for route_s in routes.clone() {
+                if route_s.get_id()[2..].parse().unwrap_or(0) == trip.get::<i16, &str>("route_id") {
+                    route = route_s;
+                    break;
+                }
+            }
+            let tickets_s = sqlx::query(r#"SELECT id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.id = persons.ticket_id WHERE trip_id = $1;"#)
+                .bind::<Uuid>(trip.get("id"))
+                .fetch_all(&pool)
+                .await?;
+            let mut tickets: Vec<Ticket> = Vec::new();
+            for ticket in tickets_s {
+                let person = Person {
+                    id: ticket.get("person_id"),
+                    first_name: ticket.get("first_name"),
+                    last_name: ticket.get("last_name"),
+                    age: ticket.get::<i16, _>("age") as u8
+                };
+                tickets.push(Ticket {id: ticket.get("id"), traveler: person});
+            }
+            bookings.push(Trip {id: trip.get("id"), tickets: tickets, date: trip.get("date"), route: route});
+        }
+        Ok(RailNetwork {routes: routes, reservations: bookings, pool: pool})
     }
-    pub fn get_all_routes(&self) -> &Vec<Route> {
-        &self.routes
-    }
-
 
     // -- MAIN SEARCH FUNCTION -- \\
 
@@ -83,7 +112,53 @@ impl RailNetwork {
         }
     }
 
+
+    // -- BOOKING TRIP FUNCTION -- \\
+
+    pub async fn book_trip(&mut self, travelers: Vec<Person>, date: NaiveDate, route: Route) -> Trip {
+        let reservation = Trip::new(travelers, date, route);
+        Self::add_reservation(self, reservation.clone()).await.expect("Failed to add the trip to the database.");
+        reservation
+    }
+
+
+    // -- FILTERING BOOKINGS FUNCTION -- \\
+
+    pub fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Vec<Trip> {self.reservations.clone()}
+
     
+    // -- DATABASE FUNCTIONS -- \\
+
+    pub async fn add_reservation(&mut self, booking: Trip) -> Result<(), Box<dyn Error>> {
+        self.reservations.push(booking.clone());
+        let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
+            .persistent(false)
+            .bind(booking.id)
+            .bind(booking.date)
+            .bind(booking.route.id.id as i16)
+            .execute(&self.pool)
+            .await?;
+        for ticket in booking.tickets {
+            let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
+                .persistent(false)
+                .bind(ticket.traveler.id.clone())
+                .bind(ticket.traveler.first_name)
+                .bind(ticket.traveler.last_name)
+                .bind(ticket.traveler.age as i16)
+                .execute(&self.pool)
+                .await?;
+            let _ = sqlx::query(r#"INSERT INTO "Tickets" (id, trip_id, person_id) VALUES ($1, $2, $3);"#)
+                .persistent(false)
+                .bind(ticket.id)
+                .bind(booking.id)
+                .bind(ticket.traveler.id)
+                .execute(&self.pool)
+                .await?;
+        }
+        Ok(())
+    }
+
+
     // -- FILTERING AND MATCHING -- \\
 
     fn matches_train(r: &Route, t: Option<&str>) -> bool {
@@ -126,6 +201,8 @@ impl RailNetwork {
 
 
     // -- ITINERARY BUILDERS -- \\
+
+    pub fn get_all_routes(&self) -> &Vec<Route> {&self.routes}
 
     fn direct_routes(routes: &[Route], idx: &IndexSet, q: &SearchFunctionality) -> Vec<Itinerary> {
         let mut out = Vec::new();
@@ -259,30 +336,18 @@ impl RailNetwork {
 
 // -- SEARCH FUNCTIONALITY -- \\
 
-#[derive(Clone, Copy, Debug, Serialize)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum TicketClass { FirstClass, SecondClass }
 
-#[derive(Clone, Copy, Debug, Serialize)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum SortBy {
     Duration,
     PriceAscendant(TicketClass),
     PriceDescendant(TicketClass),
     DepartureTimeAscendant,
 }
-#[derive(Clone, Debug, Serialize)]
-pub struct Route {
-    pub idx: usize,
-    pub departure_city: String,
-    pub arrival_city: String,
-    pub departure_time: NaiveTime,
-    pub arrival_time: NaiveTime,
-    pub train_type: String,
-    pub days_of_operation: Vec<Day>,
-    pub first_class_ticket_rate: u32,
-    pub second_class_ticket_rate: u32,
-}
 
-#[derive(Clone, Debug, Default, Serialize)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct SearchFunctionality<'a> {
     pub departure_city: Option<&'a str>,
     pub arrival_city:   Option<&'a str>,
@@ -292,22 +357,22 @@ pub struct SearchFunctionality<'a> {
     pub train_type:     Option<&'a str>,   
     pub day_of_week:    Option<&'a str>,   
     pub price_range:    Option<TicketClass>,
-    pub max_price:      Option<u32>,      
+    pub max_price:      Option<u16>,      
     pub allowed_transfers: bool,        
     pub min_transfer_minutes: i64,         
     pub sort_by:        Option<SortBy>,    
 }
 
-#[derive(Clone, Debug, Default, Serialize)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct Itinerary {
     pub connections: Vec<Route>,
     pub total_duration: Duration,   
-    pub total_first_price: u32,
-    pub total_second_price: u32,
-    pub transfer_duration: Vec<i64>,
+    pub total_first_price: u16,
+    pub total_second_price: u16,
+    pub transfer_duration: Vec<u64>
 }
 impl Itinerary {
-    pub fn price_for(&self, cls: TicketClass) -> u32 {
+    pub fn price_for(&self, cls: TicketClass) -> u16 {
         match cls {
             TicketClass::FirstClass => self.total_first_price,
             TicketClass::SecondClass => self.total_second_price,
@@ -315,16 +380,16 @@ impl Itinerary {
     }
     pub fn addRoute(&mut self, route: Route) {
         if let Some(prev) = self.connections.last() {
-            let mut secs = (route.departure_time.num_seconds_from_midnight() as i64)
-                        - (prev.arrival_time.num_seconds_from_midnight() as i64);
-            if secs < 0 { secs += 24 * 60 * 60; }
-            let wait = secs / 60;
+            let mut secs = (route.departure_time.num_seconds_from_midnight() as u64)
+                        - (prev.arrival_time.num_seconds_from_midnight() as u64);
+            if secs < 0 {secs += 24*60*60;}
+            let wait = secs/60;
             self.transfer_duration.push(wait);
-            self.total_duration = self.total_duration + Duration::minutes(wait);
+            self.total_duration = self.total_duration + Duration::minutes(wait as i64);
         }
         self.total_duration = self.total_duration + route.duration();
-        self.total_first_price = self.total_first_price.saturating_add(route.first_class_ticket_rate);
-        self.total_second_price = self.total_second_price.saturating_add(route.second_class_ticket_rate);
+        self.total_first_price = self.total_first_price.saturating_add(route.first_class_ticket_rate.into());
+        self.total_second_price = self.total_second_price.saturating_add(route.second_class_ticket_rate.into());
         self.connections.push(route);
     }
 }
@@ -369,34 +434,103 @@ pub fn parse_CSV() -> Result<Vec<Route>, Box<dyn Error>> {
         } else {
             row.days_of_operation.split(|c| c == ',' || c == '-').filter_map(|s| s.parse().ok()).collect()
         };
-        let idx = routes.len();
         let route = Route {
-            idx,
-            departure_city: row.departure_city,
-            arrival_city: row.arrival_city,
+            id: {RouteID::new(row.id)},
+            departure_city: row.departure_city.parse()?,
+            arrival_city: row.arrival_city.parse()?,
             departure_time: NaiveTime::parse_from_str(&row.departure_time, "%H:%M")?,
-            arrival_time:  NaiveTime::parse_from_str(row.arrival_time.split_whitespace().next().unwrap_or(&row.arrival_time),
-    "%H:%M")?,
-            train_type: row.train_type,
+            arrival_time: NaiveTime::parse_from_str(&row.arrival_time.split_whitespace().next().unwrap(), "%H:%M")?,
+            train_type: row.train_type.parse()?,
             days_of_operation: days,
-            first_class_ticket_rate: row.first_class_ticket_rate as u32,
-            second_class_ticket_rate: row.second_class_ticket_rate as u32,
+            first_class_ticket_rate: row.first_class_ticket_rate,
+            second_class_ticket_rate: row.second_class_ticket_rate
         };
         routes.push(route);
     }
     Ok(routes)
 }
-#[derive(Debug, Deserialize)] struct CSVRoute {#[serde(rename = "Route ID")] route_id: String, #[serde(rename = "Departure City")] departure_city: String, #[serde(rename = "Arrival City")] arrival_city: String, #[serde(rename = "Departure Time")] departure_time: String, #[serde(rename = "Arrival Time")] arrival_time: String, #[serde(rename = "Train Type")] train_type: String, #[serde(rename = "Days of Operation")] days_of_operation: String, #[serde(rename = "First Class ticket rate (in euro)")] first_class_ticket_rate: u16, #[serde(rename = "Second Class ticket rate (in euro)")] second_class_ticket_rate: u16}
+#[derive(Debug, Deserialize)] struct CSVRoute {#[serde(rename = "Route ID")] id: String, #[serde(rename = "Departure City")] departure_city: String, #[serde(rename = "Arrival City")] arrival_city: String, #[serde(rename = "Departure Time")] departure_time: String, #[serde(rename = "Arrival Time")] arrival_time: String, #[serde(rename = "Train Type")] train_type: String, #[serde(rename = "Days of Operation")] days_of_operation: String, #[serde(rename = "First Class ticket rate (in euro)")] first_class_ticket_rate: u16, #[serde(rename = "Second Class ticket rate (in euro)")] second_class_ticket_rate: u16}
+
+
+// -- TRIP -- \\
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Trip {
+    id: Uuid,
+    pub tickets: Vec<Ticket>,
+    pub date: NaiveDate,
+    pub route: Route
+} impl Trip {
+    pub fn new(travelers: Vec<Person>, date: NaiveDate, route: Route) -> Self {
+        let mut tickets = Vec::<Ticket>::new();
+        for traveler in travelers {
+            tickets.push(Ticket::new(traveler))
+        }
+        Self {id: Uuid::new_v4(), tickets, date, route}
+    }
+    pub fn is_correct_date(&self, is_ongoing: bool) -> bool {
+        self.date < Local::now().naive_local().date() || is_ongoing
+    }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Ticket {
+    id: Uuid,
+    pub traveler: Person
+} impl Ticket {pub fn new(traveler: Person) -> Self {Self {id: Uuid::new_v4(), traveler}}}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct Person {
+    pub id: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub age: u8
+}
 
 
 // -- ROUTE -- \\
 
-impl Route {
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Route {
+    id: RouteID,
+    pub departure_city: City,
+    pub arrival_city: City,
+    pub departure_time: NaiveTime,
+    pub arrival_time: NaiveTime,
+    pub train_type: Train,
+    pub days_of_operation: Vec<Day>,
+    pub first_class_ticket_rate: u16,
+    pub second_class_ticket_rate: u16
+} impl Route {
+    pub fn default() -> Self {
+        Route {id: RouteID {id: 0},
+            departure_city: City::ACoruna,
+            arrival_city: City::ACoruna,
+            departure_time: NaiveTime::from_hms_opt(0, 0, 0).unwrap(),
+            arrival_time: NaiveTime::from_hms_opt(0, 0, 0).unwrap(),
+            train_type: Train::AVE,
+            days_of_operation: Vec::new(),
+            first_class_ticket_rate: 0,
+            second_class_ticket_rate: 0
+        }
+    }
     pub fn arrival_is_next_day(&self) -> bool {self.arrival_time.signed_duration_since(self.departure_time) < Duration::zero()}
     pub fn duration(&self) -> Duration {
         let duration = self.arrival_time.signed_duration_since(self.departure_time);
         if duration < Duration::zero() {Duration::hours(24) + duration} else {duration}
     }
+    pub fn get_id(&self) -> String {self.id.get_id()}
+    pub fn set_id(&mut self, route_id: String) {self.id.set_id(route_id)}
+}
+
+
+// -- ROUTE ID -- \\
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+struct RouteID {id: u16} impl RouteID {
+    pub fn new(id: String) -> Self {RouteID {id: id[2..].parse().expect("Error: not a number.")}}
+    pub fn get_id(&self) -> String {format!("{}{}{}", 'R', 0, self.id)}
+    pub fn set_id(&mut self, route_id: String) {self.id = route_id[2..].parse().expect("Error: not a number.")}
 }
 
 

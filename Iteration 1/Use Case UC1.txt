@@ -1,4 +1,4 @@
-Use Case: Filter, Sort and Obtain All European Train Route Connections
+Use Case UC1: Filter, Sort and Obtain All European Train Route Connections
 Primary Actor: User
 Stakeholders and Interests: User: Wants a fast, clear, accurate and detailed way to view, filter and sort European train route options
 Preconditions: There is a user.

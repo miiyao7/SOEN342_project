@@ -1,9 +1,10 @@
-use crate::rail_network::{self, City, Itinerary, RailNetwork, Route, SearchFunctionality, SortBy, TicketClass, Train};
+use crate::rail_network::{self, City, Itinerary, RailNetwork, Route, SearchFunctionality, SortBy, TicketClass, Train, Person, Trip};
 use crate::domain::{ItineraryResponse, Route as DomainRoute, Day, Train as DomainTrain};
 use axum::{extract::{State, Json}, http::StatusCode, response::Json as ResponseJson};
-use chrono::{NaiveTime};
-use serde::{Deserialize};
-use std::str::FromStr;
+use chrono::{NaiveTime, NaiveDate};
+use serde::Deserialize;
+use std::{str::FromStr, sync::Arc};
+use tokio::sync::RwLock;
 
 #[derive(Debug, Deserialize)]
 pub struct SearchRequest {
@@ -24,12 +25,24 @@ pub struct Filters {
     train_type: Option<String>,         
     day_of_week: Option<String>,        
     price_range: Option<String>,        
-    max_price: Option<u32>,
+    max_price: Option<u16>,
     allowed_transfers: Option<bool>,
     min_transfer_minutes: Option<i64>,
 }
+#[derive(Debug, Deserialize)]
+pub struct BookTripRequest {
+    travelers: Vec<Person>,
+    trip_date: NaiveDate,
+    route_id: u16
+}
+#[derive(Debug, Deserialize)]
+pub struct FilterBookingsRequest {
+    is_ongoing: bool,
+    last_name: String,
+    id: String
+}
 pub async fn search_handler(
-    State(rn): State<std::sync::Arc<RailNetwork>>,
+    State(rn): State<Arc<RwLock<RailNetwork>>>,
     Json(payload): Json<SearchRequest>,
 ) -> Result<ResponseJson<Vec<ItineraryResponse>>, StatusCode> {
     let earliest_departure = match &payload.filters.earliest_departure {
@@ -91,19 +104,22 @@ pub async fn search_handler(
         max_price: payload.filters.max_price,
         allowed_transfers: payload.filters.allowed_transfers.unwrap_or(true),
         min_transfer_minutes: payload.filters.min_transfer_minutes.unwrap_or(5),
-        sort_by,
+        sort_by
     };
-    let results: Vec<Itinerary> = rn.search(&q);
+    let rn_read = rn.read().await;
+    let results: Vec<Itinerary> = rn_read.search(&q);
     let response_list: Vec<ItineraryResponse> = results
         .iter()
-        .map(|it| convert_itinerary_to_domain(it, &rn))
+        .map(|it| convert_itinerary_to_domain(it, &rn_read))
         .collect();
     
     Ok(ResponseJson(response_list))
 }
 
-pub async fn start_handler(State(rn): State<std::sync::Arc<RailNetwork>>) -> Result<ResponseJson<Vec<DomainRoute>>, StatusCode> {
+pub async fn start_handler(State(rn): State<Arc<RwLock<RailNetwork>>>) -> Result<ResponseJson<Vec<DomainRoute>>, StatusCode> {
     let routes : Vec<DomainRoute> = rn
+    .read()
+    .await
     .get_all_routes()
     .iter()
     .map(convert_route_to_domain)
@@ -120,6 +136,29 @@ pub async fn get_cities() -> Result<ResponseJson<Vec<&'static str>>, StatusCode>
     let cities = rail_network::get_all_city_names();
     Ok(ResponseJson(cities))
 }
+
+pub async fn book_trip_handler(
+    State(rn): State<Arc<RwLock<RailNetwork>>>,
+    Json(payload): Json<BookTripRequest>
+) -> Result<ResponseJson<Trip>, StatusCode> {
+    let mut rn = rn.write().await;
+    let mut route = Route::default();
+    for route_s in rn.routes.clone() {
+        if route_s.get_id()[2..].parse::<u16>().unwrap_or(0) == payload.route_id {
+            route = route_s;
+            break;
+        }
+    }
+    Ok(ResponseJson(rn.book_trip(payload.travelers, payload.trip_date, route).await))
+}
+
+pub async fn filter_bookings_handler(
+    State(rn): State<Arc<RwLock<RailNetwork>>>,
+    Json(payload): Json<FilterBookingsRequest>,
+) -> Result<ResponseJson<Vec<Trip>>, StatusCode> {
+    Ok(ResponseJson(rn.read().await.filter_bookings(payload.is_ongoing, payload.last_name, payload.id)))
+}
+
 fn map_weekday_to_enum(day: &str) -> Option<Day> {
     match day {
         "Monday" => Some(Day::Monday),
@@ -177,12 +216,12 @@ fn convert_route_to_domain(r: &Route) -> DomainRoute {
             .collect();
 
     DomainRoute {
-        idx: r.idx,
-        departure_city: r.departure_city.clone(),
-        arrival_city: r.arrival_city.clone(),
+        idx: r.get_id()[2..].parse().unwrap_or(0),
+        departure_city: r.departure_city.as_str().to_string(),
+        arrival_city: r.arrival_city.as_str().to_string(),
         departure_time: r.departure_time.to_string(),
         arrival_time: r.arrival_time.to_string(),
-        train_type: r.train_type.clone(),
+        train_type: r.train_type.as_str().to_string(),
         days_of_operation: r
             .days_of_operation
             .iter()

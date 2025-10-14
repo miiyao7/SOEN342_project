@@ -1,0 +1,11 @@
+Contract: book_trip
+Contract Operation CO2: book_trip(travelers, trip_date, route)
+Cross References: Use Case UC2, System Sequence Diagram SS2
+Preconditions: The webpage is loaded and the user has clicked a route row.
+Postconditions:
+	Multiple Ticket instances ticket were created (instance creation).
+	Each ticket was associated with one of the Person objects (association formed).
+	A Vec<Ticket> instance tickets containing each ticket was created (instance creation)
+	A Trip instance reservation was created (instance creation).
+	reservation was associated with the tickets (association formed).
+	reservation was associated with the Route (association formed).

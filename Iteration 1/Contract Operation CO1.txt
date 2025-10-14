@@ -1,0 +1,5 @@
+Contract: search
+Contract Operation CO1: search(q)
+Cross References: Use Case UC1, System Sequence Diagram SS1
+Preconditions: The webpage is loaded and the user has clicked the “Search” button or on a sorting button (previous sorting and filtering logic is preserved).
+Postconditions: A filtered Vec<Itinerary> instance itineraries was created and returned (instance creation).
