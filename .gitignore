@@ -5,3 +5,10 @@
 *.log
 *.py
 venv/
+
+/Backend/target/
+/Backend/target
+/frontend/node_modules
+/Backend/target/debug
+/Backend/target/debug/
+/target/
