@@ -15,14 +15,14 @@ const UploadTile: React.FC<UploadTileProps> = ({ onParsed, onLoading }) => {
     
     const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {    
         showSpinner();
-        try {
-          const response = await fetch("http://localhost:3001/handler/get", {
-              method: "GET"
+         try {
+            const response = await fetch("http://localhost:3001/handler/get", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+          },
+            body: JSON.stringify({}), 
           });
-
-          if (!response.ok) {
-              throw new Error(`Get failed: ${response.statusText}`);
-          }
 
           const json = await response.json();
           setRoutes(json);

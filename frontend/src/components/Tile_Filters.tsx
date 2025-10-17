@@ -7,6 +7,7 @@ type Filters = {
   CityArrival: string;
   DepartureTime: string;
   ArrivalTime: string;
+  ArrivalTimeFrom: string;
   TrainType: string;
   SelectedDay: string;
   TicketClass: string;
@@ -20,17 +21,15 @@ interface FilterTileProps {
   validTrains: string[];
   validCities: string[];
 }
-/*
-const validTrain = ["AVE", "EuroCity", "Eurostar", "Frecciarossa", "IC", "ICE", "InterCity", "Intercites", "Italo", "Nightjet", "RE", "RJX", "Railjet", "RegioExpress", "TER", "TGV", "Thalys"];
-const validCity = ["ACoruna", "Aalborg", "Aarhus", "Alicante", "Almeria", "Amiens", "Amsterdam", "Ancona", "Angers", "Annecy", "Antwerp", "Arezzo", "Ashford", "Augsburg", "Avignon", "Badajoz", "Barcelona", "Bari", "Basel", "Belgrade", "Bergamo", "Bergen", "Berlin", "Bern", "Besancon", "Bilbao", "Birmingham", "Bochum", "Bologna", "Bolzano", "Bonn", "Bordeaux", "Bratislava", "Brasov", "Bremen", "Brescia", "Brest", "Brighton", "Brindisi", "Bristol", "Brno", "Bruges", "Brussels", "Bucharest", "Budapest", "Burgas", "Burgos", "Calais", "Cambridge", "Cardiff", "Cartagena", "Catania", "Chambery", "ClermontFerrand", "ClujNapoca", "Cologne", "Como", "Copenhagen", "Cork", "Cuenca", "Cadiz", "Cordoba", "Debrecen", "Derby", "Dijon", "Dortmund", "Drammen", "Dresden", "Dublin", "Dusseldorf", "Edinburgh", "Eindhoven", "Essen", "Exeter", "Ferrara", "Florence", "Forli", "Frankfurt", "Galway", "Gdansk", "Gdynia", "Geneva", "Genoa", "Ghent", "Glasgow", "Gothenburg", "Granada", "Graz", "Grenoble", "Hamburg", "Hannover", "Heidelberg", "Helsingborg", "Helsinki", "Iasi", "Innsbruck", "Karlsruhe", "Katowice", "Kiel", "Kosice", "Krakow", "LAquila", "LaRochelle", "LaSpezia", "Lausanne", "LeMans", "Leeds", "Leicester", "Leipzig", "Lille", "Limerick", "Limoges", "Linkoping", "Linz", "Lisbon", "Liverpool", "Livorno", "Liege", "Ljubljana", "Logrono", "London", "Lublin", "Lucerne", "Lugano", "Lund", "Lyon", "Madrid", "Malmo", "Manchester", "Mannheim", "Maribor", "Marseille", "Messina", "Metz", "Milan", "Modena", "Montpellier", "Mostar", "Mulhouse", "Munich", "Murcia", "Malaga", "Nancy", "Nantes", "Naples", "Narbonne", "Newcastle", "Nice", "Nis", "Norrkoping", "Nottingham", "NoviSad", "Nuremberg", "Nimes", "Odense", "Oslo", "Ostrava", "Oulu", "Oviedo", "Oxford", "Padua", "Palermo", "Pamplona", "Paris", "Parma", "Perpignan", "Perugia", "Piacenza", "Pisa", "Plovdiv", "Plymouth", "Plzen", "Poitiers", "Porto", "Portsmouth", "Potsdam", "Poznan", "Prague", "Pecs", "Ravenna", "Reading", "Regensburg", "ReggioCalabria", "ReggioEmilia", "Reims", "Rennes", "Rijeka", "Rimini", "Rome", "Rostock", "Rotterdam", "Rouen", "Salamanca", "Salerno", "Salzburg", "SanSebastian", "Santander", "SantiagoDeCompostel", "Sarajevo", "Seville", "Sheffield", "Sofia", "Sopot", "Southampton", "Split", "StGallen", "Stavanger", "Stockholm", "Strasbourg", "Stuttgart", "Swansea", "Szeged", "Tampere", "Taranto", "Terni", "TheHague", "Thessaloniki", "Timisoara", "Toledo", "Toulouse", "Tours", "Trento", "Trieste", "Trondheim", "Turin", "Turku", "Uppsala", "Utrecht", "Valencia", "Valladolid", "Varna", "Venice", "Verona", "Versailles", "Vicenza", "Vienna", "Vigo", "Vasteras", "Warsaw", "Waterford", "Wroclaw", "Wurzburg", "York", "Zagreb", "Zaragoza", "Zurich", "Orebro", "CeskeBudejovice", "Lodz"];
-*/
 
 const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validTrains }) => {
-  const [allfilters, setAllFilters] = useState<Filters>({ CityDeparture: "", CityArrival: "", DepartureTime: "", ArrivalTime: "", TrainType: "", SelectedDay: "", TicketClass: "", Price: 0.00, Transferring: true, Minutes: 0});
+  const [allfilters, setAllFilters] = useState<Filters>({ CityDeparture: "", CityArrival: "", DepartureTime: "", ArrivalTime: "", ArrivalTimeFrom: "", TrainType: "", SelectedDay: "", TicketClass: "", Price: 0.00, Transferring: true, Minutes: 0});
   const [errors, setErrors] = useState({
     cityDeparture: "",
     cityArrival: "",
     departureTime: "",
+    arrivalTimeFrom: "",
+    arrivalTime: "",
     trainType: "",
     minutes: "",
     price: "",
@@ -58,17 +57,26 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
     if(/^\d+$/.test(value) && parseInt(value) > 0){ return true; }
     return false;
   }
+  const isTimeWithSeconds = (value: string): boolean => {
+      // Matches time from 00:00:00 to 23:59:59
+      const timeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+      return timeRegex.test(value);
+  };
   const validation = (name: any, value: any) => {    
     // Validation
     if(value.trim() == "" || value == null){
       setHasError(false);
-      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", price: "", minutes: "", general: "" }));
+      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", arrivalTime: "", arrivalTimeFrom: "", price: "", minutes: "", general: "" }));
     } else if (name === "CityDeparture" && !validCities.includes(value)) {
       setErrors(prev => ({ ...prev, cityDeparture: "Invalid" })); setHasError(true);
     } else if (name === "CityArrival" && !validCities.includes(value)) {
       setErrors(prev => ({ ...prev, cityArrival: "Invalid" })); setHasError(true);
-    } else if (name === "DepartureTime" && !isInteger(value)) {
+    } else if (name === "DepartureTime" && !isTimeWithSeconds(value)) {
       setErrors(prev => ({ ...prev, departureTime: "Invalid" })); setHasError(true);
+    } else if (name === "ArrivalTimeFrom" && !isTimeWithSeconds(value)) {
+      setErrors(prev => ({ ...prev, arrivalTimeFrom: "Invalid" })); setHasError(true);
+    } else if (name === "ArrivalTime" && !isTimeWithSeconds(value)) {
+      setErrors(prev => ({ ...prev, arrivalTime: "Invalid" })); setHasError(true);
     } else if (name === "TrainType" && !validTrains.includes(value)) {
       setErrors(prev => ({ ...prev, trainType: "Invalid" })); setHasError(true);
     } else if (name === "Minutes" && !isInteger(value)) {
@@ -77,7 +85,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       setErrors(prev => ({ ...prev, price: "Invalid" })); setHasError(true);
     } else {
       setHasError(false);
-      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", price: "", minutes: "", general: "" }));
+      setErrors(prev => ({ ...prev, cityDeparture: "", cityArrival: "", trainType: "", departureTime: "", arrivalTime: "", arrivalTimeFrom: "", price: "", minutes: "", general: "" }));
     }
   }
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,11 +137,6 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
               <div className="card"><label htmlFor="DepartureTime" className={errors.departureTime ? "has-error" : ""}>Departure Time</label>
                 <input type="text" className="DepartureTime" name="DepartureTime" onChange={handleFilterChange}></input>
               </div>
-              <div className="card checkbox">
-                <label className={errors.minutes ? "has-error" : ""}><input type="checkbox" name="Transferring" onChange={handleFilterChange} defaultChecked={true} /> 
-                 {allfilters.Transferring ? "Transfer Minutes:" : "  Transferring?"}</label>
-                 {allfilters.Transferring ? <input type="text" name="Minutes" onChange={handleFilterChange}></input> : <input type="text" disabled></input>}
-              </div>
               <div className="card"><label htmlFor="SelectedDay">Week Day</label>
                 <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="None">
                   <option value="None">None</option>
@@ -145,13 +148,12 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
                   <option value="Saturday">Saturday</option>
                   <option value="Sunday">Sunday</option>
                 </select></div>
-              <div className="card">
-                <label htmlFor="TicketClass">Ticket Class</label>
-                <select id="TicketClass" name="TicketClass" onChange={handleSelectChange} defaultValue="None">
-                  <option value="None">None</option>
-                  <option value="First">First Class</option>
-                  <option value="Second">Second Class</option>
-                </select>
+                
+              <div className="card"><label htmlFor="ArrivalTimeFrom" className={errors.arrivalTimeFrom ? "has-error" : ""}>Arrival Time From</label>
+                <input type="text" className="ArrivalTimeFrom" name="ArrivalTimeFrom" onChange={handleFilterChange}></input>
+              </div>
+              <div className="card"><label htmlFor="ArrivalTime" className={errors.arrivalTime ? "has-error" : ""}>Arrival Time To</label>
+                <input type="text" className="ArrivalTime" name="ArrivalTime" onChange={handleFilterChange}></input>
               </div>
               <div className="card"><label htmlFor="TrainType" className={errors.trainType ? "has-error" : ""}>Train Type</label>
                 <input list="TrainType" className="optionSearch" name="TrainType" onChange={handleFilterChange}></input>
@@ -169,4 +171,20 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       </div>
     )
 }
+/*
+              <div className="card checkbox">
+                <label className={errors.minutes ? "has-error" : ""}><input type="checkbox" name="Transferring" onChange={handleFilterChange} defaultChecked={true} /> 
+                 {allfilters.Transferring ? "Transfer Minutes:" : "  Transferring?"}</label>
+                 {allfilters.Transferring ? <input type="text" name="Minutes" onChange={handleFilterChange}></input> : <input type="text" disabled></input>}
+              </div>
+
+              <div className="card">
+                <label htmlFor="TicketClass">Ticket Class</label>
+                <select id="TicketClass" name="TicketClass" onChange={handleSelectChange} defaultValue="None">
+                  <option value="None">None</option>
+                  <option value="First">First Class</option>
+                  <option value="Second">Second Class</option>
+                </select>
+              </div>
+ */
 export default FilterTile;

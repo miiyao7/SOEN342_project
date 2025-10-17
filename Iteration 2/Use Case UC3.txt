@@ -1,0 +1,5 @@
+Contract: filter_bookings
+Contract Operation CO3: filter_bookings(is_ongoing, last_name, id)
+Cross References: Use Case UC3, System Sequence Diagram SS3
+Preconditions: The webpage is loaded and the user has clicked the “View Bookings” button.
+Postconditions: A filtered Vec<Trip> instance bookings was created and returned (instance creation).
