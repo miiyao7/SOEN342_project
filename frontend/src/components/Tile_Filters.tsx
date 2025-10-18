@@ -1,5 +1,7 @@
 import { all } from 'axios';
 import React, { use, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import { server } from 'typescript';
 
 type Filters = {
@@ -53,6 +55,12 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       onFiltered(activeFilters);
     }
   }
+  
+  function ViewBookings () {    
+    const navigate = useNavigate();
+    navigate("/bookings-parser-page");
+  }
+
    const isInteger = (value: string) =>{
     if(/^\d+$/.test(value) && parseInt(value) > 0){ return true; }
     return false;
@@ -167,6 +175,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
             </div>
           </div>
           <button type="button" className="filter-submit" onClick={setFilters}>FILTER</button>
+          <button type="button" className="filter-submit" onClick={() => ViewBookings()}>VIEW BOOKINGS</button>
         </form>
       </div>
     )

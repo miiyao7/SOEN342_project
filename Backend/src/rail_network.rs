@@ -380,11 +380,17 @@ impl Itinerary {
     }
     pub fn addRoute(&mut self, route: Route) {
         if let Some(prev) = self.connections.last() {
-            let mut secs = (route.departure_time.num_seconds_from_midnight() as u64)
-                        - (prev.arrival_time.num_seconds_from_midnight() as u64);
-            if secs < 0 {secs += 24*60*60;}
-            let wait = secs/60;
-            self.transfer_duration.push(wait);
+            let secs_opt = (route.departure_time.num_seconds_from_midnight() as i64)
+                        .checked_sub(prev.arrival_time.num_seconds_from_midnight() as i64);
+            /*if secs < 0 {secs += 24*60*60;}*/
+            let secs = match secs_opt {
+                Some(s) if s >= 0 => s,
+                _ => (route.departure_time.num_seconds_from_midnight() as i64)
+                    + 24 * 60 * 60
+                    - (prev.arrival_time.num_seconds_from_midnight() as i64),
+            };
+            let wait = secs/60 as i64;
+            self.transfer_duration.push(wait as u64);
             self.total_duration = self.total_duration + Duration::minutes(wait as i64);
         }
         self.total_duration = self.total_duration + route.duration();

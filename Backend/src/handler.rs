@@ -112,7 +112,6 @@ pub async fn search_handler(
         .iter()
         .map(|it| convert_itinerary_to_domain(it, &rn_read))
         .collect();
-    
     Ok(ResponseJson(response_list))
 }
 

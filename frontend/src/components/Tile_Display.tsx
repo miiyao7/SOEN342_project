@@ -1,24 +1,23 @@
 import { match } from 'assert';
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import Spinner from './Spinner';
 interface DisplayTileProps {
   filterList: any; // Callback prop type
   loading: boolean;
 }
 
+const API = "http://127.0.0.1:3001";
 const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
+  
+  const navigate = useNavigate();
   const [sort, setSort] = useState<string>("");
   const [sortChange, setSortChange] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
   const [loader, setLoader] = useState<boolean>(loading);
   const [hasNoMatch, setHasNoMatch] = useState<boolean>(false);
   const Sorter = { sort_by: sort }
-  const showSpinner = (time: number) => {
-      setLoader(true);     
-      setTimeout(() => {
-        setLoader(false);   
-      }, time);
-    };  
   const Filters = {
       departure_city: filterList.CityDeparture || null,
       arrival_city: filterList.CityArrival || null,
@@ -33,6 +32,59 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
       min_transfer_minutes: filterList.Minutes || null,
   }
   
+  useEffect(() => {
+    
+    const ac = new AbortController();
+    const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
+
+    const fetchJSON = async (url: string) =>  {
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        credentials: "omit",
+        signal: ac.signal,
+        body: JSON.stringify({filters: Filters, sorter: Sorter})
+      });
+      if (!resp.ok) {
+        throw new Error(`${url} failed: ${resp.status} ${resp.statusText}`);
+      }
+      return resp.json();
+    };
+    const fetchData = async () => {
+      setLoader(true);
+      try {
+        const filtered = await Promise.all([fetchJSON(`${API}/handler/search`)]);
+          if(sortChange) {
+            setLoader(false);   
+          } else {showSpinner(3000);}
+          if (ac.signal.aborted) return;  
+          setData(filtered[0]);
+          //console.log("DEBUG {DISPLAY} filtered", filtered[0]);
+        } catch (e) {
+          if (!isAbort(e)) console.error(e);    // ignore AbortError
+        } finally {
+          if (!ac.signal.aborted) setLoader(false);
+        }
+    };    
+
+    fetchData();
+    return () => ac.abort();
+  }, [filterList, sort]);
+      
+  const handleBooking = (route: any) => {  
+    localStorage.setItem("selectedRoute", JSON.stringify(route));
+    window.open("/booking-page", '_blank');
+  }
+
+  const showSpinner = (time: number) => {
+      setLoader(true);     
+      setTimeout(() => {
+        setLoader(false);   
+      }, time);
+    };  
   const handleSorterChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setSortChange(true);  
@@ -42,36 +94,6 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
     setSort(sorterID);
     console.log("Sorter: " + sorterID);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoader(true);
-      try {
-          const response = await fetch("http://localhost:3001/handler/search", {
-              method: "POST",
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({filters: Filters, sorter: Sorter})
-          });
-
-          if (!response.ok) {
-              throw new Error(`Get failed: ${response.statusText}`);
-          }
-
-          if(sortChange) {
-            setLoader(false);   
-          } else {showSpinner(3000);}
-          const filtered = await response.json();
-          setData(filtered);
-          // console.log("filtered: ", filtered);
-        } catch (err) {
-            console.error(err);
-        } 
-    };
-    fetchData();
-  }, [filterList, sort]);
-      
-
-
 
 
   const getDifferenceTime = (endTime: any, restartTime: any) => {
@@ -147,12 +169,12 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
       setHasNoMatch(true);
       return (<tbody></tbody>);
     } 
-    /*let outerheaders = Object.keys(data[0]);
+    /*let outerheaders = Object.keys(data);
     let innerheaders = Object.keys(data[0].routes[0]);
     let headers = outerheaders.concat(innerheaders);
     console.log("DEBUG PATH", data[0].routes);
     console.log(innerheaders);
-    console.log(outerheaders);*/
+    console.log("Keys ", outerheaders);*/
     return (
         <tbody>
           {data.map((item: any, idx: number) => (
@@ -169,12 +191,12 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
                   </>
                 ) : null}
                 
-                <td>{route.departure_city}</td>
-                <td>{route.arrival_city}</td>
-                <td>{route.departure_time}</td>
-                <td>{route.arrival_time}</td>
-                <td>{route.train_type}</td>
-                <td>{getFormattedWeek(route.days_of_operation)}</td>
+                <td onClick={() => handleBooking(route)}>{route.departure_city}</td>
+                <td onClick={() => handleBooking(route)}>{route.arrival_city}</td>
+                <td onClick={() => handleBooking(route)}>{route.departure_time}</td>
+                <td onClick={() => handleBooking(route)}>{route.arrival_time}</td>
+                <td onClick={() => handleBooking(route)}>{route.train_type}</td>
+                <td onClick={() => handleBooking(route)}>{getFormattedWeek(route.days_of_operation)}</td>
               </tr>
             ))
           ) : (
