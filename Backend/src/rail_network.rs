@@ -124,7 +124,32 @@ pub struct RailNetwork {
 
     // -- FILTERING BOOKINGS FUNCTION -- \\
 
-    pub fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Vec<Trip> {self.reservations.clone()}
+    pub fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Vec<Trip> {
+        let today = Local::now().naive_local().date();
+        let ln = last_name.to_ascii_lowercase();
+
+        let mut out: Vec<Trip> = self.reservations.iter()
+            .filter(|trip| {
+                let matches_person = trip.tickets.iter()
+                    .any(|ticket| ticket.traveler.last_name.eq_ignore_ascii_case(&ln) && ticket.traveler.id == id);
+            });
+            if !matches_person {
+                return false;
+            }
+            if is_ongoing {
+                trip.is_ongoing(today)
+            } else {
+                trip.is_past(today)
+            }
+        })
+        .cloned().collect();
+        if is_ongoing {
+            out.sort_by_key(|trip| trip.date);
+        } else {
+            out.sort_by_key(|trip| std::cmp::Reverse(trip.date));
+        }
+        out
+    }
 
     
     // -- DATABASE FUNCTIONS -- \\
@@ -474,8 +499,11 @@ pub struct Trip {
         }
         Self {id: Uuid::new_v4(), tickets, date, route}
     }
-    pub fn is_correct_date(&self, is_ongoing: bool) -> bool {
-        self.date < Local::now().naive_local().date() || is_ongoing
+    pub fn is_ongoing(&self, today: NaiveDate) -> bool {
+        self.date >= today
+    }
+    pub fin is_past(&self, today: NaiveDate) -> bool {
+        self.date < today
     }
 }
 
