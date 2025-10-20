@@ -128,11 +128,12 @@ pub struct RailNetwork {
         let today = Local::now().naive_local().date();
         let ln = last_name.to_ascii_lowercase();
 
-        let mut out: Vec<Trip> = self.reservations.iter()
+        let mut out: Vec<Trip> = self
+            .reservations
+            .iter()
             .filter(|trip| {
                 let matches_person = trip.tickets.iter()
-                    .any(|ticket| ticket.traveler.last_name.eq_ignore_ascii_case(&ln) && ticket.traveler.id == id);
-            });
+                    .any(|ticket| {ticket.traveler.last_name.eq_ignore_ascii_case(&ln) && ticket.traveler.id == id});
             if !matches_person {
                 return false;
             }
@@ -502,7 +503,7 @@ pub struct Trip {
     pub fn is_ongoing(&self, today: NaiveDate) -> bool {
         self.date >= today
     }
-    pub fin is_past(&self, today: NaiveDate) -> bool {
+    pub fn is_past(&self, today: NaiveDate) -> bool {
         self.date < today
     }
 }
