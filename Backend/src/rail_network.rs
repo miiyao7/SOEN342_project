@@ -22,6 +22,7 @@ pub struct RailNetwork {
         dotenv().ok();
         let pool = PgPool::connect(&env::var("DATABASE_URL").expect("DATABASE_URL must be set")).await?;
         let trips = sqlx::query(r#"SELECT id, date, route_id FROM "Trips";"#)
+            .persistent(false)
             .fetch_all(&pool)
             .await?;
         for trip in trips {
@@ -33,6 +34,7 @@ pub struct RailNetwork {
                 }
             }
             let tickets_s = sqlx::query(r#"SELECT id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.id = persons.ticket_id WHERE trip_id = $1;"#)
+                .persistent(false)
                 .bind::<Uuid>(trip.get("id"))
                 .fetch_all(&pool)
                 .await?;
