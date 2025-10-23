@@ -154,8 +154,17 @@ pub async fn book_trip_handler(
 pub async fn filter_bookings_handler(
     State(rn): State<Arc<RwLock<RailNetwork>>>,
     Json(payload): Json<FilterBookingsRequest>,
-) -> Result<ResponseJson<Vec<Trip>>, StatusCode> {
-    Ok(ResponseJson(rn.read().await.filter_bookings(payload.is_ongoing, payload.last_name, payload.id)))
+) -> Result<Json<Vec<Trip>>, StatusCode> {
+    let net = rn.read().await;
+
+    let trips = net
+        .filter_bookings(payload.is_ongoing, payload.last_name, payload.id)
+        .await
+        .map_err(|e| {
+            StatusCode::INTERNAL_SERVER_ERROR
+        })?;
+
+    Ok(Json(trips))
 }
 
 fn map_weekday_to_enum(day: &str) -> Option<Day> {

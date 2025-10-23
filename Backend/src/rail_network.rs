@@ -116,9 +116,7 @@ pub struct RailNetwork {
         let today = Local::now().date_naive();
         
         let trips_query = sqlx::query(r#"
-            SELECT DISTINCT t.id, t.date, t.route_id,
-                   r.departure_city, r.arrival_city, r.departure_time, r.arrival_time, 
-                   r.train_type, r.days_of_operation, r.first_class_ticket_rate, r.second_class_ticket_rate
+            SELECT DISTINCT t.id, t.date, t.route_id, r.departure_city, r.arrival_city, r.departure_time, r.arrival_time, r.train_type, r.days_of_operation, r.first_class_ticket_rate, r.second_class_ticket_rate
             FROM "Trips" t
             JOIN "Tickets" tk ON t.id = tk.trip_id
             JOIN "Persons" p ON tk.person_id = p.id
@@ -134,8 +132,7 @@ pub struct RailNetwork {
         let mut trips = Vec::new();
         
         for trip_row in trips_query {
-            let trip_id_str: String = trip_row.get("id");
-            let trip_id = Uuid::parse_str(&trip_id_str)?;
+            let trip_id: Uuid = trip_row.get("id");
             let trip_date: chrono::NaiveDate = trip_row.get("date");
             let route_id: i16 = trip_row.get("route_id");
             
@@ -144,22 +141,21 @@ pub struct RailNetwork {
             let is_trip_past = trip_date_naive < today;
             
             if (is_ongoing && is_trip_ongoing) || (!is_ongoing && is_trip_past) {
-                // Get tickets for this trip
+
                 let tickets_query = sqlx::query(r#"
-                    SELECT tk.id as ticket_id, p.id as person_id, p.first_name, p.last_name, p.age
+                    SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name, p.last_name, p.age
                     FROM "Tickets" tk
                     JOIN "Persons" p ON tk.person_id = p.id
                     WHERE tk.trip_id = $1
                 "#)
                 .persistent(false)
-                .bind(&trip_id_str)
+                .bind(&trip_id)
                 .fetch_all(&self.pool)
                 .await?;
                 
                 let mut tickets = Vec::new();
                 for ticket_row in tickets_query {
-                    let ticket_id_str: String = ticket_row.get("ticket_id");
-                    let ticket_id = Uuid::parse_str(&ticket_id_str)?;
+                    let ticket_id: Uuid = ticket_row.get("ticket_id");
                     let person_id: String = ticket_row.get("person_id");
                     let first_name: String = ticket_row.get("first_name");
                     let last_name: String = ticket_row.get("last_name");
