@@ -19,5 +19,10 @@ tower-http = {version = "0.6.6", features = ["cors", "trace"]}
 tracing = "0.1"
 tracing-subscriber = {version = "0.3", features = ["env-filter"]}
 once_cell = "1.21.3"
-sqlx = {version = "0.8.6", features = ["runtime-tokio", "chrono", "postgres", "runtime-tokio-native-tls", "uuid", "macros"]}
+sqlx = { version = "0.7", features = [
+  "postgres",
+  "runtime-tokio-rustls",   # TLS for Supabase
+  "uuid",
+  "chrono"
+] }
 dotenvy = "0.15"
