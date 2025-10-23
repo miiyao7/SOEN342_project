@@ -11,7 +11,6 @@ interface DisplayTileProps {
 const API = "http://127.0.0.1:3001";
 const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
   
-  const navigate = useNavigate();
   const [sort, setSort] = useState<string>("");
   const [sortChange, setSortChange] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
@@ -36,7 +35,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
     
     const ac = new AbortController();
     const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
-
+    console.log("DEBUG {DISPLAY} filters", Filters);
     const fetchJSON = async (url: string) =>  {
       const resp = await fetch(url, {
         method: "POST",
@@ -62,7 +61,7 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
           } else {showSpinner(3000);}
           if (ac.signal.aborted) return;  
           setData(filtered[0]);
-          //console.log("DEBUG {DISPLAY} filtered", filtered[0]);
+          console.log("DEBUG {DISPLAY} filtered", filtered[0]);
         } catch (e) {
           if (!isAbort(e)) console.error(e);    // ignore AbortError
         } finally {
@@ -135,39 +134,43 @@ const DisplayTile: React.FC<DisplayTileProps> = ({ filterList, loading }) => {
   };
   
   const getFormattedTransfers = (t: string, routes: any) => {
-      let depStart = routes[0].departure_city;
-      let arrCity1 = routes[0].arrival_city;
-      let endTime = routes[0].arrival_time;
-      let startTime = routes[0].departure_time;
-      let t1 = getDifferenceTime(startTime, endTime);
-      let result = depStart + "-("+ t1 +")->" + arrCity1;
+    if(parseInt(t) == 0) return "None";
+      const arrowT = "—";
+      const arrowH = "—▷";
+
+      const depStart  = <span style={{backgroundColor: '#4eaf76a4', borderRadius: '8px', padding: '0 8px'}}>{routes[0].departure_city}</span>;
+      const arrCity1  = routes[0].arrival_city;
+      const endTime   = routes[0].arrival_time;
+      const startTime = routes[0].departure_time;
+      const t1        = <span style={{color: '#181d1aa4', padding: '0 8px'}}>{arrowT+ getDifferenceTime(startTime, endTime) + arrowH}</span>;
+
+      let result = [depStart, t1, arrCity1];
     if(parseInt(t) >= 1){
-      let depCity2    = routes[1].departure_city;
-      let arrCity2    = routes[1].arrival_city;
-      let restartTime = routes[1].departure_time;
-      let finalTime   = routes[1].arrival_time;
-      let t2          = getDifferenceTime(restartTime, finalTime);
-      let transfer    = getDifferenceTime(endTime, restartTime);
-      result += "\n Wait (" + transfer + ")\n" + depCity2 + "-("+ t2+")->" + arrCity2;
+      const depCity2    = routes[1].departure_city;
+      let arrCity2      = <span style={{backgroundColor: '#dfaf56be', borderRadius: '8px', padding: '0 8px'}}>{routes[1].arrival_city}</span>;
+      const restartTime = routes[1].departure_time;
+      const finalTime   = routes[1].arrival_time;
+      const t2          = <span style={{color: '#181d1aa4', padding: '0 8px'}}>{arrowT+ getDifferenceTime(restartTime, finalTime) + arrowH}</span>;
+      const transfer    = getDifferenceTime(endTime, restartTime);
+      if(parseInt(t) == 2){ arrCity2  = routes[1].arrival_city;}
+      result.push(<br/>,"Wait (" + transfer + ")",<br/>, depCity2, t2, arrCity2);
     }
     if(parseInt(t) == 2){      
-      let arrCity2     = routes[1].arrival_city;
-      let depCity3     = routes[2].departure_city;
-      let arrCity3     = routes[2].arrival_city;
-      let depCity2Time = routes[1].departure_time;
-      let arrCity2Time = routes[1].arrival_time;
-      let depCity3Time = routes[2].departure_time;
-      let t3           = getDifferenceTime(depCity2Time, arrCity2Time);
-      let transfer     = getDifferenceTime(arrCity2Time, depCity3Time);
-      result += "\n Wait (" + transfer + ")\n" + depCity3 + "-("+ t3+")->" + arrCity3;
+      const depCity3     = routes[2].departure_city;
+      const arrCity3     = <span style={{backgroundColor: '#dfaf56be', borderRadius: '8px', padding: '0 8px'}}>{routes[2].arrival_city}</span>;
+      const depCity2Time = routes[1].departure_time;
+      const arrCity2Time = routes[1].arrival_time;
+      const depCity3Time = routes[2].departure_time;
+      const t3           = <span style={{color: '#181d1aa4', padding: '0 8px'}}>{arrowT+ getDifferenceTime(depCity2Time, arrCity2Time) + arrowH}</span>;
+      const transfer     = getDifferenceTime(arrCity2Time, depCity3Time);
+      result.push(<br/>,"Wait (" + transfer + ")", <br/>, depCity3 , t3, arrCity3);
     }
-    if(parseInt(t) == 0) return "None";
-    return <div>{getFormattedText(result)}</div>;
+    return <div style={{whiteSpace: "pre-line"}}>{result}</div>;
   };
   const renderTable = () => {
     if(data == null || data[0] == null){
       setHasNoMatch(true);
-      return (<tbody></tbody>);
+      return (<tr></tr>);
     } 
     /*let outerheaders = Object.keys(data);
     let innerheaders = Object.keys(data[0].routes[0]);

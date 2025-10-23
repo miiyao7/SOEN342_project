@@ -91,16 +91,17 @@ pub async fn search_handler(
             Ok(train_enum) => Some(train_enum.as_str()),
             Err(_) => None,
         }
-    });
+    });    
+    
     let q = SearchFunctionality {
         departure_city: dep_city,
         arrival_city: arr_city,
-        earliest_departure,
-        arrival_time_from,
-        arrival_time_to,
+        earliest_departure: earliest_departure,
+        arrival_time_from: arrival_time_from,
+        arrival_time_to: arrival_time_to,
         train_type: tr_type,
         day_of_week: payload.filters.day_of_week.as_deref(),
-        price_range,
+        price_range: price_range,
         max_price: payload.filters.max_price,
         allowed_transfers: payload.filters.allowed_transfers.unwrap_or(true),
         min_transfer_minutes: payload.filters.min_transfer_minutes.unwrap_or(5),

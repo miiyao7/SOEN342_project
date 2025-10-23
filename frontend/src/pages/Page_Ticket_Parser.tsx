@@ -1,0 +1,156 @@
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import TicketsDisplay from '../components/Tile_TicketDisplay';
+import "react-datepicker/dist/react-datepicker.css";
+
+
+type Ticket = {
+    id: string,
+    name: string,
+    age: number | string,
+    date: any,
+    route: any
+};
+type TravelerMap = {
+  id: string;
+  name: string;
+  age: number | string;
+};
+
+
+type BookingInfo = {
+    id: string | number,
+    name: string,
+    date: any,
+    travelers: TravelerMap[],
+    route: any
+}
+
+type BookingFilter = {
+    id: string | number,
+    last_name: string,
+    is_ongoing: boolean,
+}
+
+
+interface props {
+  notif: any;
+}
+
+const API = "http://127.0.0.1:3001";
+const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
+   
+    const [filters, setFilterList] = useState<BookingFilter>({id: "",  last_name: "",  is_ongoing: false});
+    const [loading, setLoading] = useState(false);
+    const [tickets, setTickets] = useState<Ticket[]>([]);
+    const [ticketsInfo, setTicketsInfo] = useState<BookingInfo[]>([]);
+    const [selectedDate, setSelectedDate] = useState<Date|null>(null);
+    //const [thisBooking, setThisBooking] = useState<BookingInfo>({ id: "",  name: "", date: Date.now(), travelers: {}, route: {}});
+
+
+    const showSpinner = (time: number) => {
+        setLoading(true);     
+        setTimeout(() => {
+            setLoading(false);   
+        }, time);
+    };  
+
+    const setStatus = (dateTime: Date|null) => {
+        if (!dateTime) return false;
+        const now = new Date();
+        return dateTime >= now;
+    };
+    
+    const setDate = (dateTime: Date|null) => {
+        setSelectedDate(dateTime);
+        setFilterList((prev) =>  ({...prev, is_ongoing: setStatus(dateTime)}));
+    };
+    const filterBookings = (filter: any) => {       
+        
+        if(filter.id !== "" && selectedDate != null) {
+            const ac = new AbortController();
+            const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
+            const sendJSON = async (url: string) =>  {
+            const resp = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                credentials: "omit",
+                signal: ac.signal,
+                body: JSON.stringify(filter)
+            });
+            if (!resp.ok) {
+                throw new Error(`${url} failed: ${resp.status} ${resp.statusText}`);
+            }
+            return resp.json();
+            };
+            const fetchData = async () => {
+                setLoading(true);
+                const [newTicketsInfo]: BookingInfo[] = [];
+                try {
+                    let trips = await Promise.all([sendJSON(`${API}/handler/filterBookings`)]);
+                    if (ac.signal.aborted) return;  
+                    if (trips[0].length == 0){notif("No Bookings Found "); return;}//trips = [[{id: "7", date: "2025-10-23", route: {}, tickets: [{id: "7", traveler: {id: "7", first_name: "Andy", last_name: "Torr", age: 18}}]}]];}
+                    const newTickets = trips[0].flatMap((trip: any) => 
+                        trip.tickets.map((person: any)=> ({
+                            id: person.traveler.id,
+                            name: (person.traveler.first_name + " " + person.traveler.last_name),
+                            age: person.traveler.age,
+                            date: trip.date,
+                            route: trip.route
+                        }))
+                    );
+                    setTickets((prev) => [...prev, ...newTickets]);
+                    setTicketsInfo((prev) => [{...prev, ...newTicketsInfo}]);
+                       
+                    notif("Return " + JSON.stringify(newTickets));
+                    //alert("Return " + JSON.stringify(newTicketsInfo));
+                } catch (e) {
+                    if (!isAbort(e)) console.error(e); 
+                } finally {
+                    if (!ac.signal.aborted) setLoading(false);
+                }
+            }
+            fetchData();
+            return () => ac.abort();
+        } 
+        alert("ID and Date are required" + JSON.stringify(filter));
+    };  
+
+    const showFilter = tickets && !loading;
+    return ( 
+        <div className="form-container">
+            <div className="form-tile booking-filters">
+                <form>
+                <div className="form-group">
+                    <div className="cardContainer bookings">
+                    
+                        <div className="card">
+                            <label htmlFor="DesiredDate" >Date</label>
+                            <DatePicker
+                                selected={selectedDate}
+                                onChange={date => setDate(date)}
+                                dateFormat="yyyy-MM-dd"
+                                required
+                            />                
+                            </div>
+                        <div className="card">
+                        <label htmlFor="ID">ID Number</label>
+                        <input type="text" name="ID" onChange={e => setFilterList(prev => ({...prev, id: e.target.value}))}></input>
+                        </div>
+                        <div className="card">
+                            <label htmlFor="Name" >Name</label>
+                            <input type="text" name="Name" onChange={e => setFilterList(prev => ({...prev, name: e.target.value}))} ></input>
+                        </div>
+                    </div>
+                </div>          
+                <button type="button" className="filter-submit" onClick={() => filterBookings(filters)}>FILTER</button>
+                </form>          
+            </div>          
+            {showFilter && <TicketsDisplay ticketsInfo={tickets} loading={loading} />}
+        </div>
+    )
+}
+export default Page_Ticket_Parser;

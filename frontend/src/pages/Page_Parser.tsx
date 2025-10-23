@@ -5,7 +5,10 @@ import Spinner from '../components/Spinner';
 
 const API = "http://127.0.0.1:3001";
 
-const Page_Parser: React.FC = () => {
+interface props {
+  notif: any;
+}
+const Page_Parser: React.FC<props> = ({ notif }) => {
     const [parsedData, setParsedData] = useState<any|null>(null);
     const [validCities, setValidCities] = useState<any|null>(null);
     const [validTrains, setValidTrains] = useState<any|null>(null);
@@ -65,7 +68,7 @@ const Page_Parser: React.FC = () => {
     const handleFilteredData = (data: any) => {
       setFilters(data);
       showSpinner(5000);
-      //console.log("DEBUG {PARENT} filters", data);
+      console.log("DEBUG {PARENT} filters", data);
     };
     
     const showWithLoader = loading && filters;

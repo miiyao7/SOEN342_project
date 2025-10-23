@@ -56,9 +56,8 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
     }
   }
   
-  function ViewBookings () {    
-    const navigate = useNavigate();
-    navigate("/bookings-parser-page");
+  function ViewBookings () {        
+    window.open("/bookings-parser-page", '_blank');
   }
 
    const isInteger = (value: string) =>{
