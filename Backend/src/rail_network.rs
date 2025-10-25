@@ -115,14 +115,7 @@ pub struct RailNetwork {
    pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Result<Vec<Trip>, Box<dyn Error>> {
         let today = Local::now().date_naive();
         
-        let trips_query = sqlx::query(r#"
-            SELECT DISTINCT t.id, t.date, t.route_id, r.departure_city, r.arrival_city, r.departure_time, r.arrival_time, r.train_type, r.days_of_operation, r.first_class_ticket_rate, r.second_class_ticket_rate
-            FROM "Trips" t
-            JOIN "Tickets" tk ON t.id = tk.trip_id
-            JOIN "Persons" p ON tk.person_id = p.id
-            JOIN "Routes" r ON t.route_id = r.id
-            WHERE LOWER(p.last_name) = LOWER($1) AND p.id = $2
-        "#)
+        let trips_query = sqlx::query(r#"SELECT DISTINCT t.id AS trip_id, t.date AS date, t.route_id AS route_id FROM "Trips" t JOIN "Tickets" tk ON t.id = tk.trip_id JOIN "Persons" p ON tk.person_id = p.id WHERE LOWER(p.last_name) = LOWER($1) AND p.id = $2"#)
         .persistent(false)
         .bind(&last_name)
         .bind(&id)
@@ -132,22 +125,19 @@ pub struct RailNetwork {
         let mut trips = Vec::new();
         
         for trip_row in trips_query {
-            let trip_id: Uuid = trip_row.get("id");
+            let trip_id: Uuid = trip_row.get("trip_id");
+
             let trip_date: chrono::NaiveDate = trip_row.get("date");
-            let route_id: i16 = trip_row.get("route_id");
-            
             let trip_date_naive = trip_date;
             let is_trip_ongoing = trip_date_naive >= today;
             let is_trip_past = trip_date_naive < today;
+
+            let route_id: i16 = trip_row.get("route_id");
+            let route = self.routes.iter().find(|r| r.id.id == route_id as u16).unwrap();
             
             if (is_ongoing && is_trip_ongoing) || (!is_ongoing && is_trip_past) {
 
-                let tickets_query = sqlx::query(r#"
-                    SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name, p.last_name, p.age
-                    FROM "Tickets" tk
-                    JOIN "Persons" p ON tk.person_id = p.id
-                    WHERE tk.trip_id = $1
-                "#)
+                let tickets_query = sqlx::query(r#"SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name AS first_name, p.last_name AS last_name, p.age AS age FROM "Tickets" AS tk JOIN "Persons" AS p ON tk.person_id = p.id WHERE tk.trip_id = $1"#)
                 .persistent(false)
                 .bind(&trip_id)
                 .fetch_all(&self.pool)
@@ -172,53 +162,11 @@ pub struct RailNetwork {
                     });
                 }
                 
-                let departure_city_str: String = trip_row.get("departure_city");
-                let arrival_city_str: String = trip_row.get("arrival_city");
-                let departure_time_str: String = trip_row.get("departure_time");
-                let arrival_time_str: String = trip_row.get("arrival_time");
-                let train_type_str: String = trip_row.get("train_type");
-                let days_of_operation_str: Vec<String> = trip_row.get("days_of_operation");
-                let first_class_rate: i16 = trip_row.get("first_class_ticket_rate");
-                let second_class_rate: i16 = trip_row.get("second_class_ticket_rate");
-                
-                let departure_city = City::from_str(&departure_city_str)
-                    .map_err(|e| format!("Invalid departure city: {}", e))?;
-                let arrival_city = City::from_str(&arrival_city_str)
-                    .map_err(|e| format!("Invalid arrival city: {}", e))?;
-                
-                
-                let departure_time = NaiveTime::parse_from_str(&departure_time_str, "%H:%M:%S")
-                    .map_err(|e| format!("Invalid departure time: {}", e))?;
-                let arrival_time = NaiveTime::parse_from_str(&arrival_time_str, "%H:%M:%S")
-                    .map_err(|e| format!("Invalid arrival time: {}", e))?;
-                
-               
-                let train_type = Train::from_str(&train_type_str)
-                    .map_err(|e| format!("Invalid train type: {}", e))?;
-                
-              
-                let mut days_of_operation = Vec::new();
-                for day_str in days_of_operation_str {
-                    let day = Day::from_str(&day_str)
-                        .map_err(|e| format!("Invalid day: {}", e))?;
-                    days_of_operation.push(day);
-                }
-                
                 trips.push(Trip {
                     id: trip_id,
                     tickets,
                     date: trip_date,
-                    route: Route {
-                        id: RouteID { id: route_id as u16 },
-                        departure_city,
-                        arrival_city,
-                        departure_time,
-                        arrival_time,
-                        train_type,
-                        days_of_operation,
-                        first_class_ticket_rate: first_class_rate as u16,
-                        second_class_ticket_rate: second_class_rate as u16,
-                    },
+                    route: route.clone()
                 });
             }
         }
