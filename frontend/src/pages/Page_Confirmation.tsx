@@ -98,7 +98,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
                );
             })}
             </div>
-          <button type="button" className="filter-submit" onClick={print}>PRINT</button>
+          <button type="button" className="filter-submit" onClick={print}>BOOK</button>
           <button type="button" className="filter-submit" onClick={discard}>DISCARD</button>
         </form>
     )

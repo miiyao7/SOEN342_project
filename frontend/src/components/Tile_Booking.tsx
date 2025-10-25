@@ -117,7 +117,7 @@ const BookingTile: React.FC<BookingProp> = ( { route, onNotif } ) => {
             </div>
           </div>
             <button type="button" className="btn-add" onClick={addNewTraveler}>ADD TRAVELER</button>
-            <button type="button" className="btn-submit" onClick={setBooking}>BOOK</button>
+            <button type="button" className="btn-submit" onClick={setBooking}>CREATE TICKETS</button>
         </form>
     )
 }
