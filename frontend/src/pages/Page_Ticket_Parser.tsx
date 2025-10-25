@@ -40,11 +40,12 @@ interface props {
 const API = "http://127.0.0.1:3001";
 const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
    
-    const [filters, setFilterList] = useState<BookingFilter>({id: "",  last_name: "",  is_ongoing: false});
+    const [filters, setFilterList] = useState<BookingFilter>({id: "",  last_name: "",  is_ongoing: true});
     const [loading, setLoading] = useState(false);
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [ticketsInfo, setTicketsInfo] = useState<BookingInfo[]>([]);
-    const [selectedDate, setSelectedDate] = useState<Date|null>(null);
+    const [trip, setTripInfo] = useState({});
+    const [selectedDate, setSelectedDate] = useState<Date|null>(new Date(Date.now()));
     //const [thisBooking, setThisBooking] = useState<BookingInfo>({ id: "",  name: "", date: Date.now(), travelers: {}, route: {}});
 
 
@@ -54,17 +55,27 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
             setLoading(false);   
         }, time);
     };  
+    const isTodayOrFuture = (dateTime: Date) => {
+        const today = new Date();
+        // Remove time component
+        today.setHours(0, 0, 0, 0);
+        const cmpDate = new Date(dateTime);
+        cmpDate.setHours(0, 0, 0, 0);
+        return cmpDate >= today;
+    };
 
     const setStatus = (dateTime: Date|null) => {
-        if (!dateTime) return false;
-        const now = new Date();
-        return dateTime >= now;
+        if (!dateTime) return true;
+        const now = new Date(Date.now());
+        // Check for today or future:
+        return isTodayOrFuture(dateTime) || dateTime > now;
     };
     
     const setDate = (dateTime: Date|null) => {
         setSelectedDate(dateTime);
-        console.log("ongoing", setStatus(dateTime));
+        //console.log("ongoing", setStatus(dateTime));
         setFilterList((prev) =>  ({...prev, is_ongoing: setStatus(dateTime)}));
+        //console.log("filters", filters);
     };
     const filterBookings = (filter: any) => {       
         
@@ -94,22 +105,23 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                 try {
                     let trips = await Promise.all([sendJSON(`${API}/handler/filterBookings`)]);
                     if (ac.signal.aborted) return;  
-                    console.log("Response", trips);
+                    console.log("Response", trips[0]);
                     if (trips[0].length == 0){notif({type: "!", text:"No Bookings Found "}); return;}//trips = [[{id: "7", date: "2025-10-23", route: {}, tickets: [{id: "7", traveler: {id: "7", first_name: "Andy", last_name: "Torr", age: 18}}]}]];}
-                    const newTickets = trips[0].flatMap((trip: any) => 
-                        trip.tickets.map((person: any)=> ({
+                    const newTickets = trips[0].flatMap((trip: any) => {
+                        return trip.tickets.map((person: any)=> ({
                             id: person.traveler.id,
-                            name: (person.traveler.first_name + " " + person.traveler.last_name),
+                            first_name: person.traveler.first_name ,
+                            last_name: person.traveler.last_name,
                             age: person.traveler.age,
                             date: trip.date,
                             route: trip.route
-                        }))
-                    );
-                    setTickets((prev) => [...prev, ...newTickets]);
-                    setTicketsInfo((prev) => [{...prev, ...newTicketsInfo}]);
+                        })
+                        );
+                    });
+                    setTickets(newTickets);
                        
-                    notif("Return " + JSON.stringify(newTickets));
-                    alert("Return " + JSON.stringify(newTicketsInfo));
+                    //notif("Return " + JSON.stringify(newTickets));
+                    //alert(JSON.stringify(trips[0].flatMap((trip: any) => {return trip.tickets})));
                 } catch (e) {
                     if (!isAbort(e)) console.error(e); 
                 } finally {
@@ -134,7 +146,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                             <label htmlFor="DesiredDate" >Date</label>
                             <DatePicker
                                 selected={selectedDate}
-                                onChange={date => setDate(date)}
+                                onChange={date => {setDate(date);}}
                                 dateFormat="yyyy-MM-dd"
                                 required
                             />                

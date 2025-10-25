@@ -149,7 +149,6 @@ pub async fn book_trip_handler(
             break;
         }
     }
-    //println!("{:?}", payload);
     Ok(ResponseJson(rn.book_trip(payload.travelers, payload.trip_date, route).await))
 }
 
@@ -157,6 +156,7 @@ pub async fn filter_bookings_handler(
     State(rn): State<Arc<RwLock<RailNetwork>>>,
     Json(payload): Json<FilterBookingsRequest>,
 ) -> Result<Json<Vec<Trip>>, StatusCode> {
+    println!("{:?}", payload);
     let net = rn.read().await;
 
     let trips = net

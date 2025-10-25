@@ -19,7 +19,7 @@ type TravelerMap = {
 };
 
 interface DisplayTileProps {
-  ticketsInfo: TicketInfo[]; // Callback prop type
+  ticketsInfo: any;
   loading: boolean;
 }
 
@@ -43,12 +43,13 @@ const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loadin
   const renderTickets = () => {
     if(ticketsInfo == null || ticketsInfo[0] == null){
       setHasNoMatch(true);
-      return (<div className="ticketDisplay"></div>);
+      return (<div></div>);
     } 
+    console.log((ticketsInfo));
     return (
         <div className="ticketDisplay">
           {ticketsInfo.map((t: any) => 
-              <Ticket route={t.route} id={t.id} date={t.date} value=""/>
+              <Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{first_name: t.first_name, last_name: t.last_name}}/>
             )
           }
         </div>
