@@ -155,12 +155,11 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
             let trip_date: chrono::NaiveDate = trip_row.get("date");
             let trip_date_naive = trip_date;
             let is_trip_ongoing = trip_date_naive >= today;
-            let is_trip_past = trip_date_naive < today;
 
             let route_id: i16 = trip_row.get("route_id");
             let route = self.routes.iter().find(|r| r.id.id == route_id as u16).unwrap();
             
-            if (is_ongoing && is_trip_ongoing) || (!is_ongoing && is_trip_past) {
+            if (is_ongoing && is_trip_ongoing) || (!is_ongoing && !is_trip_ongoing) {
 
                 let tickets_query = sqlx::query(r#"SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name AS first_name, p.last_name AS last_name, p.age AS age FROM "Tickets" AS tk JOIN "Persons" AS p ON tk.person_id = p.id WHERE tk.trip_id = $1"#)
                 .persistent(false)
