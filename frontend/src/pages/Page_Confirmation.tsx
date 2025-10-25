@@ -84,6 +84,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
             setError(true);
             if (!isAbort(e)) console.error(e); 
           } 
+          
         }
         fetchData();
         return () => ac.abort();
@@ -91,6 +92,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
 
     return ( 
         <form>
+            <h2>Reservation ID: {thisBooking.id}</h2>
             <div className='ticket-container'>
             {Object.entries(thisBooking.travelers).map(([key, value]) => {
                return( 

@@ -275,9 +275,9 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
         if secs < 0 { secs += 24 * 60 * 60; }
         secs / 60
     }
-    fn possible_transfer(prev_arr: NaiveTime, next_dep: NaiveTime, min_transfer_min: i64) -> Option<i64> {
+    fn possible_transfer(prev_arr: NaiveTime, next_dep: NaiveTime, min_transfer_min: i64, max_transfer_min: i64) -> Option<i64> {
         let w = Self::wait_minutes(prev_arr, next_dep);
-        (w >= min_transfer_min).then_some(w)
+        (w >= min_transfer_min && w < max_transfer_min).then_some(w)
     }
     fn sum_chain(routes: &[Route], connections: &[usize], waits: &[i64]) -> Duration {
         let connections_total = connections.iter()
@@ -362,7 +362,7 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
                 if !Self::matches_common(b, q) { continue; }
                 if !a.arrival_city.as_str().eq_ignore_ascii_case(b.departure_city.as_str()) { continue; }
 
-                if let Some(_wait) = Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) {
+                if let Some(_wait) = Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes, if b.arrival_time >= NaiveTime::from_hms_opt(8, 0, 0).unwrap() && b.arrival_time <= NaiveTime::from_hms_opt(20, 0, 0).unwrap() {240} else {60}) {
                     let mut it = Itinerary::default();
                     it.addRoute(a.clone());
                     it.addRoute(b.clone());
@@ -393,7 +393,7 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
                 if !Self::matches_common(b, q) { continue; }
                 if norm(b.arrival_city.as_str()) == norm(a.departure_city.as_str()) { continue; }
 
-                let _w1 = match Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes) {
+                let _w1 = match Self::possible_transfer(a.arrival_time, b.departure_time, q.min_transfer_minutes, if b.arrival_time >= NaiveTime::from_hms_opt(8, 0, 0).unwrap() && b.arrival_time <= NaiveTime::from_hms_opt(20, 0, 0).unwrap() {240} else {60}) {
                     Some(m) => m,
                     None => continue,
                 };
@@ -408,7 +408,7 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
                     if !Self::matches_common(c, q) { continue; }
                     if !b.arrival_city.as_str().eq_ignore_ascii_case(c.departure_city.as_str()) { continue; }
 
-                    if let Some(_w2) = Self::possible_transfer(b.arrival_time, c.departure_time, q.min_transfer_minutes) {
+                    if let Some(_w2) = Self::possible_transfer(b.arrival_time, c.departure_time, q.min_transfer_minutes, if b.arrival_time >= NaiveTime::from_hms_opt(8, 0, 0).unwrap() && b.arrival_time <= NaiveTime::from_hms_opt(20, 0, 0).unwrap() {240} else {60}) {
                         let mut it = Itinerary::default();
                         it.addRoute(a.clone());
                         it.addRoute(b.clone());

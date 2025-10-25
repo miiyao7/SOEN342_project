@@ -1,0 +1,4 @@
+System Operations:
+	search(q)
+	book_trip(travelers, trip_date, route)
+	filter_bookings(is_ongoing, last_name, id)

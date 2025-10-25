@@ -1,0 +1,18 @@
+Use Case UC2: Book a Trip
+Primary Actor: User
+Stakeholders and Interests: User: Wants a way to book a trip for themselves and perhaps more people (such as family members)
+Preconditions: There is a user and perhaps more people.
+Success Guarantee (Postconditions): The trip is booked, consisting of a connection and a ticket per person.
+Main Success Scenario (or Basic Flow):
+	The user loads the webpage.
+	The user selects filters and clicks the “Filter” button.
+	The user clicks on a row and a new tab opens.
+	The user enters their name, age, and ID in the presented textfields.
+	The user selects the date of their trip on a calendar view.
+	The user clicks the “Book” button.
+	The user is presented with a confirmation page, which includes traveler reservation information on tickets and a reservation ID.
+Extensions (or Alternative Flows):
+	When entering their name, age and ID, the user can click on the “Add Traveler” button to display the textfields a second time and thus include more people into the trip.
+Special Requirements: A user with an electronic computerized device with an up-to-date browser and an internet connection.
+Technology and Data Variations List: A pointer (with mouse, trackpad, touchscreen, trackpoint or other pointing method) to click (or tap), a keyboard (or other typing method) to type (filter) and a display (screen, video projector or other display method) to display the webpage.
+Open Issues: Precise user interface decisions and artistic choices.
