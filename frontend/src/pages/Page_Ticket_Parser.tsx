@@ -164,7 +164,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                 <button type="button" className="filter-submit" onClick={() => filterBookings(filters)}>FILTER</button>
                 </form>          
             </div>          
-            {showFilter && <TicketsDisplay ticketsInfo={tickets} loading={loading} />}
+            {showFilter && <TicketsDisplay ticketsInfo={tickets} loading={loading}/>}
         </div>
     )
 }

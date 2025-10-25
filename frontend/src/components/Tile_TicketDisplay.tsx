@@ -24,7 +24,7 @@ interface DisplayTileProps {
 }
 
 const API = "http://127.0.0.1:3001";
-const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loading }) => {
+const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loading}) => {
   
   const [loader, setLoader] = useState<boolean>(loading);
   const [hasNoMatch, setHasNoMatch] = useState<boolean>(false);
@@ -43,7 +43,7 @@ const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loadin
   const renderTickets = () => {
     if(ticketsInfo == null || ticketsInfo[0] == null){
       setHasNoMatch(true);
-      return (<div></div>);
+      return (<div>No Bookings</div>);
     } 
     //console.log((ticketsInfo));
     return (
