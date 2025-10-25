@@ -59,7 +59,7 @@ pub struct RailNetwork {
                     last_name: ticket.get("last_name"),
                     age: ticket.get::<i16, _>("age") as u8
                 };
-                tickets.push(Ticket {id: ticket.get("id"), traveler: person});
+                tickets.push(Ticket {id: ticket.get("ticket_id"), traveler: person});
             }
             bookings.push(Trip {id: trip.get("id"), tickets: tickets, date: trip.get("date"), route: route});
         }
@@ -131,9 +131,7 @@ pub struct RailNetwork {
     // -- BOOKING TRIP FUNCTION -- \\
 
     pub async fn book_trip(&mut self, travelers: Vec<Person>, date: NaiveDate, route: Route) -> Trip {
-        let reservation = Trip::new(travelers, date, route);
-        Self::add_reservation(self, reservation.clone()).await.expect("Failed to add the trip to the database.");
-        reservation
+        Self::add_reservation(self, Trip::new(travelers, date, route)).await.unwrap_or_else(|_| Trip::new(Vec::new(), NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(), Route::default()))
     }
     
     // -- FILTERING BOOKINGS FUNCTION -- \\
@@ -211,8 +209,8 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
         self.reservations.push(booking.clone());        
         let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
             .persistent(false)
-            .bind(booking.id)
-            .bind(booking.date)
+            .bind(&booking.id)
+            .bind(&booking.date)
             .bind(booking.route.id.id as i16)
             .execute(&self.pool)
             .await?;
@@ -231,22 +229,23 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
             if person_row.is_none() {
                 let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
                 .persistent(false)
-                .bind(ticket.traveler.id.clone())
-                .bind(ticket.traveler.first_name)
-                .bind(ticket.traveler.last_name)
+                .bind(&ticket.traveler.id)
+                .bind(&ticket.traveler.first_name)
+                .bind(&ticket.traveler.last_name)
                 .bind(ticket.traveler.age as i16)
                 .execute(&self.pool)
                 .await?;
             }
             let _ = sqlx::query(r#"INSERT INTO "Tickets" (id, trip_id, person_id) VALUES ($1, $2, $3);"#)
                 .persistent(false)
-                .bind(ticket.id)
-                .bind(booking.id)
-                .bind(ticket.traveler.id)
+                .bind(&ticket.id)
+                .bind(&booking.id)
+                .bind(&ticket.traveler.id)
                 .execute(&self.pool)
                 .await?;
         }
-        Ok(())
+        self.reservations.push(booking.clone());
+        Ok(booking)
     }
 
 
