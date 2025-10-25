@@ -33,7 +33,7 @@ pub struct RailNetwork {
                     break;
                 }
             }
-            let tickets_s = sqlx::query(r#"SELECT id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.id = persons.ticket_id WHERE trip_id = $1;"#)
+            let tickets_s = sqlx::query(r#"SELECT tickets.id AS ticket_id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.person_id = persons.id WHERE trip_id = $1;"#)
                 .persistent(false)
                 .bind::<Uuid>(trip.get("id"))
                 .fetch_all(&pool)
@@ -46,7 +46,7 @@ pub struct RailNetwork {
                     last_name: ticket.get("last_name"),
                     age: ticket.get::<i16, _>("age") as u8
                 };
-                tickets.push(Ticket {id: ticket.get("id"), traveler: person});
+                tickets.push(Ticket {id: ticket.get("ticket_id"), traveler: person});
             }
             bookings.push(Trip {id: trip.get("id"), tickets: tickets, date: trip.get("date"), route: route});
         }
@@ -138,7 +138,7 @@ pub struct RailNetwork {
             .execute(&self.pool)
             .await?;
         for ticket in &mut booking.tickets {
-            let person_ids = sqlx::query(r#"SELECT persons.id FROM "Persons" AS persons WHERE persons.first_name = $1 AND persons.last_name = $2 OR persons.id = $3;"#)
+            let person_ids = sqlx::query(r#"SELECT id FROM "Persons" AS persons WHERE persons.first_name = $1 AND persons.last_name = $2 OR persons.id = $3;"#)
                 .persistent(false)
                 .bind(&ticket.traveler.first_name)
                 .bind(&ticket.traveler.last_name)
