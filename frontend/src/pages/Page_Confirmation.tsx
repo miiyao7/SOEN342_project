@@ -45,7 +45,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
     const discard = () =>{       
         localStorage.removeItem("bookingData");
         localStorage.removeItem("selectedRoute");
-        window.open("/", '_blank');
+        window.location.href = "/";
     }
 
     const saveBooking = () => {
@@ -98,8 +98,8 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
                );
             })}
             </div>
-          <button type="button" className="filter-submit" onClick={print}>BOOK</button>
-          <button type="button" className="filter-submit" onClick={discard}>DISCARD</button>
+          <button type="button" className="filter-submit" onClick={print}>PRINT TO CONFIRM</button>
+          <button type="button" className="filter-submit" onClick={discard}>DISCARD TO CANCEL</button>
         </form>
     )
 }
