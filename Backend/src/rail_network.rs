@@ -205,7 +205,7 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
     
     // -- DATABASE FUNCTIONS -- \\
 
-    pub async fn add_reservation(&mut self, booking: Trip) -> Result<(), Box<dyn Error>> {
+    pub async fn add_reservation(&mut self, booking: Trip) -> Result<Trip, Box<dyn Error>> {
         self.reservations.push(booking.clone());        
         let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
             .persistent(false)
