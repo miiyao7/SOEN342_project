@@ -45,11 +45,11 @@ const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loadin
       setHasNoMatch(true);
       return (<div></div>);
     } 
-    console.log((ticketsInfo));
+    //console.log((ticketsInfo));
     return (
         <div className="ticketContainer">
           {ticketsInfo.map((t: any) => 
-              <Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{first_name: t.first_name, last_name: t.last_name}}/>
+              <Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{rate1:t.route.first_class_ticket_rate, rate2: t.route.second_class_ticket_rate, first_name: t.first_name, last_name: t.last_name}}/>
             )
           }
         </div>

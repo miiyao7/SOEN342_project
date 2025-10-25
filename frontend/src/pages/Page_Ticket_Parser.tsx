@@ -54,7 +54,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
         setTimeout(() => {
             setLoading(false);   
         }, time);
-    };  
+    };  /*
     const isTodayOrFuture = (dateTime: Date) => {
         const today = new Date();
         // Remove time component
@@ -76,11 +76,11 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
         //console.log("ongoing", setStatus(dateTime));
         setFilterList((prev) =>  ({...prev, is_ongoing: setStatus(dateTime)}));
         //console.log("filters", filters);
-    };
+    };*/
     const filterBookings = (filter: any) => {       
         
-        console.log("Filters", filters);
-        if(filter.id !== "" && selectedDate != null && filter.last_name !== "") {
+        //console.log("Filters", filters);
+        if(filter.id !== "" && filter.last_name !== "") {
             const ac = new AbortController();
             const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
             const sendJSON = async (url: string) =>  {
@@ -144,12 +144,12 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                     
                         <div className="card">
                             <label htmlFor="DesiredDate" >Date</label>
-                            <DatePicker
-                                selected={selectedDate}
-                                onChange={date => {setDate(date);}}
-                                dateFormat="yyyy-MM-dd"
-                                required
-                            />                
+                            <select 
+                            value={filters.is_ongoing ? "true" : "false"}
+                            onChange={e => setFilterList(prev => ({...prev, is_ongoing: e.target.value === "true" }))}>
+                                <option value="false">Past Bookings</option>
+                                <option value="true">Ongoing Bookings</option>
+                            </select>
                             </div>
                         <div className="card">
                         <label htmlFor="ID">ID Number</label>
