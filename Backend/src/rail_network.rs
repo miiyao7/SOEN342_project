@@ -244,7 +244,6 @@ pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: Str
                 .execute(&self.pool)
                 .await?;
         }
-        self.reservations.push(booking.clone());
         Ok(booking)
     }
 
