@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use csv::Reader;
-use std::{error::Error, str::FromStr, collections::HashMap, env};
+use std::{collections::HashMap, env, error::Error, ptr::null, str::FromStr};
 use chrono::{NaiveTime, Duration, Timelike, NaiveDate, Local};
 use strum_macros::{EnumIter, AsRefStr};
 use uuid::Uuid;
@@ -33,11 +33,24 @@ pub struct RailNetwork {
                     break;
                 }
             }
-            let tickets_s = sqlx::query(r#"SELECT tickets.id AS ticket_id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.person_id = persons.id WHERE trip_id = $1;"#)
+            let tickets_s = sqlx::query(r#"
+                SELECT  tickets.id, 
+                        tickets.trip_id, 
+                        tickets.person_id, 
+                        persons.first_name, 
+                        persons.last_name, 
+                        persons.age 
+                FROM        "Tickets"   AS tickets 
+                LEFT JOIN   "Persons"   AS persons 
+                    ON tickets.person_id = persons.id 
+                WHERE trip_id = $1;
+                "#)
                 .persistent(false)
                 .bind::<Uuid>(trip.get("id"))
                 .fetch_all(&pool)
                 .await?;
+            
+            
             let mut tickets: Vec<Ticket> = Vec::new();
             for ticket in tickets_s {
                 let person = Person {
@@ -46,7 +59,7 @@ pub struct RailNetwork {
                     last_name: ticket.get("last_name"),
                     age: ticket.get::<i16, _>("age") as u8
                 };
-                tickets.push(Ticket {id: ticket.get("ticket_id"), traveler: person});
+                tickets.push(Ticket {id: ticket.get("id"), traveler: person});
             }
             bookings.push(Trip {id: trip.get("id"), tickets: tickets, date: trip.get("date"), route: route});
         }
@@ -118,55 +131,122 @@ pub struct RailNetwork {
     // -- BOOKING TRIP FUNCTION -- \\
 
     pub async fn book_trip(&mut self, travelers: Vec<Person>, date: NaiveDate, route: Route) -> Trip {
-        Self::add_reservation(self, Trip::new(travelers, date, route)).await.unwrap_or_else(|_| Trip::new(Vec::new(), NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(), Route::default()))
+        let reservation = Trip::new(travelers, date, route);
+        Self::add_reservation(self, reservation.clone()).await.expect("Failed to add the trip to the database.");
+        reservation
     }
-
-
+    
     // -- FILTERING BOOKINGS FUNCTION -- \\
+pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Result<Vec<Trip>, Box<dyn Error>> {
+        let today = Local::now().date_naive();
+        
+        let trips_query = sqlx::query(r#"SELECT DISTINCT t.id AS trip_id, t.date AS date, t.route_id AS route_id FROM "Trips" t JOIN "Tickets" tk ON t.id = tk.trip_id JOIN "Persons" p ON tk.person_id = p.id WHERE LOWER(p.last_name) = LOWER($1) AND p.id = $2"#)
+        .persistent(false)
+        .bind(&last_name)
+        .bind(&id)
+        .fetch_all(&self.pool)
+        .await?;
 
-    pub fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Vec<Trip> {self.reservations.clone()}
+        let mut trips = Vec::new();
+        
+        for trip_row in trips_query {
+            let trip_id: Uuid = trip_row.get("trip_id");
 
+            let trip_date: chrono::NaiveDate = trip_row.get("date");
+            let trip_date_naive = trip_date;
+            let is_trip_ongoing = trip_date_naive >= today;
+            let is_trip_past = trip_date_naive < today;
+
+            let route_id: i16 = trip_row.get("route_id");
+            let route = self.routes.iter().find(|r| r.id.id == route_id as u16).unwrap();
+            
+            if (is_ongoing && is_trip_ongoing) || (!is_ongoing && is_trip_past) {
+
+                let tickets_query = sqlx::query(r#"SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name AS first_name, p.last_name AS last_name, p.age AS age FROM "Tickets" AS tk JOIN "Persons" AS p ON tk.person_id = p.id WHERE tk.trip_id = $1"#)
+                .persistent(false)
+                .bind(&trip_id)
+                .fetch_all(&self.pool)
+                .await?;
+                
+                let mut tickets = Vec::new();
+                for ticket_row in tickets_query {
+                    let ticket_id: Uuid = ticket_row.get("ticket_id");
+                    let person_id: String = ticket_row.get("person_id");
+                    let first_name: String = ticket_row.get("first_name");
+                    let last_name: String = ticket_row.get("last_name");
+                    let age: i16 = ticket_row.get("age");
+                    
+                    tickets.push(Ticket {
+                        id: ticket_id,
+                        traveler: Person {
+                            id: person_id,
+                            first_name,
+                            last_name,
+                            age: age as u8,
+                        },
+                    });
+                }
+                
+                trips.push(Trip {
+                    id: trip_id,
+                    tickets,
+                    date: trip_date,
+                    route: route.clone()
+                });
+            }
+        }
+
+        if is_ongoing {
+            trips.sort_by_key(|trip| trip.date);
+        } else {
+            trips.sort_by_key(|trip| std::cmp::Reverse(trip.date));
+        }
+        
+        Ok(trips)
+    }
     
     // -- DATABASE FUNCTIONS -- \\
 
-    pub async fn add_reservation(&mut self, mut booking: Trip) -> Result<Trip, Box<dyn Error>> {
+    pub async fn add_reservation(&mut self, booking: Trip) -> Result<(), Box<dyn Error>> {
+        self.reservations.push(booking.clone());        
         let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
             .persistent(false)
-            .bind(&booking.id)
-            .bind(&booking.date)
+            .bind(booking.id)
+            .bind(booking.date)
             .bind(booking.route.id.id as i16)
             .execute(&self.pool)
             .await?;
-        for ticket in &mut booking.tickets {
-            let person_ids = sqlx::query(r#"SELECT id FROM "Persons" AS persons WHERE persons.first_name = $1 AND persons.last_name = $2 OR persons.id = $3;"#)
-                .persistent(false)
-                .bind(&ticket.traveler.first_name)
-                .bind(&ticket.traveler.last_name)
-                .bind(&ticket.traveler.id)
-                .fetch_all(&self.pool)
-                .await?;
-            if(1 > person_ids.len()) {
+        for ticket in booking.tickets {
+            
+            let person_row = sqlx::query(r#"
+                SELECT id, first_name, last_name, age
+                FROM "Persons"
+                WHERE id = $1;
+            "#)
+            .persistent(false)
+            .bind::<String>(ticket.traveler.id.clone())
+            .fetch_optional(&self.pool)
+            .await?;
+                
+            if person_row.is_none() {
                 let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
                 .persistent(false)
-                .bind(&ticket.traveler.id)
-                .bind(&ticket.traveler.first_name)
-                .bind(&ticket.traveler.last_name)
+                .bind(ticket.traveler.id.clone())
+                .bind(ticket.traveler.first_name)
+                .bind(ticket.traveler.last_name)
                 .bind(ticket.traveler.age as i16)
                 .execute(&self.pool)
                 .await?;
-            } else {
-                ticket.traveler.id = person_ids[0].get::<String, _>("id");
             }
             let _ = sqlx::query(r#"INSERT INTO "Tickets" (id, trip_id, person_id) VALUES ($1, $2, $3);"#)
                 .persistent(false)
-                .bind(&ticket.id)
-                .bind(&booking.id)
-                .bind(&ticket.traveler.id)
+                .bind(ticket.id)
+                .bind(booking.id)
+                .bind(ticket.traveler.id)
                 .execute(&self.pool)
                 .await?;
         }
-        self.reservations.push(booking.clone());
-        Ok(booking)
+        Ok(())
     }
 
 
@@ -391,10 +471,8 @@ impl Itinerary {
     }
     pub fn addRoute(&mut self, route: Route) {
         if let Some(prev) = self.connections.last() {
-            let mut secs = (route.departure_time.num_seconds_from_midnight() as u64)
-                        - (prev.arrival_time.num_seconds_from_midnight() as u64);
             let secs_opt = (route.departure_time.num_seconds_from_midnight() as i64)
-                .checked_sub(prev.arrival_time.num_seconds_from_midnight() as i64);
+                        .checked_sub(prev.arrival_time.num_seconds_from_midnight() as i64);
             /*if secs < 0 {secs += 24*60*60;}*/
             let secs = match secs_opt {
                 Some(s) if s >= 0 => s,
@@ -402,7 +480,7 @@ impl Itinerary {
                     + 24 * 60 * 60
                     - (prev.arrival_time.num_seconds_from_midnight() as i64),
             };
-            let wait = secs/60;
+            let wait = secs/60 as i64;
             self.transfer_duration.push(wait as u64);
             self.total_duration = self.total_duration + Duration::minutes(wait as i64);
         }

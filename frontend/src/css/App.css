@@ -1,3 +1,6 @@
+:root{
+  --triangle: polygon(50% 0%, 0% 100%, 100% 100%);
+}
 .App {
   text-align: center;
 }
@@ -34,7 +37,19 @@
     transform: rotate(360deg);
   }
 }
-
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body{  
+  background-color: rgba(255, 255, 255, 0.9);
+  background-image: url("../images/4382334_26088.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;  
+  background-blend-mode:overlay;
+}
 h1{
   width: fit-content;
   padding: 0 24px;
@@ -44,23 +59,30 @@ h1{
 }
 
 .app{
-  padding: 5% 15%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 1% 15%;
   max-width: 100vw;
   height: 100vh;
-  max-height: fit-content;
-  margin: 10px auto;
+  box-sizing: border-box;
+  overflow: hidden;
 }
+main{ height: 100%; box-sizing: border-box; flex-grow: 1;  min-height: 0;}
 .form-container{
-  max-width: 85vw;  
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: 2%;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 100%;  
+  max-height: 100%;
+  min-height: 0 !important;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 .form-tile{
   background-color: sandybrown;
   border-radius: 8px;
-  margin-bottom: 2%;
 }
 .form-tile h2{  
   text-align: center;
@@ -75,7 +97,73 @@ h1{
 
 .form-tile.filters{
   padding: 1% 10% 2% 10%;
+  max-width: 100%; 
+  background-color: rgb(100, 72, 44);
+  background-image: url("../images/old-train-thailand.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+}.form-tile.filters label{
+  color: white;
+  font-weight: 800;
+  text-shadow: 0 2px 2px black;
+}.form-tile.filters input{
+  box-shadow: 0 2px 2px black;
+}
+
+.form-tile.booking-filters{
+  padding: 1% 2%;
   width: 100%;
+  height: 100%;
+  background-color: rgb(100, 72, 44);
+  background-image: url("../images/old-train-thailand.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: overlay;
+  box-sizing: border-box;
+}.form-tile.booking-filters label{
+  color: white;
+  font-weight: 800;
+  text-shadow: 0 2px 2px black;
+}.form-tile.booking-filters input{
+  box-shadow: 0 2px 2px black;
+}.form-tile.booking-filters .cardContainer.bookings{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.form-tile.display{
+  border: solid 1vw sandybrown;
+  max-width: 100%;
+  height: 100%;
+  overflow-y: auto !important;
+  box-sizing: border-box;
+  /*background-image: linear-gradient();
+  background-clip: padding-box;*/
+} 
+
+table{
+  table-layout: auto !important;
+  width: 100% !important;
+  height: 100%;  
+  min-height: 0 !important;
+  box-sizing: border-box;
+} table th{
+  font-size: 75%;
+  vertical-align: top;
+} table thead{
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+} table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+} table tbody tr:nth-child(even) {
+  background-color: white; 
+} td{
+  text-align: center;
+} td:not([rowspan]):hover, td:not([rowspan]):has(+ td:hover), td:not([rowspan]):has(~ td:hover), td:not([rowspan]):hover ~ td:not([rowspan]) {
+  background-color: aquamarine;
 }
 
 .form-tile.sorters{
@@ -85,26 +173,6 @@ h1{
 }.form-tile.sorters h2{  
   margin: 2%;
 }
-
-.form-tile.display{
-  padding: 1% 2% 2% 2%;
-  width: 100%;
-  max-height: 80vh;
-  overflow-y: scroll !important;
-}.display table{
-  table-layout: auto !important;
-  width: 100% !important;
-}.display table th{
-  font-size: 75%;
-}
-table tr:nth-child(odd) {
-  background-color: #f2f2f2; /* light gray */
-}
-
-table tr:nth-child(even) {
-  background-color: white; /* white */
-}
-
 
 
 .form-group{
@@ -168,6 +236,10 @@ label:has(#tooltip){
   padding-bottom: 5%;
   width: 100%;
 }
+.ticket-display{
+  height: 100%;
+  overflow-y: scroll;
+}
 .card{
   display: flex;    
   flex: 1 1;
@@ -230,12 +302,6 @@ input[type=text]{
   border-radius: 8px;
   background-color: lightblue;  
 }
-/*input[type=file]{
-  width: 150px;
-  padding: 5px;
-  margin: 10px auto;
-  border-radius: 8px;
-}*/
 input[type=text]:focus {
   background-color: lightblue;  
 }
@@ -304,12 +370,6 @@ label.has-error ~ input{
   from {  border: solid red 2px; }
   to { border: solid white 2px;}
 }
-th{
-  vertical-align: top;
-}
-td{
-  text-align: center;
-}
 span:has(button.sorter){
   display: flex;
   flex-direction: column !important;
@@ -320,4 +380,174 @@ button.sorter{
 }
 button.sorter:hover{
   mix-blend-mode: hue;
+}
+button.btn-submit { 
+  background-color: sandybrown; 
+  color: white; 
+  font-weight: bolder; 
+  font-size: large;
+  border-radius: 20px;
+  padding: 0 5%;
+}
+.booking-container {  
+  background-color: #fafbfa;
+  padding: 2%;
+  border-radius: 8px;
+  border: solid 1px sandybrown;
+  box-shadow: 10px 10px 2px sandybrown;
+} .booking-container .dateCard{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+} .booking-container label { text-align: center; min-height: 20%;
+} .booking-container .cardContainer { padding-bottom: 1% !important;
+} .booking-container .cardContainer.bookings { grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+} .booking-container .card button { padding: .5% !important; font-size: 80%;
+} .booking-container .btn-confirm { background-color: lightgreen;
+} .booking-container .btn-remove  { background-color: slategray; color: white;}
+.card:has(.addedTrav) input{
+  background-color: greenyellow;
+}
+.ticket{ /* classic ticket border */
+  --radius: 8px;
+  background-image:radial-gradient(var(--radius), transparent 98%, #dbd0b2), linear-gradient(#dbd0b2 0 0);
+  background-repeat: round, no-repeat;
+  background-position: calc(var(--radius) * -1.5) calc(var(--radius) * -1.5),   50%;  
+  background-size:
+    calc(var(--radius) * 3) calc(var(--radius) * 3),
+    calc(100% - var(--radius) * 3) calc(100% - var(--radius) * 3);
+}
+.ticket-container{
+  display: flex;
+  flex-direction: column;
+}
+.ticket {
+  padding: 2%;
+  width: min(60%, 800px);
+  height: 40%;
+  min-height: fit-content;
+  inset: 0;
+  margin: 2% auto;
+  color: sandybrown;
+}
+.ticket-body{  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem; 
+  padding: 0 5%;
+}
+.ticket-body .card{  
+  display: inline-flex;
+  flex-direction: column;
+  flex-basis: 40%;
+  box-sizing: border-box;
+  margin: none;
+}
+.ticket-body label:not(.ticketdata){  
+  font-variant: small-caps;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  color: #5e7374;
+}
+.ticket-body label{  
+  text-transform: uppercase;
+  font-family: monospace;
+  letter-spacing: 5px;
+  font-size: larger;
+}
+.ticket-header{
+  background-color: #5e7374;
+  padding: 1% 2%;
+  font-weight: 900;
+  font-size: larger;
+  color: sandybrown;
+  margin-bottom: 2%;
+  display: flex !important;
+  flex-direction: row !important;
+}
+.ticket-header span{
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 1%;
+  font-weight: bolder;
+  color: #dbd0b2;
+  margin-top: 2%;
+}
+.ticket-footer{
+  background-color: #5e7374;
+  padding: 1%;
+  font-weight: 900;
+  color: #dbd0b2;
+  margin-top: 2%;
+}
+.ticket-footer .cardRow{
+  justify-content: space-between;
+}
+.notificationBox{
+  display: flex;  flex-direction: row;  align-items: center;
+  position: fixed;  bottom: 5px;  right: 5px;
+  min-height: 3vh; width: fit-content;
+  white-space: nowrap; 
+  border-radius: 8px; box-sizing: border-box;
+  padding: 0 .5%;
+}.notificationBox .badge{  
+  width: 3vh;  min-height: 2vh;  height: 80%;
+  display: flex; flex: 1 0 auto;
+  justify-content: center;  align-items: center;
+  border-radius: 8px;
+}.notificationBox .badge p {  
+  margin:0;
+  height: fit-content;  width: fit-content;
+  text-align: center;  font-size: 100%;
+  flex: 1 0 auto;
+}.notificationBox .content{  
+  font-size: large;  font-weight: bold;
+  flex: 1 0 auto;
+  padding-right: 4%;
+}
+
+.notificationBox.type-i{  
+  border: solid 2px rgb(24, 164, 219);
+  background-color: skyblue;
+}.notificationBox.type-i .badge{  
+  background-color: blue;
+  clip-path: circle();
+}.notificationBox.type-i .badge p {  
+  color: white;
+  font-size: calc(2vh);
+  font-family: fantasy;
+  rotate: 180deg;
+}
+
+.notificationBox.type-x{  
+  border: solid 2px rgb(155, 14, 38);
+  background-color: pink;
+}.notificationBox.type-x .badge{  
+  background-color: red;
+  clip-path: circle();
+}.notificationBox.type-x .badge p {  
+  color: white;
+  font-weight: bolder;
+  font-family:'Lucida Console';
+}
+
+.notificationBox.hidden{
+  display: none;
+}
+
+.notificationBox:not(.hidden){
+  animation: slide 7s ease-in-out forwards;
+}
+
+@keyframes slide {
+  0%, 100% {
+    max-width: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  50% {
+    max-width: 35vw;
+    padding: 0 .5%;
+  }
 }

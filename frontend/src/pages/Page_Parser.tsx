@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import FilterTile from './Tile_Filters';
-import DisplayTile from './Tile_Display';
-import Spinner from './Spinner';
+import FilterTile from '../components/Tile_Filters';
+import DisplayTile from '../components/Tile_Display';
+import Spinner from '../components/Spinner';
 
 const API = "http://127.0.0.1:3001";
 
-const UserForm: React.FC = () => {
+interface props {
+  notif: any;
+}
+const Page_Parser: React.FC<props> = ({ notif }) => {
     const [parsedData, setParsedData] = useState<any|null>(null);
     const [validCities, setValidCities] = useState<any|null>(null);
     const [validTrains, setValidTrains] = useState<any|null>(null);
@@ -50,6 +53,7 @@ const UserForm: React.FC = () => {
       setValidTrains(vt);
       setValidCities(vc);
       setParsedData(routes);
+      //console.log("DEBUG {PARENT} rawdata", routes);
     } catch (e) {
       if (!isAbort(e)) console.error(e);    // ignore AbortError
     } finally {
@@ -64,7 +68,7 @@ const UserForm: React.FC = () => {
     const handleFilteredData = (data: any) => {
       setFilters(data);
       showSpinner(5000);
-      //console.log("DEBUG {PARENT} filters", data);
+      console.log("DEBUG {PARENT} filters", data);
     };
     
     const showWithLoader = loading && filters;
@@ -84,4 +88,4 @@ const UserForm: React.FC = () => {
   );
 };
 
-export default UserForm;
+export default Page_Parser;

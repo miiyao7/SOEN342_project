@@ -1,5 +1,7 @@
 import { all } from 'axios';
 import React, { use, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import { server } from 'typescript';
 
 type Filters = {
@@ -53,6 +55,11 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
       onFiltered(activeFilters);
     }
   }
+  
+  function ViewBookings () {        
+    window.open("/bookings-parser-page", '_blank');
+  }
+
    const isInteger = (value: string) =>{
     if(/^\d+$/.test(value) && parseInt(value) > 0){ return true; }
     return false;
@@ -123,7 +130,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
         <h2>Filters</h2>
         <form>
           <div className="form-group">
-            <div className="cardContainer">
+            <div className="cardContainer filters">
               <div className="card"><label htmlFor="CityDeparture" className={errors.cityDeparture ? "has-error" : ""}>Departure City</label>
                 <input list="CityDeparture" className="optionSearch" name="CityDeparture" onChange={handleFilterChange}></input>
                 <datalist id="CityDeparture">
@@ -138,8 +145,8 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
                 <input type="text" className="DepartureTime" name="DepartureTime" onChange={handleFilterChange}></input>
               </div>
               <div className="card"><label htmlFor="SelectedDay">Week Day</label>
-                <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="None">
-                  <option value="None">None</option>
+                <select id="SelectedDay" name="SelectedDay" onChange={handleSelectChange} defaultValue="">
+                  <option value="">None</option>
                   <option value="Monday">Monday</option>
                   <option value="Tuesday">Tuesday</option>
                   <option value="Wednesday">Wednesday</option>
@@ -167,6 +174,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
             </div>
           </div>
           <button type="button" className="filter-submit" onClick={setFilters}>FILTER</button>
+          <button type="button" className="filter-submit" onClick={() => ViewBookings()}>VIEW BOOKINGS</button>
         </form>
       </div>
     )

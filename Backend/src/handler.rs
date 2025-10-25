@@ -91,16 +91,17 @@ pub async fn search_handler(
             Ok(train_enum) => Some(train_enum.as_str()),
             Err(_) => None,
         }
-    });
+    });    
+    
     let q = SearchFunctionality {
         departure_city: dep_city,
         arrival_city: arr_city,
-        earliest_departure,
-        arrival_time_from,
-        arrival_time_to,
+        earliest_departure: earliest_departure,
+        arrival_time_from: arrival_time_from,
+        arrival_time_to: arrival_time_to,
         train_type: tr_type,
         day_of_week: payload.filters.day_of_week.as_deref(),
-        price_range,
+        price_range: price_range,
         max_price: payload.filters.max_price,
         allowed_transfers: payload.filters.allowed_transfers.unwrap_or(true),
         min_transfer_minutes: payload.filters.min_transfer_minutes.unwrap_or(5),
@@ -112,7 +113,6 @@ pub async fn search_handler(
         .iter()
         .map(|it| convert_itinerary_to_domain(it, &rn_read))
         .collect();
-    
     Ok(ResponseJson(response_list))
 }
 
@@ -155,8 +155,18 @@ pub async fn book_trip_handler(
 pub async fn filter_bookings_handler(
     State(rn): State<Arc<RwLock<RailNetwork>>>,
     Json(payload): Json<FilterBookingsRequest>,
-) -> Result<ResponseJson<Vec<Trip>>, StatusCode> {
-    Ok(ResponseJson(rn.read().await.filter_bookings(payload.is_ongoing, payload.last_name, payload.id)))
+) -> Result<Json<Vec<Trip>>, StatusCode> {
+    println!("{:?}", payload);
+    let net = rn.read().await;
+
+    let trips = net
+        .filter_bookings(payload.is_ongoing, payload.last_name, payload.id)
+        .await
+        .map_err(|e| {
+            StatusCode::INTERNAL_SERVER_ERROR
+        })?;
+
+    Ok(Json(trips))
 }
 
 fn map_weekday_to_enum(day: &str) -> Option<Day> {
