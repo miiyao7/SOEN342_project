@@ -30,7 +30,7 @@ const Ticket: React.FC<TicketProps> = ({ id, value, route, date }) => {
             </div>
             <div className="ticket-body">
                 <div className="card"><label>NAME OF PASSENGER</label><label className="ticketdata ticketPassenger">{value.first_name + " " + value.last_name}</label></div>
-                <div className="card"><label>PRICE:</label><label className="ticketdata ticketPrice">{route.price} ? EURO</label></div>
+                <div className="card"><label>PRICE:</label><label className="ticketdata ticketPrice">{route.price} -- €</label></div>
                 <div className="card"><label>FROM:</label><label className="ticketdata ticketFrom">{route.departure_city}</label></div> 
                 <div className="card"><label>TRAIN:</label><label className="ticketdata ticketTrain">{route.train_type}</label></div>
                 <div className="card"><label>TO:</label><label className="ticketdata ticketTo">{route.arrival_city}</label></div>
