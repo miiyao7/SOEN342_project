@@ -22,6 +22,7 @@ pub struct RailNetwork {
         dotenv().ok();
         let pool = PgPool::connect(&env::var("DATABASE_URL").expect("DATABASE_URL must be set")).await?;
         let trips = sqlx::query(r#"SELECT id, date, route_id FROM "Trips";"#)
+            .persistent(false)
             .fetch_all(&pool)
             .await?;
         for trip in trips {
@@ -33,6 +34,7 @@ pub struct RailNetwork {
                 }
             }
             let tickets_s = sqlx::query(r#"SELECT id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.id = persons.ticket_id WHERE trip_id = $1;"#)
+                .persistent(false)
                 .bind::<Uuid>(trip.get("id"))
                 .fetch_all(&pool)
                 .await?;
@@ -116,9 +118,7 @@ pub struct RailNetwork {
     // -- BOOKING TRIP FUNCTION -- \\
 
     pub async fn book_trip(&mut self, travelers: Vec<Person>, date: NaiveDate, route: Route) -> Trip {
-        let reservation = Trip::new(travelers, date, route);
-        Self::add_reservation(self, reservation.clone()).await.expect("Failed to add the trip to the database.");
-        reservation
+        Self::add_reservation(self, Trip::new(travelers, date, route)).await.unwrap_or_else(|_| Trip::new(Vec::new(), NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(), Route::default()))
     }
 
 
@@ -129,33 +129,44 @@ pub struct RailNetwork {
     
     // -- DATABASE FUNCTIONS -- \\
 
-    pub async fn add_reservation(&mut self, booking: Trip) -> Result<(), Box<dyn Error>> {
-        self.reservations.push(booking.clone());
+    pub async fn add_reservation(&mut self, mut booking: Trip) -> Result<Trip, Box<dyn Error>> {
         let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
             .persistent(false)
-            .bind(booking.id)
-            .bind(booking.date)
+            .bind(&booking.id)
+            .bind(&booking.date)
             .bind(booking.route.id.id as i16)
             .execute(&self.pool)
             .await?;
-        for ticket in booking.tickets {
-            let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
+        for ticket in &mut booking.tickets {
+            let person_ids = sqlx::query(r#"SELECT persons.id FROM "Persons" AS persons WHERE persons.first_name = $1 AND persons.last_name = $2 OR persons.id = $3;"#)
                 .persistent(false)
-                .bind(ticket.traveler.id.clone())
-                .bind(ticket.traveler.first_name)
-                .bind(ticket.traveler.last_name)
+                .bind(&ticket.traveler.first_name)
+                .bind(&ticket.traveler.last_name)
+                .bind(&ticket.traveler.id)
+                .fetch_all(&self.pool)
+                .await?;
+            if(1 > person_ids.len()) {
+                let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
+                .persistent(false)
+                .bind(&ticket.traveler.id)
+                .bind(&ticket.traveler.first_name)
+                .bind(&ticket.traveler.last_name)
                 .bind(ticket.traveler.age as i16)
                 .execute(&self.pool)
                 .await?;
+            } else {
+                ticket.traveler.id = person_ids[0].get::<String, _>("id");
+            }
             let _ = sqlx::query(r#"INSERT INTO "Tickets" (id, trip_id, person_id) VALUES ($1, $2, $3);"#)
                 .persistent(false)
-                .bind(ticket.id)
-                .bind(booking.id)
-                .bind(ticket.traveler.id)
+                .bind(&ticket.id)
+                .bind(&booking.id)
+                .bind(&ticket.traveler.id)
                 .execute(&self.pool)
                 .await?;
         }
-        Ok(())
+        self.reservations.push(booking.clone());
+        Ok(booking)
     }
 
 
