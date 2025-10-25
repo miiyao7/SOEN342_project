@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ParsingPage from './pages/Page_Parser';
 import BookingPage from './pages/Page_Booking';
 import TicketPage from './pages/Page_Ticket_Parser';
@@ -25,7 +25,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Rail Network Bookings</h1>
+        <h1 onClick={() => window.location.href = "/"}>Rail Network Bookings</h1>
       </header>
       
       <main>

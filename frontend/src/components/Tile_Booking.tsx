@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import FilteredDatePicker from './FilteredDatePicker';
@@ -17,8 +17,9 @@ type TravelerMap = {
 };
 
 type Booking = {
-    id: string | number,
-    name: string,
+    id: string,
+    first_name: string;
+    last_name: string;
     date: any,
     travelers: TravelerMap[],
     route: any
@@ -32,7 +33,7 @@ interface BookingProp{
 const BookingTile: React.FC<BookingProp> = ( { route, onNotif } ) => {
     const [thisRoute, setThisRoute] = useState(route);
     const [thisDate, setDate] = useState<any>();
-    const [thisBooking, setThisBooking] = useState<Booking>({ id: "",  name: "", date: Date.now(), travelers: [], route: {}});
+    const [thisBooking, setThisBooking] = useState<Booking>({ id: "",  first_name: "", last_name: "", date: Date.now(), travelers: [], route: {}});
     //alert("Booking " + route);
         
     // Array of temporary IDs for forms not confirmed yet
@@ -43,15 +44,15 @@ const BookingTile: React.FC<BookingProp> = ( { route, onNotif } ) => {
         setTempFormKeys((prev) => [...prev, tempKey]);
     };
     const setBooking = () => {
-        //let booking = { travelers: travelers, route: thisRoute, date: thisDate.toISOString().split('T')[0]}; 
         if(thisDate === null || !(thisDate instanceof Date)) { onNotif({type: "x",text:"No date set."}); return; }
         if(travelers.length == 0 || travelers === null) { onNotif({type: "x", text:"No travelers confirmed."}); return; }
         thisBooking.id = travelers[0].id;
-        thisBooking.name = travelers[0].last_name;
+        thisBooking.first_name = travelers[0].first_name;
+        thisBooking.last_name = travelers[0].last_name;
         thisBooking.date = thisDate.toISOString().split('T')[0];
         thisBooking.travelers = travelers;
         thisBooking.route = thisRoute;
-        //alert("Booking: " + JSON.stringify(thisBooking));
+        //console.log("Booking: ", JSON.stringify(thisBooking));
         localStorage.setItem("bookingData", JSON.stringify(thisBooking));
         onNotif({type: "i", text: "Generating tickets..."});
         window.open("/booking-confirm-page", '_blank');

@@ -423,7 +423,6 @@ button.btn-submit {
 }
 .ticket {
   padding: 2%;
-  width: min(60%, 800px);
   height: 40%;
   min-height: fit-content;
   inset: 0;

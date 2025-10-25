@@ -49,15 +49,16 @@ const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loadin
     return (
         <div className="ticketContainer">
           {ticketsInfo.map((t: any) => 
-              <Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{rate1:t.route.first_class_ticket_rate, rate2: t.route.second_class_ticket_rate, first_name: t.first_name, last_name: t.last_name}}/>
+              <div className='ticket-card'><Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{rate1:t.route.first_class_ticket_rate, rate2: t.route.second_class_ticket_rate, first_name: t.first_name, last_name: t.last_name}}/></div>
             )
           }
         </div>
     )
   }  
     const ticketListElement = React.useMemo(() => {
-      if (!ticketsInfo) return null;
-      if (ticketsInfo.length === 0) return null;
+      if (ticketsInfo == null || ticketsInfo[0] == null) return (<div>No Bookings</div>);
+      if (ticketsInfo.length === 0) return (<div>No Bookings</div>);
+      console.log(ticketsInfo);
       return renderTickets();
     }, [ticketsInfo]);
 

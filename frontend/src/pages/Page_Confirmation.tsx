@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Ticket from '../components/Ticket';
 
 type TravelerInfo = {
@@ -14,9 +14,10 @@ type TravelerMap = {
 };
 
 type BookingInfo = {
-    id: string | number,
-    name: string,
-    date: Date,
+    id: string,
+    first_name: string;
+    last_name: string;
+    date: any,
     travelers: TravelerMap[],
     route: any
 }
@@ -36,7 +37,14 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
     });
     const [error, setError] = useState(false);
     
-    const [thisBooking] = useState<BookingInfo>({ id: travelerData.id,  name: travelerData.last_name, date: travelerData.date, travelers: travelerData.travelers, route: travelerData.route});
+    const [thisBooking] = useState<BookingInfo>({ 
+      id: travelerData.id,  
+      first_name: travelerData.first_name,  
+      last_name: travelerData.last_name, 
+      date: travelerData.date, 
+      travelers: travelerData.travelers, 
+      route: travelerData.route,
+    });
     const print = () =>{        
         if(!error) saveBooking();
         /*            After Uploading Booking to Database        */
@@ -94,7 +102,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
             <div className='ticket-container'>
             {Object.entries(thisBooking.travelers).map(([key, value]) => {
                return( 
-                <div key={key}><Ticket id={key} value={value} route={thisBooking.route} date={thisBooking.date}/></div>
+                <div key={key} className='ticketCard'><Ticket id={key} value={value} route={thisBooking.route} date={thisBooking.date}/></div>
                );
             })}
             </div>

@@ -41,7 +41,7 @@ const API = "http://127.0.0.1:3001";
 const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
    
     const [filters, setFilterList] = useState<BookingFilter>({id: "",  last_name: "",  is_ongoing: true});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [ticketsInfo, setTicketsInfo] = useState<BookingInfo[]>([]);
     const [trip, setTripInfo] = useState({});
@@ -54,29 +54,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
         setTimeout(() => {
             setLoading(false);   
         }, time);
-    };  /*
-    const isTodayOrFuture = (dateTime: Date) => {
-        const today = new Date();
-        // Remove time component
-        today.setHours(0, 0, 0, 0);
-        const cmpDate = new Date(dateTime);
-        cmpDate.setHours(0, 0, 0, 0);
-        return cmpDate >= today;
-    };
-
-    const setStatus = (dateTime: Date|null) => {
-        if (!dateTime) return true;
-        const now = new Date(Date.now());
-        // Check for today or future:
-        return isTodayOrFuture(dateTime) || dateTime > now;
-    };
-    
-    const setDate = (dateTime: Date|null) => {
-        setSelectedDate(dateTime);
-        //console.log("ongoing", setStatus(dateTime));
-        setFilterList((prev) =>  ({...prev, is_ongoing: setStatus(dateTime)}));
-        //console.log("filters", filters);
-    };*/
+    }; 
     const filterBookings = (filter: any) => {       
         
         //console.log("Filters", filters);
@@ -106,7 +84,12 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                     let trips = await Promise.all([sendJSON(`${API}/handler/filterBookings`)]);
                     if (ac.signal.aborted) return;  
                     console.log("Response", trips[0]);
-                    if (trips[0].length == 0){notif({type: "!", text:"No Bookings Found "}); return;}//trips = [[{id: "7", date: "2025-10-23", route: {}, tickets: [{id: "7", traveler: {id: "7", first_name: "Andy", last_name: "Torr", age: 18}}]}]];}
+                    if (trips[0].length == 0){
+                        notif({type: "i", text:"No Bookings Found "}); 
+                        setTickets([]);
+                        console.log("No Trip");
+                        return;
+                    }
                     const newTickets = trips[0].flatMap((trip: any) => {
                         return trip.tickets.map((person: any)=> ({
                             id: person.traveler.id,
@@ -119,7 +102,9 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                         );
                     });
                     setTickets(newTickets);
+                    console.log("No Trip", newTickets);
                        
+                    setLoading(false);
                     //notif("Return " + JSON.stringify(newTickets));
                     //alert(JSON.stringify(trips[0].flatMap((trip: any) => {return trip.tickets})));
                 } catch (e) {
@@ -134,7 +119,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
         notif({type: "x", text:"All filters are required"});
     };  
 
-    const showFilter = tickets && !loading;
+    const showFilter = tickets && !loading && filters.id && filters.last_name;
     return ( 
         <div className="form-container">
             <div className="form-tile booking-filters">
@@ -143,12 +128,12 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                     <div className="cardContainer bookings">
                     
                         <div className="card">
-                            <label htmlFor="DesiredDate" >Date</label>
+                            <label htmlFor="DesiredDate" >Booking Collections</label>
                             <select 
                             value={filters.is_ongoing ? "true" : "false"}
                             onChange={e => setFilterList(prev => ({...prev, is_ongoing: e.target.value === "true" }))}>
-                                <option value="false">Past Bookings</option>
-                                <option value="true">Ongoing Bookings</option>
+                                <option value="false">Past Trips</option>
+                                <option value="true">Ongoing Trips</option>
                             </select>
                             </div>
                         <div className="card">
@@ -163,8 +148,8 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                 </div>          
                 <button type="button" className="filter-submit" onClick={() => filterBookings(filters)}>FILTER</button>
                 </form>          
-            </div>          
-            {showFilter && <TicketsDisplay ticketsInfo={tickets} loading={loading}/>}
+            </div>                      
+            <form>{showFilter && <TicketsDisplay ticketsInfo={tickets} loading={loading}/>}</form>      
         </div>
     )
 }
