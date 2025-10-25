@@ -19,7 +19,7 @@ type TravelerMap = {
 
 
 type BookingInfo = {
-    id: string | number,
+    id: string,
     name: string,
     date: any,
     travelers: TravelerMap[],
@@ -27,7 +27,7 @@ type BookingInfo = {
 }
 
 type BookingFilter = {
-    id: string | number,
+    id: string,
     last_name: string,
     is_ongoing: boolean,
 }
@@ -63,11 +63,13 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
     
     const setDate = (dateTime: Date|null) => {
         setSelectedDate(dateTime);
+        console.log("ongoing", setStatus(dateTime));
         setFilterList((prev) =>  ({...prev, is_ongoing: setStatus(dateTime)}));
     };
     const filterBookings = (filter: any) => {       
         
-        if(filter.id !== "" && selectedDate != null) {
+        console.log("Filters", filters);
+        if(filter.id !== "" && selectedDate != null && filter.last_name !== "") {
             const ac = new AbortController();
             const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
             const sendJSON = async (url: string) =>  {
@@ -92,7 +94,8 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                 try {
                     let trips = await Promise.all([sendJSON(`${API}/handler/filterBookings`)]);
                     if (ac.signal.aborted) return;  
-                    if (trips[0].length == 0){notif("No Bookings Found "); return;}//trips = [[{id: "7", date: "2025-10-23", route: {}, tickets: [{id: "7", traveler: {id: "7", first_name: "Andy", last_name: "Torr", age: 18}}]}]];}
+                    console.log("Response", trips);
+                    if (trips[0].length == 0){notif({type: "!", text:"No Bookings Found "}); return;}//trips = [[{id: "7", date: "2025-10-23", route: {}, tickets: [{id: "7", traveler: {id: "7", first_name: "Andy", last_name: "Torr", age: 18}}]}]];}
                     const newTickets = trips[0].flatMap((trip: any) => 
                         trip.tickets.map((person: any)=> ({
                             id: person.traveler.id,
@@ -106,7 +109,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                     setTicketsInfo((prev) => [{...prev, ...newTicketsInfo}]);
                        
                     notif("Return " + JSON.stringify(newTickets));
-                    //alert("Return " + JSON.stringify(newTicketsInfo));
+                    alert("Return " + JSON.stringify(newTicketsInfo));
                 } catch (e) {
                     if (!isAbort(e)) console.error(e); 
                 } finally {
@@ -116,7 +119,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
             fetchData();
             return () => ac.abort();
         } 
-        alert("ID and Date are required" + JSON.stringify(filter));
+        notif({type: "x", text:"All filters are required"});
     };  
 
     const showFilter = tickets && !loading;
@@ -141,8 +144,8 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                         <input type="text" name="ID" onChange={e => setFilterList(prev => ({...prev, id: e.target.value}))}></input>
                         </div>
                         <div className="card">
-                            <label htmlFor="Name" >Name</label>
-                            <input type="text" name="Name" onChange={e => setFilterList(prev => ({...prev, name: e.target.value}))} ></input>
+                            <label htmlFor="Name" >Last Name</label>
+                            <input type="text" name="Name" onChange={e => setFilterList(prev => ({...prev, last_name: e.target.value}))} ></input>
                         </div>
                     </div>
                 </div>          

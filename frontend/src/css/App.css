@@ -78,6 +78,7 @@ main{ height: 100%; box-sizing: border-box; flex-grow: 1;  min-height: 0;}
   min-height: 0 !important;
   justify-content: center;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .form-tile{
   background-color: sandybrown;
@@ -113,7 +114,7 @@ main{ height: 100%; box-sizing: border-box; flex-grow: 1;  min-height: 0;}
 
 .form-tile.booking-filters{
   padding: 1% 2%;
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: rgb(100, 72, 44);
   background-image: url("../images/old-train-thailand.jpg");
@@ -121,12 +122,15 @@ main{ height: 100%; box-sizing: border-box; flex-grow: 1;  min-height: 0;}
   background-repeat: no-repeat;
   background-position: center;
   background-blend-mode: overlay;
+  box-sizing: border-box;
 }.form-tile.booking-filters label{
   color: white;
   font-weight: 800;
   text-shadow: 0 2px 2px black;
 }.form-tile.booking-filters input{
   box-shadow: 0 2px 2px black;
+}.form-tile.booking-filters .cardContainer.bookings{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
 }
 
 .form-tile.display{

@@ -33,11 +33,24 @@ pub struct RailNetwork {
                     break;
                 }
             }
-            let tickets_s = sqlx::query(r#"SELECT id, person_id, first_name, last_name, age FROM "Tickets" AS tickets LEFT JOIN "Persons" AS persons ON tickets.id = persons.ticket_id WHERE trip_id = $1;"#)
+            let tickets_s = sqlx::query(r#"
+                SELECT  tickets.id, 
+                        tickets.trip_id, 
+                        tickets.person_id, 
+                        persons.first_name, 
+                        persons.last_name, 
+                        persons.age 
+                FROM        "Tickets"   AS tickets 
+                LEFT JOIN   "Persons"   AS persons 
+                    ON tickets.person_id = persons.id 
+                WHERE trip_id = $1;
+                "#)
                 .persistent(false)
                 .bind::<Uuid>(trip.get("id"))
                 .fetch_all(&pool)
                 .await?;
+            
+            
             let mut tickets: Vec<Ticket> = Vec::new();
             for ticket in tickets_s {
                 let person = Person {
@@ -122,17 +135,141 @@ pub struct RailNetwork {
         Self::add_reservation(self, reservation.clone()).await.expect("Failed to add the trip to the database.");
         reservation
     }
-
-
+    
     // -- FILTERING BOOKINGS FUNCTION -- \\
 
-    pub fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Vec<Trip> {self.reservations.clone()}
+   pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Result<Vec<Trip>, Box<dyn Error>> {
+        let today = Local::now().date_naive();
+        
+        let trips_query = sqlx::query(r#"
+            SELECT DISTINCT 
+                t.id, t.date, t.route_id, 
+                r.departure_city, r.arrival_city, 
+                r.departure_time, r.arrival_time, 
+                r.train_type, r.days_of_operation, 
+                r.first_class_ticket_rate, r.second_class_ticket_rate
+            FROM        "Trips"     AS t
+            JOIN   "Tickets"   AS tk 
+                ON t.id = tk.trip_id
+            JOIN   "Persons"   AS p 
+                ON tk.person_id = p.id
+            JOIN   "Routes"    AS r 
+                ON t.route_id = r.id
+            WHERE LOWER(p.last_name) = LOWER($1) AND p.id = $2
+        "#)
+        .persistent(false)
+        .bind(&last_name)
+        .bind(&id)
+        .fetch_all(&self.pool)
+        .await?;
+        //println!("{:?}", trips_query);
+        let mut trips = Vec::new();
+        
+        for trip_row in trips_query {
+            let trip_id: Uuid = trip_row.get("id");
+            let trip_date: chrono::NaiveDate = trip_row.get("date");
+            let route_id: i16 = trip_row.get("route_id");
+            
+            let trip_date_naive = trip_date;
+            let is_trip_ongoing = trip_date_naive >= today;
+            let is_trip_past = trip_date_naive < today;
+            
+            if (is_ongoing && is_trip_ongoing) || (!is_ongoing && is_trip_past) {
 
+                let tickets_query = sqlx::query(r#"
+                    SELECT tk.id AS ticket_id, p.id AS person_id, p.first_name, p.last_name, p.age
+                    FROM "Tickets" AS tk
+                    JOIN "Persons" AS p ON tk.person_id = p.id
+                    WHERE tk.trip_id = $1
+                "#)
+                .persistent(false)
+                .bind(&trip_id)
+                .fetch_all(&self.pool)
+                .await?;
+                
+                let mut tickets = Vec::new();
+                for ticket_row in tickets_query {
+                    let ticket_id: Uuid = ticket_row.get("ticket_id");
+                    let person_id: String = ticket_row.get("person_id");
+                    let first_name: String = ticket_row.get("first_name");
+                    let last_name: String = ticket_row.get("last_name");
+                    let age: i16 = ticket_row.get("age");
+                    
+                    tickets.push(Ticket {
+                        id: ticket_id,
+                        traveler: Person {
+                            id: person_id,
+                            first_name,
+                            last_name,
+                            age: age as u8,
+                        },
+                    });
+                }
+                
+                let departure_city_str: String = trip_row.get("departure_city");
+                let arrival_city_str: String = trip_row.get("arrival_city");
+                let departure_time_str: String = trip_row.get("departure_time");
+                let arrival_time_str: String = trip_row.get("arrival_time");
+                let train_type_str: String = trip_row.get("train_type");
+                let days_of_operation_str: Vec<String> = trip_row.get("days_of_operation");
+                let first_class_rate: i16 = trip_row.get("first_class_ticket_rate");
+                let second_class_rate: i16 = trip_row.get("second_class_ticket_rate");
+                
+                let departure_city = City::from_str(&departure_city_str)
+                    .map_err(|e| format!("Invalid departure city: {}", e))?;
+                let arrival_city = City::from_str(&arrival_city_str)
+                    .map_err(|e| format!("Invalid arrival city: {}", e))?;
+                
+                
+                let departure_time = NaiveTime::parse_from_str(&departure_time_str, "%H:%M:%S")
+                    .map_err(|e| format!("Invalid departure time: {}", e))?;
+                let arrival_time = NaiveTime::parse_from_str(&arrival_time_str, "%H:%M:%S")
+                    .map_err(|e| format!("Invalid arrival time: {}", e))?;
+                
+               
+                let train_type = Train::from_str(&train_type_str)
+                    .map_err(|e| format!("Invalid train type: {}", e))?;
+                
+              
+                let mut days_of_operation = Vec::new();
+                for day_str in days_of_operation_str {
+                    let day = Day::from_str(&day_str)
+                        .map_err(|e| format!("Invalid day: {}", e))?;
+                    days_of_operation.push(day);
+                }
+                
+                trips.push(Trip {
+                    id: trip_id,
+                    tickets,
+                    date: trip_date,
+                    route: Route {
+                        id: RouteID { id: route_id as u16 },
+                        departure_city,
+                        arrival_city,
+                        departure_time,
+                        arrival_time,
+                        train_type,
+                        days_of_operation,
+                        first_class_ticket_rate: first_class_rate as u16,
+                        second_class_ticket_rate: second_class_rate as u16,
+                    },
+                });
+            }
+        }
+
+        if is_ongoing {
+            trips.sort_by_key(|trip:&Trip| trip.date);
+        } else {
+            trips.sort_by_key(|trip:&Trip| std::cmp::Reverse(trip.date));
+        }
+        Ok(trips)
+        // Ok(self.reservations.clone())
+    }
     
     // -- DATABASE FUNCTIONS -- \\
 
     pub async fn add_reservation(&mut self, booking: Trip) -> Result<(), Box<dyn Error>> {
-        self.reservations.push(booking.clone());
+        self.reservations.push(booking.clone());        
         let _ = sqlx::query(r#"INSERT INTO "Trips" (id, date, route_id) VALUES ($1, $2, $3);"#)
             .persistent(false)
             .bind(booking.id)
@@ -141,7 +278,19 @@ pub struct RailNetwork {
             .execute(&self.pool)
             .await?;
         for ticket in booking.tickets {
-            let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
+            
+            let person_row = sqlx::query(r#"
+                SELECT id, first_name, last_name, age
+                FROM "Persons"
+                WHERE id = $1;
+            "#)
+            .persistent(false)
+            .bind::<String>(ticket.traveler.id.clone())
+            .fetch_optional(&self.pool)
+            .await?;
+                
+            if person_row.is_none() {
+                let _ = sqlx::query(r#"INSERT INTO "Persons" (id, first_name, last_name, age) VALUES ($1, $2, $3, $4);"#)
                 .persistent(false)
                 .bind(ticket.traveler.id.clone())
                 .bind(ticket.traveler.first_name)
@@ -149,6 +298,7 @@ pub struct RailNetwork {
                 .bind(ticket.traveler.age as i16)
                 .execute(&self.pool)
                 .await?;
+            }
             let _ = sqlx::query(r#"INSERT INTO "Tickets" (id, trip_id, person_id) VALUES ($1, $2, $3);"#)
                 .persistent(false)
                 .bind(ticket.id)

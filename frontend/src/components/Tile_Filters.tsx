@@ -130,7 +130,7 @@ const FilterTile: React.FC<FilterTileProps> = ({ onFiltered, validCities, validT
         <h2>Filters</h2>
         <form>
           <div className="form-group">
-            <div className="cardContainer">
+            <div className="cardContainer filters">
               <div className="card"><label htmlFor="CityDeparture" className={errors.cityDeparture ? "has-error" : ""}>Departure City</label>
                 <input list="CityDeparture" className="optionSearch" name="CityDeparture" onChange={handleFilterChange}></input>
                 <datalist id="CityDeparture">

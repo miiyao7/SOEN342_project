@@ -15,7 +15,7 @@ const Ticket: React.FC<TicketProps> = ({ id, value, route, date }) => {
     const randomIndex = Math.floor(Math.random() * alphabet.length);
     return alphabet.charAt(randomIndex);
     }
-    alert(JSON.stringify(value));
+    //alert(JSON.stringify(value));
     const seatNo = randomIntBetween(1, 1000);
     const carNo = getRandomLetter();
     return(

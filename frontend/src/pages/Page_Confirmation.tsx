@@ -34,12 +34,13 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
         const stored = localStorage.getItem('bookingData');
         return stored ? JSON.parse(stored) : {}; 
     });
+    const [error, setError] = useState(false);
     
     const [thisBooking] = useState<BookingInfo>({ id: travelerData.id,  name: travelerData.last_name, date: travelerData.date, travelers: travelerData.travelers, route: travelerData.route});
     const print = () =>{        
-        saveBooking();
+        if(!error) saveBooking();
         /*            After Uploading Booking to Database        */
-        discard();
+        setTimeout(() => discard(), 3000);
     }
     const discard = () =>{       
         localStorage.removeItem("bookingData");
@@ -57,7 +58,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
             route_id: thisBooking.route.idx
         }
     
-        const sendJSON = async (url: string) =>  {
+          const sendJSON = async (url: string) =>  {
           const resp = await fetch(url, {
             method: "POST",
             headers: {
@@ -73,7 +74,18 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
           }
           return resp.json();
         };
-        sendJSON(`${API}/handler/bookTrip`);
+        const fetchData = async () => {
+          try {
+              let bookingResp = await Promise.all([sendJSON(`${API}/handler/bookTrip`)]);
+              if (ac.signal.aborted) return;
+              console.log("Response", bookingResp);               
+          } catch (e) {
+            notif({type: "x", text:"Trip not booked."}); 
+            setError(true);
+            if (!isAbort(e)) console.error(e); 
+          } 
+        }
+        fetchData();
         return () => ac.abort();
     }
 
@@ -82,7 +94,7 @@ const Page_Confirm: React.FC<props> = ({notif}) => {
             <div className='ticket-container'>
             {Object.entries(thisBooking.travelers).map(([key, value]) => {
                return( 
-                <div><Ticket id={key} value={value} route={thisBooking.route} date={thisBooking.date}/></div>
+                <div key={key}><Ticket id={key} value={value} route={thisBooking.route} date={thisBooking.date}/></div>
                );
             })}
             </div>
