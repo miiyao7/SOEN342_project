@@ -236,6 +236,10 @@ label:has(#tooltip){
   padding-bottom: 5%;
   width: 100%;
 }
+.ticket-display{
+  height: 100%;
+  overflow-y: scroll;
+}
 .card{
   display: flex;    
   flex: 1 1;

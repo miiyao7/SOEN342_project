@@ -47,7 +47,7 @@ const DisplayBookingTickets: React.FC<DisplayTileProps> = ({ ticketsInfo, loadin
     } 
     console.log((ticketsInfo));
     return (
-        <div className="ticketDisplay">
+        <div className="ticketContainer">
           {ticketsInfo.map((t: any) => 
               <Ticket key={t.date} route={t.route} id={t.id} date={t.date} value={{first_name: t.first_name, last_name: t.last_name}}/>
             )
