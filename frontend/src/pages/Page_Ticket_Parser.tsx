@@ -3,7 +3,6 @@ import DatePicker from 'react-datepicker';
 import TicketsDisplay from '../components/Tile_TicketDisplay';
 import "react-datepicker/dist/react-datepicker.css";
 
-
 type Ticket = {
     id: string,
     name: string,
@@ -32,7 +31,6 @@ type BookingFilter = {
     is_ongoing: boolean,
 }
 
-
 interface props {
   notif: any;
 }
@@ -43,21 +41,21 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
     const [filters, setFilterList] = useState<BookingFilter>({id: "",  last_name: "",  is_ongoing: true});
     const [loading, setLoading] = useState(true);
     const [tickets, setTickets] = useState<Ticket[]>([]);
-    const [ticketsInfo, setTicketsInfo] = useState<BookingInfo[]>([]);
-    const [trip, setTripInfo] = useState({});
-    const [selectedDate, setSelectedDate] = useState<Date|null>(new Date(Date.now()));
+    //const [ticketsInfo, setTicketsInfo] = useState<BookingInfo[]>([]);
+    //const [trip, setTripInfo] = useState({});
+    //const [selectedDate, setSelectedDate] = useState<Date|null>(new Date(Date.now()));
     //const [thisBooking, setThisBooking] = useState<BookingInfo>({ id: "",  name: "", date: Date.now(), travelers: {}, route: {}});
 
 
-    const showSpinner = (time: number) => {
+    /* DEPREC - const showSpinner = (time: number) => {
         setLoading(true);     
         setTimeout(() => {
             setLoading(false);   
         }, time);
-    }; 
+    }; */
     const filterBookings = (filter: any) => {       
         
-        //console.log("Filters", filters);
+        // DEBUG console.log("Filters", filters);
         if(filter.id !== "" && filter.last_name !== "") {
             const ac = new AbortController();
             const isAbort = (e: unknown) => e instanceof DOMException && e.name === "AbortError";
@@ -79,7 +77,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
             };
             const fetchData = async () => {
                 setLoading(true);
-                const [newTicketsInfo]: BookingInfo[] = [];
+                //const [newTicketsInfo]: BookingInfo[] = [];
                 try {
                     let trips = await Promise.all([sendJSON(`${API}/handler/filterBookings`)]);
                     if (ac.signal.aborted) return;  
@@ -87,7 +85,7 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                     if (trips[0].length == 0){
                         notif({type: "i", text:"No Bookings Found "}); 
                         setTickets([]);
-                        console.log("No Trip");
+                        // DEBUG console.log("No Trip");
                         return;
                     }
                     const newTickets = trips[0].flatMap((trip: any) => {
@@ -101,12 +99,9 @@ const Page_Ticket_Parser: React.FC<props> = ({notif}) => {
                         })
                         );
                     });
-                    setTickets(newTickets);
-                    console.log("No Trip", newTickets);
-                       
+                    setTickets(newTickets);                       
                     setLoading(false);
-                    //notif("Return " + JSON.stringify(newTickets));
-                    //alert(JSON.stringify(trips[0].flatMap((trip: any) => {return trip.tickets})));
+                    // DEBUG console.log("No Trip", newTickets);
                 } catch (e) {
                     if (!isAbort(e)) console.error(e); 
                 } finally {
