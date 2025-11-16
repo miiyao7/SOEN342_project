@@ -137,7 +137,7 @@ pub struct RailNetwork {
     }
     
     // -- FILTERING BOOKINGS FUNCTION -- \\
-pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Result<Vec<Trip>, Box<dyn Error>> {
+    pub async fn filter_bookings(&self, is_ongoing: bool, last_name: String, id: String) -> Result<Vec<Trip>, Box<dyn Error>> {
         let today = Local::now().date_naive();
         
         let trips_query = sqlx::query(r#"SELECT DISTINCT t.id AS trip_id, t.date AS date, t.route_id AS route_id FROM "Trips" t JOIN "Tickets" tk ON t.id = tk.trip_id JOIN "Persons" p ON tk.person_id = p.id WHERE LOWER(p.last_name) = LOWER($1) AND p.id = $2"#)
