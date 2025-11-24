@@ -1,20 +1,27 @@
 context RailNetwork::BookTrip(t: Set(Person), d: NaiveDate, r: Route): Trip
-    pre valid:
+    pre:
         t -> notEmpty() and
         d <> null and
-        r <> null;
+        r <> null and
+        self.routes -> includes(r);
 
-    post trip_created: Trip.allInstances() -> includes(result);
-    post trip_fields: result.tickets -> collect(traveler) = t and result.date = d and result.route = r;
-    post reservation_added: self.reservations = self.reservations@pre->including(result);
-    post persons_added: result.tickets -> forAll(ticket | Person.allInstances() -> exists(p | p.id = ticket.traveler.id))
-    post tickets_created: result.tickets -> forAll(rt | Ticket.allInstances() -> exists(tt | tt.id = rt.id and tt.traveler = rt.traveler))
+    post: 
+        Trip.allInstances() -> includes(result) and
+        result.tickets -> collect(traveler)->asSet() = t and 
+        result.date = d and 
+        result.route = r and
+        self.reservations = self.reservations@pre->including(result) and
+        result.tickets -> forAll(ticket | Person.allInstances() -> exists(p | p.id = ticket.traveler.id)) and
+        result.tickets -> forAll(rt | Ticket.allInstances() -> exists(tt | tt.id = rt.id and tt.traveler = rt.traveler));
 
 
 context Trip:
-    inv has_date: d <> null;
-    inv has_route: r <> null;
-    inv has_tickets: t -> notEmpty();
-    inv tickets_have_travelers: self.tickets -> forAll(t | t.traveler <> null);
-    inv known_travelers: self.tickets -> forAll(t | Person.allInstances() -> exists(p | p.id = t.traveler.id));
-    inv unique_travelers: self.tickets->collect(traveler)->isUnique(id);
+    inv:
+        self.id <> null and 
+        self.date <> null and    
+        self.route <> null and
+        self.tickets -> notEmpty() and
+        self.tickets -> forAll(t | t.traveler <> null) and
+        self.tickets -> isUnique(t | t.id) and
+        self.tickets -> forAll(t | Person.allInstances() -> exists(p | p.id = t.traveler.id)) and
+        self.tickets->collect(traveler)->isUnique(p | p.id);
